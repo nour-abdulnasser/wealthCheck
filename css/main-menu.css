@@ -1,0 +1,22 @@
+#main-menu-screen{
+    /* background-color: teal; */
+    background: url("../images/kate-j-townsend-nx-dCfKxJLs-unsplash.jpg") ;
+    background-size: cover;
+    background-position: center 35%;
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-rows: 1.5fr 3fr;
+    grid-template-areas: "header" "content";
+
+}
+#main-menu-container{
+    /* background-color: purple; */
+    grid-area: content;
+
+}
+#main-menu-header{
+    /* background-color: blue; */
+    margin: 0;
+    grid-area: header;
+}

@@ -1,0 +1,687 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+
+  /* background-color: #f4f4f4; */
+}
+
+/* #app {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+} */
+
+.hidden {
+  display: none;
+}
+
+img {
+  margin: 0px;
+}
+.active-gpt {
+  display: inline-block;
+}
+
+h1 {
+  font-size: 24px;
+  margin-bottom: 20px;
+  text-align: center;
+}
+/* 
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+
+
+  border-radius: 5px;
+  cursor: pointer;
+} */
+
+input[type="text"],
+input[type="file"] {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.four-squares {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.four-squares a {
+  height: 100px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+ul li {
+  background-color: #f9f9f9;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+ul li a {
+  width: auto;
+  padding: 5px 10px;
+  margin: 0;
+}
+
+.monserrat {
+  font-family: "Montserrat", sans-serif;
+}
+.baskerville {
+  font-family: "Baskervville SC", serif;
+}
+
+.baskervville-regular {
+  font-family: "Baskervville", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.baskervville-regular-italic {
+  font-family: "Baskervville", serif;
+  font-weight: 400;
+  font-style: italic;
+}
+
+.fancy-button {
+  background-color: transparent;
+  border: #b5e0f1 solid;
+  color: #cfebf6;
+  font-size: 1.5rem;
+  padding: 13px 25px;
+  /* margin-top: 20px; */
+  border-width: 1.5px;
+  border-radius: 0px;
+  transition: all 0.5s ease-in-out;
+  font-family: "Baskervville", serif;
+  font-weight: 400;
+  font-style: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.fancy-button:hover {
+  background-color: #e0eef3;
+  color: rgba(28, 28, 129, 0.754);
+  transition: all 0.5s ease-in-out;
+}
+
+/* 
+#asset-details-form {
+    display: flex;
+    flex-direction: column;
+}
+
+#asset-details-form label {
+    margin-top: 10px;
+    font-weight: bold;
+}
+
+#asset-details-form input {
+    margin-bottom: 10px;
+} */
+
+/*
+ * Globals
+ */
+
+/* Links */
+a,
+a:focus,
+a:hover {
+  color: #fff;
+}
+
+/* Custom default button */
+.btn-default,
+.btn-default:hover,
+.btn-default:focus {
+  color: #333;
+  text-shadow: none; /* Prevent inheritence from `body` */
+  background-color: #fff;
+  border: 1px solid #fff;
+}
+
+/*
+ * Base structure
+ */
+
+html,
+body {
+  height: 100%;
+  /* background-color: #fff; */
+}
+body {
+  /* color: #fff; */
+  text-align: center;
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+/* Extra markup and styles for table-esque vertical and horizontal centering */
+.site-wrapper {
+  display: table;
+  width: 100%;
+  height: 600px;
+  /* background-color: #333; */
+  /*height: 100%; */
+  /*min-height: 100%;*/
+}
+.site-wrapper-inner {
+  display: table-cell;
+  vertical-align: top;
+}
+.cover-container {
+  margin-right: auto;
+  margin-left: auto;
+}
+
+/* Padding for spacing */
+.inner {
+  padding: 30px;
+}
+
+/*
+ * Header
+ */
+.masthead-brand {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.masthead-nav > li {
+  display: inline-block;
+}
+.masthead-nav > li + li {
+  margin-left: 20px;
+}
+.masthead-nav > li > a {
+  padding-right: 0;
+  padding-left: 0;
+  font-size: 16px;
+  font-weight: bold;
+  /* color: #fff;  */
+  /* color: rgba(255, 255, 255, 0.75); */
+  border-bottom: 2px solid transparent;
+}
+.masthead-nav > li > a:hover,
+.masthead-nav > li > a:focus {
+  background-color: transparent;
+  border-bottom-color: #a9a9a9;
+  border-bottom-color: rgba(255, 255, 255, 0.25);
+}
+.masthead-nav > .active > a,
+.masthead-nav > .active > a:hover,
+.masthead-nav > .active > a:focus {
+  color: #fff;
+  border-bottom-color: #fff;
+}
+
+@media (min-width: 768px) {
+  .masthead-brand {
+    float: left;
+  }
+  .masthead-nav {
+    float: right;
+  }
+}
+
+/*
+ * Cover
+ */
+
+.cover {
+  padding: 0 20px;
+}
+.cover .btn-lg {
+  padding: 10px 20px;
+  font-weight: bold;
+}
+
+.cover-heading {
+  font-size: 5rem;
+  /* color: white; */
+  color: #cfebf6;
+}
+.motto {
+  font-size: 2.5rem;
+  color: #cfebf6;
+}
+/*
+ * Affix and center
+ */
+
+@media (min-width: 768px) {
+  /* Pull out the header and footer */
+  .masthead {
+    position: fixed;
+    top: 0;
+  }
+  /* Start the vertical centering */
+  .site-wrapper-inner {
+    vertical-align: middle;
+  }
+}
+
+.full-screen-container {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.site-wrapper {
+  display: table;
+  background-image: url("./images/ashkan-sadeghi-MUHgS5B-8mo-unsplash.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center center;
+
+  width: 100%;
+  height: 100vh; /* Use viewport height to cover the full screen */
+  /* background-color: #333; */
+}
+
+.site-wrapper-inner {
+  display: table-cell;
+  vertical-align: middle;
+  height: 100vh;
+  width: 100vw;
+}
+
+.cover-container {
+  margin-right: auto;
+  margin-left: auto;
+  height: 100%; /* Ensure it takes the full height */
+}
+
+.masthead-inner {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center on mobile screens */
+  width: 100%;
+}
+
+.masthead-brand {
+  margin: 10px;
+  flex-shrink: 0;
+}
+
+/******** name screen ********/
+#name-screen {
+  background: url("./images/ashkan-sadeghi-MUHgS5B-8mo-unsplash.jpg");
+  background-position: center center;
+  background-size: cover;
+  height: 100vh;
+  width: 100vw;
+  position: relative;
+}
+
+#name-screen-container {
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+}
+
+.fancy-input {
+  border-top: none !important;
+  border-right: none !important;
+  border-left: none !important;
+  border-radius: 0 !important;
+  border-bottom: #b5e0f1 solid 1px !important;
+  background-color: transparent;
+  color: #cfebf6;
+  font-family: "Baskervville", serif;
+  font-weight: 400;
+  font-size: 2rem !important;
+  font-style: normal;
+}
+
+.fancy-label {
+  color: #cfebf6;
+  font-family: "Baskervville", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.fancy-input:focus {
+  outline: none;
+  background: transparent;
+}
+
+.inner-name-screen a {
+  background-color: transparent;
+  border: #b5e0f1 solid 1px !important;
+  color: #cfebf6;
+  font-size: 1rem;
+  padding: 10px 20px;
+  margin-top: 20px;
+  border-radius: 0px;
+  transition: all 0.5s ease-in-out;
+}
+
+/******** asset-type screen ********/
+#asset-type-screen {
+  width: 100vw;
+  height: 100vh;
+
+  background: url("./images/kate-j-townsend-nx-dCfKxJLs-unsplash.jpg");
+  background-size: cover;
+  background-position: center center;
+}
+
+#asset-type-screen-container {
+  position: relative;
+}
+
+
+
+#asset-type-inner-container a {
+  color: rgb(255, 255, 255);
+  font-family: "Baskervville SC", serif;
+  letter-spacing: 3px;
+}
+
+#realEstate-btn:hover {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./images/frames-for-your-heart-2d4lAQAlbDA-unsplash.jpg");
+  background-size: cover;
+  background-position: center;
+}
+#privateEquity-btn:hover {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./images/piggybank-sK-ziQvKGsk-unsplash.jpg");
+  background-size: cover;
+  background-position: center;
+}
+#nicheAssets-btn:hover {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./images/andrew-neel-acowe0pCVBg-unsplash.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+#financialAssets-btn {
+  background-image: url();
+}
+
+.four-squares a:hover {
+  transform: scale(1.1);
+}
+
+/******** real-estate-type screen ********/
+#real-estate-type-screen {
+  width: 100vw;
+  height: 100vh;
+
+  background: url("./images/kate-j-townsend-nx-dCfKxJLs-unsplash.jpg");
+  background-size: cover;
+  background-position: center center;
+}
+
+#inner-real-estate-container {
+  position: relative;
+}
+
+.inner-real-estate {
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -60%);
+}
+
+.inner-real-estate a {
+  color: rgb(255, 255, 255);
+  font-family: "Baskervville SC", serif;
+  letter-spacing: 3px;
+}
+
+#apartment-btn:hover {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./images/kara-eads-L7EwHkq1B2s-unsplash.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.inner-real-estate a:hover {
+  color: white;
+}
+
+#skip-real-estate-type-btn {
+  padding: 9px 10px;
+  font-family: "Baskervville", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.2rem;
+  margin-top: 35px;
+}
+#skip-real-estate-type-btn:hover {
+  background-color: transparent;
+  transform: scale(1.1);
+}
+
+
+
+
+/************REVIEW YOUR DEETS**************/
+
+
+#review-screen {
+  background-color: #d1f6ff;
+  width: 100vw;
+  height: 100vh;
+  /* background: url('./images/brian-babb-XbwHrt87mQ0-unsplash.jpg') ;
+  background-size: cover;
+  background-position: center center; */
+  position: relative;
+}
+
+.review-screen-inner-container {
+  -webkit-box-shadow: -1px 1px 5px 9px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 1px 5px 9px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 1px 15px 6px rgb(187, 199, 207);
+  display: flex;
+  width: 60%;
+  justify-content: space-between;
+  /* background-color: teal; */
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  /* border-radius: 5px; */
+}
+
+
+.review-screen-inner {
+  background-color: #fff;
+  width: 58%;
+  padding: 1.5rem 3rem 1.5rem 3rem;
+}
+
+.review-screen-inner h1, .review-screen-inner h2 {
+  color: #333;
+  text-shadow: none;
+  font: bolder;
+}
+#review-details .form input {
+  margin-bottom: 1px !important;
+  margin-top: 0px !important;
+  margin-bottom: 10px !important;
+padding-top: 1px !important;
+padding-bottom: 5px !important;
+  border-top: none !important;
+  border-right: none !important;
+  border-left: none !important;
+  border-radius: 0 !important;
+  border-bottom: #333 solid 1px !important;
+  background-color: transparent;
+  color: #333;
+  font-family: "Baskervville", serif;
+  font-weight: 400;
+  font-style: normal;
+
+}
+#review-details label {
+    color: #333;
+  text-shadow: none;
+  font-family: "Baskervville", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.review-image {
+  /* background-color: rgb(255, 47, 0); */
+  overflow: hidden;
+}
+.review-image {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+    url("./images/brian-babb-XbwHrt87mQ0-unsplash.jpg");
+  background-size: cover;
+  background-position: center center;
+  width: 42%;
+}
+
+#review-details .form input:focus{
+outline: none;
+}
+
+.review-screen-inner select{
+  font-family: "Baskervville", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1rem;
+  margin-top: 10px !important;
+  color: #333;
+  background-color: white;
+}
+
+.review-screen-inner a {
+  font-family: "Baskervville", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1rem;
+  margin-top: 10px !important;
+  color: white;
+  border: none;
+  background-color: #333;
+  padding: 5px 10px;
+
+}
+.review-screen-inner a:hover {
+
+  transform: scale(1.1);
+}
+
+
+
+/************ADD ANOTHER ASSET***************/
+#add-another-asset-screen {
+  width: 100vw;
+  height: 100vh;
+
+  background: url("./images/kate-j-townsend-nx-dCfKxJLs-unsplash.jpg");
+  background-size: cover;
+  background-position: center center;
+}
+
+.add-another-asset-container {
+  position: relative;
+}
+
+.add-another-asset-inner{
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, 50%);
+}
+
+
+/*************** DASHBOARD **********/
+.dashboard{
+background-color: teal;
+height: 100vh;
+width: 100vw;
+position: relative;
+}
+.dashboard-container{
+background-color: purple;
+margin: auto;
+position: absolute;
+top: 50%;
+right: 50%;
+transform: translate(50%, -50%);
+}
+.dashboard-inner{
+background-color: brown;
+width: 70%;
+/* display: grid; */
+}
+.dropdown-details{
+background-color: red;
+height: 200px;
+}
+.dashboard-item{
+  background-color: #fff;
+}
+.dropdown-title{
+  padding: 0.5rem;
+}
+.upper-dashboard{
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 40vh;
+}
+.right-dashboard{
+  background-image: url('./images/adeolu-eletu-rFUFqjEKzfY-unsplash.jpg') ;
+  background-size: cover;
+  background-position: center center ;
+}
+#collapse-button{
+  border: none;
+  background-color: white;
+  font-weight: bold;
+}
+#collapseExample .card{
+  background-color: #fff;
+  
+  border-radius:0px ;
+}
+
+.chart{
+  background-color: indianred;
+}
+
+
+a {
+  display: inline-block;
+  text-decoration: none;
+}
