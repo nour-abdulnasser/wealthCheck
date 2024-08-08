@@ -1,8 +1,14 @@
 /******** real-estate-form screen ********/
+
+.form-wrapper{
+  background-color: #a7b46a;
+  width: 100vw;
+  height: 100vh;
+  overflow: scroll;
+}
+
 #real-estate-form {
-  background-color: #dd9d9d;
-  /* width: 100vw;
-  height: 100vh; */
+  background-color: #dd9d9d; 
 }
 
 .real-estate-form-container {
