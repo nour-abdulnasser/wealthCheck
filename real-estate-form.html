@@ -120,7 +120,7 @@
           </div>
           <div class="row d-flex flex-row justify-content-center">
             <div class="col-6 d-flex justify-content-center">
-              <button id="asset-details-next-btn" class="fancy-button m-auto">
+              <button type="button" id="asset-details-next-btn" class="fancy-button m-auto">
                 Done
               </button>
             </div>
@@ -129,34 +129,42 @@
             <input type="checkbox" id="ieCheck" name="checkForTable" value="checkForTable" />
             <label for="vehicle2">Would you like to fill in income and expense details?</label><br />
           </div>
-          <div>
+          <div id="income-expense-table" style="display: none;">
             <table id="dataTable">
               <thead>
-                <tr>
-                  <th>Income or Expense</th>
-                  <th>Concept</th>
-                  <th>Amount</th>
-                  <th>Frequency</th>
+                <tr >
+                  <th class="text-center">Income or Expense</th>
+                  <th class="text-center">Concept</th>
+                  <th class="text-center">Amount</th>
+                  <th class="text-center">Frequency</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
                   <td>
-                    <input type="text" placeholder="Income or Expense" />
+                    <select name="" class="income-expense-select">
+                      <option selected="true" disabled="disabled">Please select type</option>
+                      <option value="Income">Income</option>
+                      <option value="Expense">Expense</option>
+                    </select>
                   </td>
                   <td>
-                    <input type="text" placeholder="Concept" />
+                    <input type="text" placeholder="Concept" class="ie-concept-input"/>
                   </td>
                   <td>
-                    <input type="number" placeholder="Amount" />
+                    <input type="number" placeholder="Amount" class="ie-amount-input" />
                   </td>
                   <td>
-                    <input type="text" placeholder="Frequency" />
+                    <select name="" class="ie-frequency-select">
+                      <option selected="true" disabled="disabled">Please select frequency</option>
+                      <option value="Monthly">Monthly</option>
+                      <option value="Annual">Annual</option>
+                    </select>
                   </td>
                 </tr>
               </tbody>
             </table>
-            <button onclick="addRow()">Add another row +</button>
+            <button type="button" onclick="addRow()">Add another row?</button>
           </div>
         </form>
       </div>

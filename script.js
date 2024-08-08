@@ -118,7 +118,7 @@ function populateDropdown(items, selectElement) {
   items.forEach((item) => {
     const option = document.createElement("option");
     option.value = item;
-    option.textContent = item.name ? item.name.common : item; 
+    option.textContent = item.name ? item.name.common : item;
     selectElement.appendChild(option);
   });
 }
@@ -133,21 +133,89 @@ async function cca2ToCommon(cca2) {
   return country.name.common;
 }
 
+// each row given id?
 function addRow() {
-  const table = document.getElementById('dataTable').getElementsByTagName('tbody')[0];
+  const table = document
+    .getElementById("dataTable")
+    .getElementsByTagName("tbody")[0];
   const newRow = table.insertRow(table.rows.length);
-  
+
   for (let i = 0; i < 4; i++) {
-      const cell = newRow.insertCell(i);
-      const input = document.createElement('input');
-      input.type = i === 2 ? 'number' : 'text';
-      input.placeholder = ['Income or Asset', 'Concept', 'Amount', 'Frequency'][i];
+    const cell = newRow.insertCell(i);
+    if (i == 1 || i == 2) {
+      const input = document.createElement("input");
+      if (i == 1) {
+        input.classList.add("ie-concept-input");
+      } else if (i == 2) {
+        input.classList.add("ie-amount-input");
+      }
+      input.type = i === 2 ? "number" : "text";
+      input.placeholder = i == 1 ? "Concept" : "Amount";
       cell.appendChild(input);
+    } else if (i == 0) {
+      const selectEl = document.createElement("select");
+      selectEl.classList.add("income-expense-select");
+
+      const defaultOption = document.createElement("option");
+      defaultOption.disabled = true;
+      defaultOption.textContent = "Please select type";
+      defaultOption.selected = true;
+      selectEl.appendChild(defaultOption);
+
+      const options = ["Income", "Expense"];
+      populateDropdown(options, selectEl);
+      cell.appendChild(selectEl);
+    } else {
+      const selectEl = document.createElement("select");
+      selectEl.classList.add("ie-frequency-select");
+
+      const defaultOption = document.createElement("option");
+      defaultOption.disabled = true;
+      defaultOption.textContent = "Please select frequency";
+      defaultOption.selected = true;
+      selectEl.appendChild(defaultOption);
+
+      const options = ["Monthly", "Annual"];
+      populateDropdown(options, selectEl);
+      cell.appendChild(selectEl);
+    }
   }
+
+  const rows = document.querySelectorAll("#dataTable tbody tr");
+  console.log(rows);
+}
+
+// grabbing values from the rows
+function getTableData() {
+  const rows = document.querySelectorAll("#dataTable tbody tr");
+
+  const data = [];
+  rows.forEach((row) => {
+    const typeSelect = row.querySelector(".income-expense-select");
+    const conceptInput = row.querySelector(".ie-concept-input");
+    const amountInput = row.querySelector(".ie-amount-input");
+    const frequencySelect = row.querySelector(".ie-frequency-select");
+
+    const type = typeSelect ? typeSelect.value : null;
+    const concept = conceptInput ? conceptInput.value : null;
+    const amount = amountInput ? parseFloat(amountInput.value) : NaN;
+    const frequency = frequencySelect ? frequencySelect.value : null;
+
+    // if (type && concept && !isNaN(amount) && frequency) {
+      data.push({
+        type: type,
+        concept: concept,
+        amount: amount,
+        frequency: frequency,
+      });
+    // }
+  });
+
+  console.log(data);
+  return data;
 }
 
 loadClientDetails();
-
 
 document.addEventListener("DOMContentLoaded", function () {
   const currentPage = window.location.pathname.split("/").pop();
@@ -164,8 +232,8 @@ document.addEventListener("DOMContentLoaded", function () {
     case "main-menu.html":
       handleMainMenuPage();
       break;
-    case "asset-type.html":
-      handleAssetTypePage();
+    case "asset-types.html":
+      handleAssetTypesPage();
       break;
     case "real-estate-type.html":
       handleRealEstateTypePage();
@@ -241,20 +309,24 @@ function handleNamePage() {
   }
 }
 
+// after name. choices: my results, portfolio, etc
 function handleMainMenuPage() {}
 
 // if user chooses assets and liability from main menu, asset type page is where they land
-function handleAssetTypePage() {
+function handleAssetTypesPage() {
   const assetTypeButtons = document.querySelectorAll(
     "#asset-type-inner-container .fancy-button"
   );
   assetTypeButtons.forEach((button) => {
+
     button.addEventListener("click", (e) => {
       e.preventDefault();
       clientDetails.currentAssetType = button.id.replace("-btn", "");
+      
       saveClientDetails();
       switch (clientDetails.currentAssetType) {
         case "realEstate":
+          console.log(clientDetails.currentAssetType);
           window.location.href = "./real-estate-type.html";
           break;
         case "privateEquity":
@@ -318,7 +390,7 @@ function handleAssetFormPage() {
   const countrySelect = document.getElementById("countries");
   const citySelect = document.getElementById("cities");
   let selectedCountry = "";
-  
+
   loadCountries()
     .then((countries) => {
       populateDropdown(countries, countrySelect);
@@ -334,6 +406,15 @@ function handleAssetFormPage() {
       .catch((error) => console.error("Error loading cities:", error));
   });
 
+  document.getElementById("ieCheck").addEventListener("change", function () {
+    var table = document.getElementById("income-expense-table");
+    if (this.checked) {
+      table.style.display = "block";
+    } else {
+      table.style.display = "none";
+    }
+  });
+
   nextAssetBtn.addEventListener("click", function (e) {
     e.preventDefault();
     let newAsset = {
@@ -342,9 +423,12 @@ function handleAssetFormPage() {
       name: document.querySelector(".asset-name-input").value,
       country: selectedCountry,
       city: citySelect.value,
+      assetCategory: document.getElementById("subCategories").value,
       address: document.querySelector(".address-input").value,
       value: document.querySelector(".value-input").value,
+      income_expense: getTableData() || "NA",
     };
+    
 
     if (!clientDetails.assets[clientDetails.currentAssetType]) {
       clientDetails.assets[clientDetails.currentAssetType] = [];
@@ -377,7 +461,6 @@ async function handleReviewPage() {
   document.getElementById("edit-city").value = currentAsset.city;
   document.getElementById("edit-value").value = currentAsset.value;
 
-  console.log("currentAsset.country", typeof currentAsset.country);
 
   // Initially disable all form fields
   document
@@ -469,3 +552,6 @@ function handleAddAnotherAssetPage() {
 // You can add any additional utility functions or global event listeners here if needed
 
 // End of script
+
+
+// clearAllLocalStorage()
