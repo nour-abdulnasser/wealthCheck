@@ -150,3 +150,264 @@ button {
 select {
   padding: 5px;
 }
+
+
+/* PRIVATE EQUITY FORM CSS */
+
+
+.pe-image-container {
+  overflow: hidden;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+    url("./images/adeolu-eletu-rFUFqjEKzfY-unsplash.jpg");
+  background-size: cover;
+  width: 50%; /* Increased from 42% to make it more prominent */
+  min-height: 400px; /* Added to ensure a minimum height */
+}
+
+
+
+
+#private-equity-form {
+  background-color: #d1f6ff;
+  width: 100vw;
+  height: 100vh;
+  /* background: url('./images/brian-babb-XbwHrt87mQ0-unsplash.jpg') ;
+  background-size: cover;
+  background-position: center center; */
+  position: relative;
+}
+
+.private-equity-form-inner-container {
+  -webkit-box-shadow: -1px 1px 5px 9px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 1px 5px 9px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 1px 15px 6px rgb(187, 199, 207);
+  display: flex;
+  width: 80%; /* Increased from 60% to make it more landscape */
+  max-width: 1200px; /* Added to prevent it from becoming too wide on large screens */
+  justify-content: space-between;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+}
+
+
+.private-equity-form-inner {
+  background-color: #fff;
+  width: 50%; /* Adjusted to match the image container */
+  padding: 2rem 3rem;
+}
+
+.private-equity-form-inner h1 {
+  color: #333;
+  text-shadow: none;
+  font: bolder;
+}
+#private-equity-asset-details-form input {
+  margin-bottom: 1px !important;
+  margin-top: 1px !important;
+
+  border-top: none !important;
+  border-right: none !important;
+  border-left: none !important;
+  border-radius: 0 !important;
+  border-bottom: #333 solid 1px !important;
+  background-color: transparent;
+  color: #333;
+  font-family: "Baskervville", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+#private-equity-asset-details-form label {
+  color: #333;
+  text-shadow: none;
+}
+
+
+
+#formFileMultiple {
+  background: transparent;
+  margin-top: 15px;
+}
+
+
+#private-equity-asset-details-next-btn {
+  padding: 9px 20px;
+  font-family: "Baskervville", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.2rem;
+  margin-top: 10px !important;
+  color: white;
+  border-color: #333;
+  background-color: #333;
+
+}
+#private-equity-asset-details-next-btn:hover {
+
+  transform: scale(1.1);
+}
+
+@media (min-width: 768px) {
+  .masthead-inner {
+    justify-content: flex-start; /* Align to the left on larger screens */
+  }
+
+  .masthead-brand {
+    margin-left: 200px; /* Adjust this value as needed */
+  }
+}
+
+@media (max-width: 767px) {
+  .masthead-inner {
+    justify-content: center; /* Center the content */
+  }
+
+  .masthead-brand {
+    margin-left: 0; /* Remove any additional margin */
+  }
+}
+
+@media (max-width: 1096px) {
+  .four-squares {
+    grid-template-columns: 1fr;
+  }
+
+  #asset-type-inner-container {
+    margin: auto;
+    position: absolute;
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, 10%);
+  }
+}
+@media (max-width: 710px) {
+  .private-equity-form-inner-container {
+    flex-direction: column;
+  }
+
+  .private-equity-form-inner {
+    width: 100%;
+  }
+  .pe-image-container {
+    width: 100%;
+  }
+
+}
+
+
+/* **************************PRIVATE EQUITY REVIEW SCEEN  *********************** */
+
+
+.hidden {
+  display: none;
+}
+
+
+.show {
+  display: inline-block;
+}
+
+#private-equity-review-screen {
+  background-color: #d1f6ff;
+  width: 100vw;
+  height: 100vh;
+  /* background: url('./images/brian-babb-XbwHrt87mQ0-unsplash.jpg') ;
+  background-size: cover;
+  background-position: center center; */
+  position: relative;
+}
+
+.private-equity-review-screen-inner-container {
+  -webkit-box-shadow: -1px 1px 5px 9px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: -1px 1px 5px 9px rgba(0, 0, 0, 0.75);
+  box-shadow: -1px 1px 15px 6px rgb(187, 199, 207);
+  display: flex;
+  width: 80%; /* Increased from 60% to make it more landscape */
+  max-width: 1200px; /* Added to prevent it from becoming too wide on large screens */
+  justify-content: space-between;
+  margin: auto;
+  position: absolute;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+}
+
+
+.private-equity-review-screen-inner {
+  background-color: #fff;
+  width: 50%; /* Adjusted to match the image container */
+  padding: 2rem 3rem;
+}
+
+.private-equity-review-screen-inner h1, .private-equity-review-screen-inner h2 {
+  color: #333;
+  text-shadow: none;
+  font: bolder;
+}
+#private-equity-review-details .form input {
+  margin-bottom: 1px !important;
+  margin-top: 0px !important;
+  margin-bottom: 10px !important;
+padding-top: 1px !important;
+padding-bottom: 5px !important;
+  border-top: none !important;
+  border-right: none !important;
+  border-left: none !important;
+  border-radius: 0 !important;
+  border-bottom: #333 solid 1px !important;
+  background-color: transparent;
+  color: #333;
+  font-family: "Baskervville", serif;
+  font-weight: 400;
+  font-style: normal;
+
+}
+#private-equity-review-details label {
+    color: #333;
+  text-shadow: none;
+  font-family: "Baskervville", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.pe-reviewImage-container {
+  overflow: hidden;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
+    url("./images/adeolu-eletu-rFUFqjEKzfY-unsplash.jpg");
+  background-size: cover;
+  width: 50%; /* Increased from 42% to make it more prominent */
+  min-height: 400px; /* Added to ensure a minimum height */
+}
+
+#private-equity-review-details .form input:focus{
+outline: none;
+}
+
+.private-equity-review-screen-inner select{
+  font-family: "Baskervville", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1rem;
+  margin-top: 10px !important;
+  color: #333;
+  background-color: white;
+}
+
+.private-equity-review-screen-inner a {
+  font-family: "Baskervville", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1rem;
+  margin-top: 10px !important;
+  color: white;
+  border: none;
+  background-color: #333;
+  padding: 5px 10px;
+
+}
+.private-equity-review-screen-inner a:hover {
+
+  transform: scale(1.1);
+}
