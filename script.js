@@ -252,6 +252,8 @@ document.addEventListener("DOMContentLoaded", function () {
       break;
     case "real-estate-form.html":
     case "private-equity-form.html":
+      handlePrivateEquityFormPage();
+      break
     case "niche-assets-form.html":
     case "financial-assets-form.html":
       handleAssetFormPage();
@@ -259,6 +261,9 @@ document.addEventListener("DOMContentLoaded", function () {
     case "review-screen.html":
       handleReviewPage();
       break;
+      case "private-equity-review-screen.html":
+      handlePrivateEquityReviewPage()
+      break
     case "add-another-asset-screen.html":
       handleAddAnotherAssetPage();
       break;
@@ -372,7 +377,11 @@ function handlePrivateEquityTypePage() {
   subAssetButtons.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
-      clientDetails.currentSubAssetType = btn.id.replace("-btn", "");
+      if (btn.id === "skip-private-equity-type-btn") {
+        clientDetails.currentSubAssetType = "unspecified";
+    } else {
+        clientDetails.currentSubAssetType = btn.id.replace("-btn", "");
+    }
       saveClientDetails();
       window.location.href = "./private-equity-form.html";
     });
@@ -392,6 +401,139 @@ function handleNicheAssetsTypePage() {
     });
   });
 }
+
+function handlePrivateEquityFormPage() {
+  const privateEquityDetailsForm = document.getElementById("private-equity-asset-details-form");
+  const privateEquityNextBtn = document.getElementById("private-equity-asset-details-next-btn");
+
+  if(clientDetails.currentSubAssetType === "unspecified") {
+    const fundOrCompanyNameInput = document.querySelector(".pe-asset-name-input");
+    const fundOrCompanyNameLabel = document.querySelector(".pe-asset-name-label");
+    const isinInput = document.querySelector(".pe-isin-input");
+    const isinLabel = document.querySelector(".pe-isin-label");
+
+    fundOrCompanyNameInput.classList.add("hidden");
+    fundOrCompanyNameLabel.classList.add("hidden");
+    isinInput.classList.add("hidden");
+    isinLabel.classList.add("hidden");
+  }
+
+  privateEquityNextBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+
+    let newAsset = {
+      type: clientDetails.currentSubAssetType,
+      fundOrCompanyName: clientDetails.currentSubAssetType === "unspecified" 
+        ? "unspecified" 
+        : document.querySelector(".pe-asset-name-input").value,
+      isin: clientDetails.currentSubAssetType === "unspecified"
+        ? "unspecified"
+        : document.querySelector(".pe-isin-input").value,
+      sharesAmount: document.querySelector(".pe-sharesAmount-input").value,
+      investmentValue: document.querySelector(".pe-value-input").value,
+      buyPrice: document.querySelector(".pe-buyPrice-input").value
+    };
+
+    if (!clientDetails.assets.privateEquity) {
+      clientDetails.assets.privateEquity = [];
+    }
+
+    // Update clientDetails with the new asset information
+    clientDetails.sharesAmount = newAsset.sharesAmount;
+    clientDetails.investmentValue = newAsset.investmentValue;
+    clientDetails.buyPrice = newAsset.buyPrice;
+
+    clientDetails.assets.privateEquity.push(newAsset);
+    saveClientDetails();
+
+    console.log("Added new private equity asset:", newAsset);
+    console.log("Updated clientDetails:", clientDetails);
+
+    // Navigate to the review screen
+    window.location.href = "./private-equity-review-screen.html";
+  });
+}
+
+function handlePrivateEquityReviewPage() {
+  const privateEquityEditBtn = document.getElementById("private-equity-edit-details-btn");
+  const privateEquityConfirmBtn = document.getElementById("private-equity-confirm-details-btn");
+  const privateEquityEditForm = document.getElementById("private-equity-edit-form");
+  const editTypeSelect = document.getElementById("edit-type");
+  
+  const fundOrCompanyNameInput = document.getElementById("edit-fundOrCompany-name");
+  const fundOrCompanyNameLabel = document.querySelector('label[for="edit-fundOrCompany-name"]');
+  const isinInput = document.getElementById("edit-isin");
+  const isinLabel = document.querySelector('label[for="edit-isin"]');
+
+  // Populate review fields
+  const currentAsset = clientDetails.assets[clientDetails.currentAssetType][clientDetails.assets[clientDetails.currentAssetType].length - 1];
+  document.getElementById("edit-client-name").value = clientDetails.name;
+  editTypeSelect.value = currentAsset.type;
+  fundOrCompanyNameInput.value = currentAsset.fundOrCompanyName;
+  isinInput.value = currentAsset.isin;
+  document.getElementById("edit-shares").value = currentAsset.sharesAmount;
+  document.getElementById("edit-investmentValue").value = currentAsset.investmentValue;
+  document.getElementById("edit-buyPrice").value = currentAsset.buyPrice;
+
+  // Function to toggle visibility of fund/company name and ISIN fields
+  function toggleFieldsVisibility(type) {
+    if (type === "unspecified") {
+      fundOrCompanyNameInput.classList.add("hidden");
+      fundOrCompanyNameLabel.classList.add("hidden");
+      isinInput.classList.add("hidden");
+      isinLabel.classList.add("hidden");
+    } else {
+      fundOrCompanyNameInput.classList.remove("hidden");
+      fundOrCompanyNameLabel.classList.remove("hidden");
+      isinInput.classList.remove("hidden");
+      isinLabel.classList.remove("hidden");
+    }
+  }
+
+  // Initially set fields visibility
+  toggleFieldsVisibility(currentAsset.type);
+
+  // Initially disable all form fields
+  document.querySelectorAll('#private-equity-edit-form input, #private-equity-edit-form select').forEach(el => el.disabled = true);
+
+  privateEquityEditBtn.addEventListener("click", function() {
+    // Enable editing of fields
+    document.querySelectorAll('#private-equity-edit-form input, #private-equity-edit-form select').forEach(el => el.disabled = false);
+    privateEquityEditBtn.style.display = "none";
+    privateEquityConfirmBtn.style.display = "inline-block";
+  });
+
+  // Add event listener for type changes
+  editTypeSelect.addEventListener("change", function() {
+    toggleFieldsVisibility(this.value);
+    if (this.value === "unspecified") {
+      fundOrCompanyNameInput.value = "unspecified";
+      isinInput.value = "unspecified";
+    }
+  });
+
+  privateEquityConfirmBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    const editedAsset = {
+      type: editTypeSelect.value,
+      fundOrCompanyName: editTypeSelect.value === "unspecified" ? "unspecified" : fundOrCompanyNameInput.value,
+      isin: editTypeSelect.value === "unspecified" ? "unspecified" : isinInput.value,
+      sharesAmount: document.getElementById("edit-shares").value,
+      investmentValue: document.getElementById("edit-investmentValue").value,
+      buyPrice: document.getElementById("edit-buyPrice").value
+    };
+
+    clientDetails.assets[clientDetails.currentAssetType][clientDetails.assets[clientDetails.currentAssetType].length - 1] = editedAsset;
+    saveClientDetails();
+    console.log("Updated asset:", editedAsset);
+    console.log("Updated clientDetails:", clientDetails);
+    
+    // Navigate to add-another-asset screen
+    window.location.href = "./add-another-asset-screen.html";
+  });
+}
+
+
 
 function handleAssetFormPage() {
   const nextAssetBtn = document.getElementById("asset-details-next-btn");
