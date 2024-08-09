@@ -1,21 +1,20 @@
 /******** real-estate-form screen ********/
 
-.form-wrapper{
-  background-color: #a7b46a;
+.form-wrapper {
+  /* background-color: #a7b46a; */
   width: 100vw;
   height: 100vh;
   overflow: scroll;
 }
 
-#real-estate-form {
-  background-color: #dd9d9d; 
-}
+
 
 .real-estate-form-container {
   -webkit-box-shadow: -1px 1px 5px 9px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -1px 1px 5px 9px rgba(0, 0, 0, 0.75);
   box-shadow: -1px 1px 15px 6px rgb(187, 199, 207);
 }
+
 
 .real-estate-form-inner {
   background-color: #fff;
@@ -43,6 +42,12 @@ h1 {
   font-weight: 400;
   font-style: normal;
 }
+
+#asset-details-form input:focus {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
 #asset-details-form label {
   color: #333;
   text-shadow: none;
@@ -68,11 +73,61 @@ h1 {
   transform: scale(1.1);
 }
 
+
+/*********** Rest of form // non table ***********/
+
+.non-table {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas: "image form ";
+}
+
+.form-img-container {
+  /* background-color: #f7c1ff; */
+  grid-area: image;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("../images/brian-babb-XbwHrt87mQ0-unsplash.jpg");
+  background-size: cover;
+  background-position: center center;
+}
+.form-section {
+  /* background-color: #b11076; */
+  grid-area: form;
+}
+
+.form-section > *{
+  width: 100%;
+}
+
+.dropdown-container{
+ display: flex;
+ justify-content: space-between;
+ align-items: center;
+}
+
+.dropdown-container label{
+  width: 30%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.dropdown-container select{
+  width: 60%;
+  height: 2.5rem;
+  margin: 0.5rem ;
+  padding: 0.5rem;
+
+}
+
+
+/********** table stuff ************/
+
 table {
   border-collapse: collapse;
   width: 100%;
 }
-th, td {
+th,
+td {
   border: 1px solid black;
   padding: 8px;
   text-align: left;

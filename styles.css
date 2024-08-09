@@ -1,3 +1,11 @@
+:root {
+  --color-dark-blue: #101326;
+  --color-light-blue: #5280AC;
+  --color-cream: #EDE3DD;
+}
+
+
+
 body {
   font-family: Arial, sans-serif;
   margin: 0;
@@ -180,7 +188,7 @@ body {
 body {
   /* color: #fff; */
   text-align: center;
-  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+  /* text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5); */
 }
 
 /* Extra markup and styles for table-esque vertical and horizontal centering */

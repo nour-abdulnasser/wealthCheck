@@ -113,7 +113,13 @@ async function loadCities(country) {
 }
 
 function populateDropdown(items, selectElement) {
-  // selectElement.innerHTML = "";
+  const defaultOption = selectElement.firstElementChild;
+  selectElement.innerHTML = "";
+  if (defaultOption) {
+    selectElement.appendChild(defaultOption);
+    selectElement.firstElementChild.disabled=true;
+    selectElement.firstElementChild.selected=true;
+  }
   // nts about api: each country has name then common, each city is just a string
   items.forEach((item) => {
     const option = document.createElement("option");
@@ -202,12 +208,12 @@ function getTableData() {
     const frequency = frequencySelect ? frequencySelect.value : null;
 
     // if (type && concept && !isNaN(amount) && frequency) {
-      data.push({
-        type: type,
-        concept: concept,
-        amount: amount,
-        frequency: frequency,
-      });
+    data.push({
+      type: type,
+      concept: concept,
+      amount: amount,
+      frequency: frequency,
+    });
     // }
   });
 
@@ -323,11 +329,10 @@ function handleAssetTypesPage() {
     "#asset-type-inner-container .fancy-button"
   );
   assetTypeButtons.forEach((button) => {
-
     button.addEventListener("click", (e) => {
       e.preventDefault();
       clientDetails.currentAssetType = button.id.replace("-btn", "");
-      
+
       saveClientDetails();
       switch (clientDetails.currentAssetType) {
         case "realEstate":
@@ -355,7 +360,10 @@ function handleRealEstateTypePage() {
   subAssetButtons.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
-      clientDetails.currentSubAssetType = btn.id.replace("-btn", "");
+      const subAssetType = btn.id.replace("-btn", "");
+      clientDetails.currentSubAssetType = subAssetType.includes("skip")
+        ? "unspecified"
+        : subAssetType;
       saveClientDetails();
       window.location.href = "./real-estate-form.html";
     });
@@ -540,9 +548,12 @@ function handleAssetFormPage() {
     .catch((error) => console.error("Error loading countries:", error));
 
   countrySelect.addEventListener("change", async () => {
+    console.log("change in country");
     selectedCountry = countrySelect.options[countrySelect.selectedIndex].text;
     loadCities(selectedCountry)
       .then((cities) => {
+        console.log("load cities");
+
         populateDropdown(cities.data, citySelect);
       })
       .catch((error) => console.error("Error loading cities:", error));
@@ -570,7 +581,6 @@ function handleAssetFormPage() {
       value: document.querySelector(".value-input").value,
       income_expense: getTableData() || "NA",
     };
-    
 
     if (!clientDetails.assets[clientDetails.currentAssetType]) {
       clientDetails.assets[clientDetails.currentAssetType] = [];
@@ -602,7 +612,6 @@ async function handleReviewPage() {
   document.getElementById("edit-country").value = currentAsset.country;
   document.getElementById("edit-city").value = currentAsset.city;
   document.getElementById("edit-value").value = currentAsset.value;
-
 
   // Initially disable all form fields
   document
@@ -694,6 +703,5 @@ function handleAddAnotherAssetPage() {
 // You can add any additional utility functions or global event listeners here if needed
 
 // End of script
-
 
 // clearAllLocalStorage()

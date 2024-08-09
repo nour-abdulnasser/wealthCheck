@@ -27,131 +27,147 @@
   </head>
   <body>
     <div class="form-wrapper">
-      <div id="real-estate-form" class="container mt-5">
-        <div class="real-estate-form-container">
+      <div
+        id="real-estate-form"
+        class="container d-flex justify-content-center"
+      >
+        <div class="real-estate-form-container w-75 p-5">
           <h1 class="">Real Estate Asset Details</h1>
           <form id="asset-details-form">
             <div class="non-table">
-              <div class="form-floating mb-3">
-                <input
-                  type="text"
-                  class="form-control asset-name-input"
-                  id="floatingInput"
-                  placeholder="Asset Name"
-                  required
-                />
-                <label class="fancy-label" for="floatingInput"
-                  >Asset Name</label
-                >
-              </div>
-              <div class="dropdown-container">
-                <label for="country-search" class="fancy-label"
-                  >Specify asset country:</label
-                >
-                <select id="countries">
-                  <option selected="true" disabled="disabled">Country</option>
-                </select>
-              </div>
-              <div class="dropdown-container">
-                <label for="cities" class="fancy-label"
-                  >Specify asset city:</label
-                >
-                <select id="cities">
-                  <option selected="true" disabled="disabled">City</option>
-                </select>
-              </div>
-              <div class="dropdown-container">
-                <label for="subCategories" class="fancy-label"
-                  >specify asset category:</label
-                >
-                <select id="subCategories">
-                  <option selected="true" disabled="disabled">
-                    Subcategory
-                  </option>
-
-                  <optgroup label="Commercial">
-                    <option value="commercial for rent">
-                      Commercial property for rent
-                    </option>
-                    <option value="office">Office</option>
-                  </optgroup>
-                  <optgroup label="Industrial">
-                    <option value="factories">Factories</option>
-                    <option value="warehouses">Warehouses</option>
-                  </optgroup>
-                  <optgroup label="Residential">
-                    <option value="residential for rent">
-                      Residential property for rent
-                    </option>
-                    <option value="housing">Residential housing</option>
-                  </optgroup>
-                  <optgroup label="Land">
-                    <option value="agricultural">Agricultural land</option>
-                  </optgroup>
-                </select>
-              </div>
-              <div class="form-floating mb-3">
-                <input
-                  type="text"
-                  class="form-control address-input"
-                  id="floatingInput"
-                  placeholder="Address (optional)"
-                />
-                <label class="fancy-label" for="floatingInput"
-                  >Address (optional)</label
-                >
-              </div>
-              <div class="form-floating mb-3">
-                <input
-                  type="number"
-                  class="form-control value-input"
-                  id="floatingInput"
-                  placeholder="Value ($)"
-                  required
-                />
-                <label class="fancy-label" for="floatingInput">Value ($)</label>
-              </div>
-              <div class="mb-3">
-                <label
-                  class="fancy-label"
-                  for="formFileMultiple"
-                  class="custom-file-upload form-label"
-                  >Please upload any supporting documents: <br />
-                  e.g. House deed (optional)</label
-                >
-                <input
-                  class="form-control"
-                  type="file"
-                  id="formFileMultiple"
-                  multiple
-                />
-              </div>
-              <div class="row d-flex flex-row justify-content-center">
-                <div class="col-6 d-flex justify-content-center">
-                  <button
-                    type="button"
-                    id="asset-details-next-btn"
-                    class="fancy-button m-auto"
+              <div class="form-img-container"></div>
+              <div
+                class="form-section d-flex flex-column align-items-start ps-3"
+              >
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control asset-name-input"
+                    id="floatingInput"
+                    placeholder="Asset Name"
+                    required
+                  />
+                  <label class="fancy-label" for="floatingInput"
+                    >Asset Name</label
                   >
-                    Done
-                  </button>
+                </div>
+                <div class="dropdown-container">
+                  <label for="countries" class="fancy-label"
+                    ><span>Asset country</span>
+                    <span>:</span> 
+                  </label>
+                  <select id="countries">
+                    <option selected="true" disabled="disabled">Country</option>
+                  </select>
+                </div>
+                <div class="dropdown-container">
+                  <label for="cities" class="fancy-label"
+                    ><span>Asset city</span>
+                    <span>:</span> </label
+                  >
+                  <select id="cities">
+                    <option selected="true" disabled="disabled">City</option>
+                  </select>
+                </div>
+                <div class="dropdown-container">
+                  <label for="subCategories" class="fancy-label"
+                    ><span>Asset category</span>
+                    <span>:</span> </label
+                  >
+                  <select id="subCategories">
+                    <option selected="true" disabled="disabled">
+                      Subcategory
+                    </option>
+
+                    <optgroup label="Commercial">
+                      <option value="commercial for rent">
+                        Commercial property for rent
+                      </option>
+                      <option value="office">Office</option>
+                    </optgroup>
+                    <optgroup label="Industrial">
+                      <option value="factories">Factories</option>
+                      <option value="warehouses">Warehouses</option>
+                    </optgroup>
+                    <optgroup label="Residential">
+                      <option value="residential for rent">
+                        Residential property for rent
+                      </option>
+                      <option value="housing">Residential housing</option>
+                    </optgroup>
+                    <optgroup label="Land">
+                      <option value="agricultural">Agricultural land</option>
+                    </optgroup>
+                  </select>
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="text"
+                    class="form-control address-input"
+                    id="floatingInput"
+                    placeholder="Address (optional)"
+                  />
+                  <label class="fancy-label" for="floatingInput"
+                    >Address (optional)</label
+                  >
+                </div>
+                <div class="form-floating mb-3">
+                  <input
+                    type="number"
+                    class="form-control value-input"
+                    id="floatingInput"
+                    placeholder="Value ($)"
+                    required
+                  />
+                  <label class="fancy-label" for="floatingInput"
+                    >Value ($)</label
+                  >
+                </div>
+                <div class="mb-3">
+                  <label
+                    class="fancy-label"
+                    for="formFileMultiple"
+                    class="custom-file-upload form-label"
+                    >Please upload any supporting documents: <br />
+                    e.g. House deed (optional)</label
+                  >
+                  <input
+                    class="form-control"
+                    type="file"
+                    id="formFileMultiple"
+                    multiple
+                  />
+                </div>
+                <div class="d-flex w-100 justify-content-between">
+                  <div
+                    class="income-expense-check d-flex align-items-center "
+                  >
+                    <input
+                      type="checkbox"
+                      id="ieCheck"
+                      name="checkForTable"
+                      value="checkForTable"
+                    />
+                    <label for="ieCheck" class="ms-1"
+                      >Would you like to fill in income and expense
+                      details?</label
+                    ><br />
+                  </div>
+                  <div class="button-container">
+                    <button
+                      type="button"
+                      id="asset-details-next-btn"
+                      class="fancy-button m-auto"
+                    >
+                      Done
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
-            <div class="table-wrapper">
-              <div class="income-expense-check">
-                <input
-                  type="checkbox"
-                  id="ieCheck"
-                  name="checkForTable"
-                  value="checkForTable"
-                />
-                <label for="vehicle2"
-                  >Would you like to fill in income and expense details?</label
-                ><br />
-              </div>
+            <div class="table-wrapper mt-3">
               <div id="income-expense-table" style="display: none">
-                <table id="dataTable">
+                <table id="dataTable" class="table-light">
                   <thead>
                     <tr>
                       <th class="text-center">Income or Expense</th>
