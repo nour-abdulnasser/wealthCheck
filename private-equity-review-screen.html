@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wealth Check Private Equity Form</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Baskervville:ital@0;1&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./css/form.css" />
+    <link rel="stylesheet" href="./private-equity.css" />
+
+  </head>
+<body>
+
+
+
+    <div id="private-equity-review-screen">
+        <div class="private-equity-review-screen-inner-container">
+          <div class="pe-reviewImage-container"></div>
+          <div class="private-equity-review-screen-inner">
+            <h1>Review your asset details</h1>
+            <div id="private-equity-review-details" class="row">
+              <div class="container">
+                <form class="form" action="" id="private-equity-edit-form">
+                  <h2><span>Private Equity</span></h2>
+
+                  <label for="edit-client-name">Client's name</label>
+                  <input disabled type="text" id="edit-client-name" />
+                  <label for="edit-peType">Asset Type</label>
+                  <select
+                    disabled
+                    id="edit-type"
+                    class="form-select mb-3"
+                    aria-label="Default select example"
+                  >
+                    <option value="unspecified">Unspecified</option>
+                    <option value="fund">Private Equity Fund</option>
+                    <option value="investment">Private Investment</option>
+                    <option value="ownCompany">Own Comapny</option>
+                  </select>
+                  <label for="edit-fundOrCompany-name">Name of Fund / Company</label>
+                  <input disabled type="text" id="edit-fundOrCompany-name" />
+
+                  <label for="edit-isin">ISIN/CUSIP/ID (optional)</label>
+                  <input disabled type="text" id="edit-isin" />
+
+                  <label for="edit-shares">Amount of Shares</label>
+                  <input disabled type="text" id="edit-shares" />
+
+                  <label for="edit-investmentValue">Value of Investment</label>
+                  <input disabled type="text" id="edit-investmentValue" />
+
+                  <label for="edit-buyPrice">Buy Price Per Share</label>
+                  <input disabled type="text" id="edit-buyPrice" />
+
+                  
+
+                  <!-- <label for="edit-value">Asset value</label>
+                  <input disabled type="text" id="edit-value" /> -->
+                </form>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-6">
+                <button id="private-equity-edit-details-btn">Edit</button>
+              </div>
+              <div class="col-6">
+                <button id="private-equity-confirm-details-btn">Confirm</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    <script src="script.js"></script>
+  <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+
+</body>
+</html>
