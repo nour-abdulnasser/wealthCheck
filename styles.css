@@ -425,7 +425,7 @@ body {
 }
 #privateEquity-btn:hover {
   background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("./images/piggybank-sK-ziQvKGsk-unsplash.jpg");
+    url("./images/wall-st.jpg");
   background-size: cover;
   background-position: center;
 }
@@ -436,9 +436,11 @@ body {
   background-position: center;
 }
 
-#financialAssets-btn {
-  background-image: url();
-}
+#financialAssets-btn:hover {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./images/scott-graham-5fNmWej4tAA-unsplash.jpg");
+  background-size: cover;
+  background-position: center;}
 
 .four-squares a:hover {
   transform: scale(1.1);
@@ -478,6 +480,38 @@ body {
   background-size: cover;
   background-position: center;
 }
+
+#commercial-btn:hover {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./images/chris-greenhow-Jenh_W-2kpQ-unsplash.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+#residential-btn:hover {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./images/point3d-commercial-imaging-ltd-Rah-1gGE4nk-unsplash.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+#industrial-btn:hover {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./images/adrian-sulyok-sczNLg6rrhQ-unsplash.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+
+#land-btn:hover {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./images/juan-cruz-mountford-oFweDg39ldw-unsplash.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+
+
 
 .inner-real-estate a:hover {
   color: white;

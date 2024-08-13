@@ -410,4 +410,27 @@ a:hover {
     transform: scale(1.1);
   }
 
- 
+  #fund-btn:hover {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("./images/pexels-sevenstormphotography-443383.jpg");
+    background-size: cover;
+    background-position:  center;
+
+  }
+
+
+  
+  #investment-btn:hover {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("./images/markus-spiske-69ppqHiG9Xo-unsplash.jpg");
+    background-size: cover;
+    background-position:  center;
+
+  }
+
+  #ownCompany-btn:hover {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("./images/dane-deaner-_-KLkj7on_c-unsplash.jpg");
+    background-size: cover;
+    background-position:  center ;
+  }
