@@ -23,6 +23,10 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="./styles.css" />
+    <link
+      rel="stylesheet"
+      href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+    />
     <link rel="stylesheet" href="./css/form.css" />
   </head>
   <body>
@@ -52,54 +56,113 @@
                   >
                 </div>
                 <div class="dropdown-container">
-                  <label for="countries" class="fancy-label"
+                  <label for="countryDropdown" class="fancy-label"
                     ><span>Asset country</span>
-                    <span>:</span> 
+                    <span>:</span>
                   </label>
-                  <select id="countries">
-                    <option selected="true" disabled="disabled">Country</option>
-                  </select>
-                </div>
-                <div class="dropdown-container">
-                  <label for="cities" class="fancy-label"
-                    ><span>Asset city</span>
-                    <span>:</span> </label
+                  <div
+                    class="dropdown dropdown-inner d-flex justify-content-end"
                   >
-                  <select id="cities">
-                    <option selected="true" disabled="disabled">City</option>
-                  </select>
+                    <button
+                      class="dropdown-toggle"
+                      type="button"
+                      id="countryDropdown"
+                      aria-haspopup="true"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <span>Select Country</span>
+                      <span>
+                        <i class="fa fa-solid fa-angle-down"></i>
+                      </span>
+                    </button>
+                    <ul
+                      class="dropdown-menu country-dropdown-menu"
+                      aria-labelledby="countryDropdown"
+                    >
+                      <li>
+                        <input
+                          type="text"
+                          class="form-control mb-2"
+                          id="countrySearch"
+                          placeholder="Search countries..."
+                        />
+                      </li>
+                      <div id="countryList"></div>
+                    </ul>
+                  </div>
                 </div>
+
+                <div class="dropdown-container">
+                  <label for="cityDropdown" class="fancy-label"
+                    ><span>Asset city</span>
+                    <span>:</span>
+                  </label>
+                  <div
+                    class="dropdown dropdown-inner d-flex justify-content-end"
+                  >
+                    <button
+                      class="dropdown-toggle"
+                      type="button"
+                      id="cityDropdown"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <span id="citySpan">
+                        Select City
+                      </span>
+                      <i class="fa fa-solid fa-angle-down"></i>
+                    </button>
+                    <ul
+                      class="dropdown-menu city-dropdown-menu"
+                      aria-labelledby="cityDropdown"
+                    >
+                      <li>
+                        <input
+                          type="text"
+                          class="form-control mb-2"
+                          id="citySearch"
+                          placeholder="Search cities..."
+                        />
+                      </li>
+                      <div id="cityList"></div>
+                    </ul>
+                  </div>
+                </div>
+
                 <div class="dropdown-container">
                   <label for="subCategories" class="fancy-label"
-                    ><span>Asset category</span>
-                    <span>:</span> </label
-                  >
-                  <select id="subCategories">
-                    <option selected="true" disabled="disabled">
-                      Subcategory
-                    </option>
+                    ><span>Asset category</span> <span>:</span>
+                  </label>
+                  <div class="dropdown-inner d-flex justify-content-end">
+                    <select id="subCategories">
+                      <option selected="true" disabled="disabled">
+                        Subcategory
+                      </option>
 
-                    <optgroup label="Commercial">
-                      <option value="commercial for rent">
-                        Commercial property for rent
-                      </option>
-                      <option value="office">Office</option>
-                    </optgroup>
-                    <optgroup label="Industrial">
-                      <option value="factories">Factories</option>
-                      <option value="warehouses">Warehouses</option>
-                    </optgroup>
-                    <optgroup label="Residential">
-                      <option value="residential for rent">
-                        Residential property for rent
-                      </option>
-                      <option value="housing">Residential housing</option>
-                    </optgroup>
-                    <optgroup label="Land">
-                      <option value="agricultural">Agricultural land</option>
-                    </optgroup>
-                  </select>
+                      <optgroup label="Commercial">
+                        <option value="commercial for rent">
+                          Commercial property for rent
+                        </option>
+                        <option value="office">Office</option>
+                      </optgroup>
+                      <optgroup label="Industrial">
+                        <option value="factories">Factories</option>
+                        <option value="warehouses">Warehouses</option>
+                      </optgroup>
+                      <optgroup label="Residential">
+                        <option value="residential for rent">
+                          Residential property for rent
+                        </option>
+                        <option value="housing">Residential housing</option>
+                      </optgroup>
+                      <optgroup label="Land">
+                        <option value="agricultural">Agricultural land</option>
+                      </optgroup>
+                    </select>
+                  </div>
                 </div>
+
                 <div class="form-floating mb-3">
                   <input
                     type="text"
@@ -139,9 +202,7 @@
                   />
                 </div>
                 <div class="d-flex w-100 justify-content-between">
-                  <div
-                    class="income-expense-check d-flex align-items-center "
-                  >
+                  <div class="income-expense-check d-flex align-items-center">
                     <input
                       type="checkbox"
                       id="ieCheck"
@@ -165,7 +226,7 @@
                 </div>
               </div>
             </div>
-            <div class="table-wrapper mt-3">
+            <!-- <div class="table-wrapper mt-3">
               <div id="income-expense-table" style="display: none">
                 <table id="dataTable-re" class="table-light">
                   <thead>
@@ -217,13 +278,35 @@
                   Add another row?
                 </button>
               </div>
+            </div> -->
+            <div class="table-wrapper mt-3">
+              <div id="income-expense-table" style="display: none">
+                <table id="dataTable-re" class="table-light">
+                  <thead>
+                    <tr>
+                      <th class="text-center">Income or Expense</th>
+                      <th class="text-center">Concept</th>
+                      <th class="text-center">Amount</th>
+                      <th class="text-center">Frequency</th>
+                      <th class="text-center">Actions</th> <!-- Added this column for delete button -->
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                  </tbody>
+                </table>
+                <button type="button" onclick="addRow('re')">Add another row?</button>
+              </div>
             </div>
+            
           </form>
         </div>
       </div>
     </div>
 
     <script src="script.js"></script>
+    <script src="./node_modules/@fortawesome/fontawesome-free/js/all.min.js"></script>
+
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

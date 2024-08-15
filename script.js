@@ -89,6 +89,10 @@ function clearAllLocalStorage() {
   console.log("clientDetails reset to initial state:", clientDetails);
 }
 
+let countriesArr = [];
+let citiesArr = [];
+let selectedCountry = "";
+
 async function loadCountries() {
   const response = await fetch("https://restcountries.com/v3.1/all");
   const data = await response.json();
@@ -109,10 +113,49 @@ async function loadCities(country) {
     }
   );
   const data = await response.json();
-  return data;
+  return data.data;
 }
 
-function populateDropdown(items, selectElement) {
+// for cities and countries
+function populateDropdown(
+  items,
+  listElement,
+  searchInputId,
+  dropdownButtonId,
+  isCountry = true
+) {
+  listElement.innerHTML = "";
+  items.forEach((item) => {
+    const li = document.createElement("li");
+    const a = document.createElement("a");
+    a.classList.add("dropdown-item");
+    const itemName = isCountry ? item.name.common : item;
+    a.textContent = itemName;
+    a.onclick = () => {
+      document.getElementById(dropdownButtonId).textContent = itemName;
+      if (isCountry) {
+        selectedCountry = itemName;
+
+        updateCities();
+      }
+    };
+    li.appendChild(a);
+    listElement.appendChild(li);
+  });
+
+  const searchInput = document.getElementById(searchInputId);
+  searchInput.oninput = (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+    const listItems = listElement.querySelectorAll("li");
+    listItems.forEach((li) => {
+      const text = li.textContent.toLowerCase();
+      li.style.display = text.includes(searchTerm) ? "" : "none";
+    });
+  };
+}
+
+// for monthly vs annual
+function populateSelect(items, selectElement) {
   const defaultOption = selectElement.firstElementChild;
   selectElement.innerHTML = "";
   if (defaultOption) {
@@ -129,6 +172,35 @@ function populateDropdown(items, selectElement) {
   });
 }
 
+async function updateCities() {
+  if (selectedCountry) {
+    citiesArr = await loadCities(selectedCountry);
+    document.getElementById("cityDropdown").textContent = "Select City";
+    populateDropdown(
+      citiesArr,
+      document.getElementById("cityList"),
+      "citySearch",
+      "cityDropdown",
+      false
+    );
+    document.querySelectorAll("#cityList li a").forEach((cityItem) => {
+      cityItem.addEventListener("click", (e) => {
+        console.log("from cityyyyyyyyyy", e.target.innerText);
+      });
+    });
+  }
+}
+
+async function initDropdown() {
+  countriesArr = await loadCountries();
+  populateDropdown(
+    countriesArr,
+    document.getElementById("countryList"),
+    "countrySearch",
+    "countryDropdown"
+  );
+}
+
 function capitalizeFirstLetter(string) {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -139,14 +211,95 @@ async function cca2ToCommon(cca2) {
   return country.name.common;
 }
 
-// each row given id?
+// // each row given id?
+// function addRow(assetType) {
+//   const table = document
+//     .getElementById(`dataTable-${assetType}`)
+//     .getElementsByTagName("tbody")[0];
+//   const newRow = table.insertRow(table.rows.length);
+
+//   for (let i = 0; i < 4; i++) {
+//     const cell = newRow.insertCell(i);
+//     if (i == 1 || i == 2) {
+//       const input = document.createElement("input");
+//       if (i == 1) {
+//         input.classList.add("ie-concept-input");
+//       } else if (i == 2) {
+//         input.classList.add("ie-amount-input");
+//       }
+//       input.type = i === 2 ? "number" : "text";
+//       input.placeholder = i == 1 ? "Concept" : "Amount";
+//       cell.appendChild(input);
+//     } else if (i == 0) {
+//       const selectEl = document.createElement("select");
+//       selectEl.classList.add("income-expense-select");
+
+//       const defaultOption = document.createElement("option");
+//       defaultOption.disabled = true;
+//       defaultOption.textContent = "Please select type";
+//       defaultOption.selected = true;
+//       selectEl.appendChild(defaultOption);
+
+//       const options = ["Income", "Expense"];
+//       populateSelect(options, selectEl);
+//       cell.appendChild(selectEl);
+//     } else {
+//       const selectEl = document.createElement("select");
+//       selectEl.classList.add("ie-frequency-select");
+
+//       const defaultOption = document.createElement("option");
+//       defaultOption.disabled = true;
+//       defaultOption.textContent = "Please select frequency";
+//       defaultOption.selected = true;
+//       selectEl.appendChild(defaultOption);
+
+//       const options = ["Monthly", "Annual"];
+//       populateSelect(options, selectEl);
+//       cell.appendChild(selectEl);
+//     }
+//   }
+
+//   const rows = document.querySelectorAll("#dataTable tbody tr");
+//   console.log(rows);
+// }
+
+// // grabbing values from the rows
+// function getTableData(assetType) {
+//   const rows = document.querySelectorAll(`#dataTable-${assetType} tbody tr`);
+
+//   const data = [];
+//   rows.forEach((row) => {
+//     const typeSelect = row.querySelector(".income-expense-select");
+//     const conceptInput = row.querySelector(".ie-concept-input");
+//     const amountInput = row.querySelector(".ie-amount-input");
+//     const frequencySelect = row.querySelector(".ie-frequency-select");
+
+//     const type = typeSelect ? typeSelect.value : null;
+//     const concept = conceptInput ? conceptInput.value : null;
+//     const amount = amountInput ? parseFloat(amountInput.value) : NaN;
+//     const frequency = frequencySelect ? frequencySelect.value : null;
+
+//     // if (type && concept && !isNaN(amount) && frequency) {
+//     data.push({
+//       type: type,
+//       concept: concept,
+//       amount: amount,
+//       frequency: frequency,
+//     });
+//     // }
+//   });
+
+//   console.log(data);
+//   return data;
+// }
+
 function addRow(assetType) {
   const table = document
     .getElementById(`dataTable-${assetType}`)
     .getElementsByTagName("tbody")[0];
   const newRow = table.insertRow(table.rows.length);
 
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 5; i++) { // Adjusted loop to include an extra cell for delete button
     const cell = newRow.insertCell(i);
     if (i == 1 || i == 2) {
       const input = document.createElement("input");
@@ -169,9 +322,9 @@ function addRow(assetType) {
       selectEl.appendChild(defaultOption);
 
       const options = ["Income", "Expense"];
-      populateDropdown(options, selectEl);
+      populateSelect(options, selectEl);
       cell.appendChild(selectEl);
-    } else {
+    } else if (i == 3) {
       const selectEl = document.createElement("select");
       selectEl.classList.add("ie-frequency-select");
 
@@ -182,16 +335,29 @@ function addRow(assetType) {
       selectEl.appendChild(defaultOption);
 
       const options = ["Monthly", "Annual"];
-      populateDropdown(options, selectEl);
+      populateSelect(options, selectEl);
       cell.appendChild(selectEl);
+    } else {
+      const deleteBtn = document.createElement("button");
+      deleteBtn.textContent = "Delete";
+      deleteBtn.type = "button";
+      deleteBtn.classList.add("delete-row-btn");
+      deleteBtn.onclick = function() {
+        deleteRow(this);
+      };
+      cell.appendChild(deleteBtn);
     }
   }
 
   const rows = document.querySelectorAll("#dataTable tbody tr");
-  console.log(rows);
+
 }
 
-// grabbing values from the rows
+function deleteRow(btn) {
+  const row = btn.closest("tr"); // Find the closest row to the clicked button
+  row.parentNode.removeChild(row); // Remove the row from the table
+}
+
 function getTableData(assetType) {
   const rows = document.querySelectorAll(`#dataTable-${assetType} tbody tr`);
 
@@ -207,19 +373,27 @@ function getTableData(assetType) {
     const amount = amountInput ? parseFloat(amountInput.value) : NaN;
     const frequency = frequencySelect ? frequencySelect.value : null;
 
-    // if (type && concept && !isNaN(amount) && frequency) {
     data.push({
       type: type,
       concept: concept,
       amount: amount,
       frequency: frequency,
     });
-    // }
   });
 
   console.log(data);
   return data;
 }
+
+function populateSelect(options, selectElement) {
+  options.forEach((optionText) => {
+    const option = document.createElement("option");
+    option.value = optionText;
+    option.textContent = optionText;
+    selectElement.appendChild(option);
+  });
+}
+
 
 loadClientDetails();
 
@@ -445,7 +619,7 @@ function handlePrivateEquityFormPage() {
       sharesAmount: document.querySelector(".pe-sharesAmount-input").value,
       investmentValue: document.querySelector(".pe-value-input").value,
       buyPrice: document.querySelector(".pe-buyPrice-input").value,
-      income_expense: getTableData('pe') || "NA",
+      income_expense: getTableData("pe") || "NA",
     };
 
     if (!clientDetails.assets.privateEquity) {
@@ -577,28 +751,19 @@ function handlePrivateEquityReviewPage() {
   });
 }
 
-function handleRealEstateFormPage() {
+async function handleRealEstateFormPage() {
+  await initDropdown();
+
   const nextAssetBtn = document.getElementById("asset-details-next-btn");
-  const countrySelect = document.getElementById("countries");
-  const citySelect = document.getElementById("cities");
-  let selectedCountry = "";
+  const countryListItems = document.querySelectorAll("#countryList li a");
+  const cityListItems = document.querySelectorAll("#cityList li a");
 
-  loadCountries()
-    .then((countries) => {
-      populateDropdown(countries, countrySelect);
-    })
-    .catch((error) => console.error("Error loading countries:", error));
+  let countryValue = "";
 
-  countrySelect.addEventListener("change", async () => {
-    console.log("change in country");
-    selectedCountry = countrySelect.options[countrySelect.selectedIndex].text;
-    loadCities(selectedCountry)
-      .then((cities) => {
-        console.log("load cities");
-
-        populateDropdown(cities.data, citySelect);
-      })
-      .catch((error) => console.error("Error loading cities:", error));
+  countryListItems.forEach((item) => {
+    item.addEventListener("click", (e) => {
+      countryValue = e.target.innerText;
+    });
   });
 
   document.getElementById("ieCheck").addEventListener("change", function () {
@@ -612,22 +777,32 @@ function handleRealEstateFormPage() {
 
   nextAssetBtn.addEventListener("click", function (e) {
     e.preventDefault();
+    const countryElement = document.getElementById("countryDropdown");
+    const cityElement = document.getElementById("cityDropdown");
+
     let newAsset = {
       // need to add more deets: income, expense, subtypes
       type: clientDetails.currentSubAssetType,
       name: document.querySelector(".asset-name-input").value,
-      country: selectedCountry,
-      city: citySelect.value,
+      country: countryElement.innerText.match(/Select/gi)
+        ? "unspecified"
+        : countryElement.innerText,
+      city: cityElement.innerText.match(/Select/gi)
+        ? "unspecified"
+        : cityElement.innerText,
       assetCategory: document.getElementById("subCategories").value,
       address: document.querySelector(".address-input").value,
       value: document.querySelector(".value-input").value,
-      income_expense: getTableData('re') || "NA",
+      income_expense: getTableData("re") || "NA",
     };
 
-    if (!clientDetails.assets[clientDetails.currentAssetType]) {
-      clientDetails.assets[clientDetails.currentAssetType] = [];
-    }
-    clientDetails.assets[clientDetails.currentAssetType].push(newAsset);
+    // if (!clientDetails.assets[clientDetails.currentAssetType]) {
+    //   clientDetails.assets[clientDetails.currentAssetType] = [];
+    // }
+    // clientDetails.assets[clientDetails.currentAssetType].push(newAsset);
+
+    clientDetails.assets.realEstate.push(newAsset);
+
 
     saveClientDetails();
     console.log("Added new asset:", newAsset);
