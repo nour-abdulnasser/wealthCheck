@@ -211,70 +211,108 @@ async function cca2ToCommon(cca2) {
   return country.name.common;
 }
 
+// // manually creating elements - delete action not included
+// function addRow(assetType) {
+//   const table = document
+//     .getElementById(`dataTable-${assetType}`)
+//     .getElementsByTagName("tbody")[0];
+//   const newRow = table.insertRow(table.rows.length);
+
+//   for (let i = 0; i < 5; i++) {
+//     // Adjusted loop to include an extra cell for delete button
+//     const cell = newRow.insertCell(i);
+//     if (i == 1 || i == 2) {
+//       const input = document.createElement("input");
+//       if (i == 1) {
+//         input.classList.add("ie-concept-input");
+//       } else if (i == 2) {
+//         input.classList.add("ie-amount-input");
+//       }
+//       input.type = i === 2 ? "number" : "text";
+//       input.placeholder = i == 1 ? "Concept" : "Amount";
+//       cell.appendChild(input);
+//     } else if (i == 0) {
+//       const selectEl = document.createElement("select");
+//       selectEl.classList.add("income-expense-select");
+
+//       const defaultOption = document.createElement("option");
+//       defaultOption.disabled = true;
+//       defaultOption.textContent = "Please select type";
+//       defaultOption.selected = true;
+//       selectEl.appendChild(defaultOption);
+
+//       const options = ["Income", "Expense"];
+//       populateSelect(options, selectEl);
+//       cell.appendChild(selectEl);
+//     } else if (i == 3) {
+//       const selectEl = document.createElement("select");
+//       selectEl.classList.add("ie-frequency-select");
+
+//       const defaultOption = document.createElement("option");
+//       defaultOption.disabled = true;
+//       defaultOption.textContent = "Please select frequency";
+//       defaultOption.selected = true;
+//       selectEl.appendChild(defaultOption);
+
+//       const options = ["Monthly", "Annual"];
+//       populateSelect(options, selectEl);
+//       cell.appendChild(selectEl);
+//     } else {
+//       const deleteBtn = document.createElement("button");
+//       deleteBtn.textContent = "Delete";
+//       deleteBtn.type = "button";
+//       deleteBtn.classList.add("delete-row-btn");
+//       deleteBtn.onclick = function () {
+//         deleteRow(this);
+//       };
+//       cell.appendChild(deleteBtn);
+//     }
+//   }
+
+//   const rows = document.querySelectorAll("#dataTable tbody tr");
+// }
+
+// function deleteRow(btn) {
+//   const row = btn.closest("tr"); // Find the closest row to the clicked button
+//   row.parentNode.removeChild(row); // Remove the row from the table
+// }
+
 function addRow(assetType) {
-  const table = document
-    .getElementById(`dataTable-${assetType}`)
-    .getElementsByTagName("tbody")[0];
-  const newRow = table.insertRow(table.rows.length);
+  
+  const rowTemplate = document.querySelector(
+    `#dataTable-${assetType} tbody tr:last-child`
+  );
 
-  for (let i = 0; i < 5; i++) {
-    // Adjusted loop to include an extra cell for delete button
-    const cell = newRow.insertCell(i);
-    if (i == 1 || i == 2) {
-      const input = document.createElement("input");
-      if (i == 1) {
-        input.classList.add("ie-concept-input");
-      } else if (i == 2) {
-        input.classList.add("ie-amount-input");
+  if (rowTemplate) {
+    const newRow = rowTemplate.cloneNode(true); // Clone the last row
+
+    // Clear the values of the cloned row (optional)
+    const inputs = newRow.querySelectorAll('input, select');
+    inputs.forEach(input => {
+      if (input.tagName === 'SELECT') {
+        input.selectedIndex = 0; // Reset the select dropdown
+      } else {
+        input.value = ''; // Clear the input field
       }
-      input.type = i === 2 ? "number" : "text";
-      input.placeholder = i == 1 ? "Concept" : "Amount";
-      cell.appendChild(input);
-    } else if (i == 0) {
-      const selectEl = document.createElement("select");
-      selectEl.classList.add("income-expense-select");
+    });
 
-      const defaultOption = document.createElement("option");
-      defaultOption.disabled = true;
-      defaultOption.textContent = "Please select type";
-      defaultOption.selected = true;
-      selectEl.appendChild(defaultOption);
-
-      const options = ["Income", "Expense"];
-      populateSelect(options, selectEl);
-      cell.appendChild(selectEl);
-    } else if (i == 3) {
-      const selectEl = document.createElement("select");
-      selectEl.classList.add("ie-frequency-select");
-
-      const defaultOption = document.createElement("option");
-      defaultOption.disabled = true;
-      defaultOption.textContent = "Please select frequency";
-      defaultOption.selected = true;
-      selectEl.appendChild(defaultOption);
-
-      const options = ["Monthly", "Annual"];
-      populateSelect(options, selectEl);
-      cell.appendChild(selectEl);
-    } else {
-      const deleteBtn = document.createElement("button");
-      deleteBtn.textContent = "Delete";
-      deleteBtn.type = "button";
-      deleteBtn.classList.add("delete-row-btn");
-      deleteBtn.onclick = function () {
-        deleteRow(this);
-      };
-      cell.appendChild(deleteBtn);
-    }
+    // Append the new row to the table body
+    document
+      .querySelector(`#dataTable-${assetType} tbody`)
+      .appendChild(newRow);
   }
-
-  const rows = document.querySelectorAll("#dataTable tbody tr");
 }
 
-function deleteRow(btn) {
-  const row = btn.closest("tr"); // Find the closest row to the clicked button
-  row.parentNode.removeChild(row); // Remove the row from the table
+function deleteRow(btn, assetType) {
+  const tableBody = document.querySelector(`#dataTable-${assetType} tbody`);
+  const rows = tableBody.querySelectorAll("tr");
+
+  if (rows.length > 1) {
+    const row = btn.closest("tr"); // Find the closest row to the clicked button
+    row.parentNode.removeChild(row); // Remove the row from the table
+  }
 }
+
 
 function getTableData(assetType) {
   const rows = document.querySelectorAll(`#dataTable-${assetType} tbody tr`);

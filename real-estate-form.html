@@ -225,83 +225,86 @@
             <div class="popup-box">
               <h2 style="color: green">Popup Form</h2>
               <form class="form-container">
-                <div class="table-wrapper mt-3">
-                  <div id="income-expense-table">
-                    <table id="dataTable-re" class="table-light">
-                      <thead>
-                        <tr>
-                          <th class="text-center">Income or Expense</th>
-                          <th class="text-center">Concept</th>
-                          <th class="text-center">Amount</th>
-                          <th class="text-center">Frequency</th>
-                          <th class="text-center">Actions</th>
+                <div class="container-lg">
+                  <div class="table-responsive">
+                    <div class="table-wrapper">
+                      <div class="table-title">
+                        <div class="row">
+                          <div class="col-sm-8">
+                            <h2>Employee <b>Details</b></h2>
+                          </div>
+                          <div class="col-sm-4">
+                            <button
+                              type="button"
+                              class="btn btn-info add-new"
+                              onclick="addRow('re')"
+                            >
+                              <i class="fa fa-plus"></i> Add New
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <table id="dataTable-re" class="table table-bordered">
+                        <thead>
+                          <tr>
+                            <th class="text-center">Income or Expense</th>
+                            <th class="text-center">Concept</th>
+                            <th class="text-center">Amount</th>
+                            <th class="text-center">Frequency</th>
+                            <th class="text-center">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>
+                              <select name="" class="income-expense-select">
+                                <option selected="true" disabled="disabled">
+                                  Please select type
+                                </option>
+                                <option value="Income">Income</option>
+                                <option value="Expense">Expense</option>
+                              </select>
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                placeholder="Concept"
+                                class="ie-concept-input"
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="number"
+                                placeholder="Amount"
+                                class="ie-amount-input"
+                              />
+                            </td>
+                            <td>
+                              <select name="" class="ie-frequency-select">
+                                <option selected="true" disabled="disabled">
+                                  Please select frequency
+                                </option>
+                                <option value="Monthly">Monthly</option>
+                                <option value="Annual">Annual</option>
+                              </select>
+                            </td>
+                            <td>
+                                <a
+                                class="delete"
+                                id="deleteBtn"
+                                onclick="deleteRow(this, 're')"
+                                title="Delete"
+                                data-toggle="tooltip"
+                                ><i class="fa-solid fa-trash-can"></i></a
+                              >
+                            </td>
+                          </tr>
                         
-                        </tr>
-                      </thead>
-                      <tbody></tbody>
-                    </table>
-                    <button type="button" onclick="addRow('re')">
-                      Add another row?
-                    </button>
-                    <button class="btn-submit" type="submit">Submit</button>
+                        </tbody>
+                      </table>
+                    </div>
                   </div>
                 </div>
-                <!-- <div class="container-lg">
-                  <div class="table-responsive">
-                      <div class="table-wrapper">
-                          <div class="table-title">
-                              <div class="row">
-                                  <div class="col-sm-8"><h2>Employee <b>Details</b></h2></div>
-                                  <div class="col-sm-4">
-                                      <button type="button" class="btn btn-info add-new"><i class="fa fa-plus"></i> Add New</button>
-                                  </div>
-                              </div>
-                          </div>
-                          <table class="table table-bordered">
-                              <thead>
-                                  <tr>
-                                      <th>Name</th>
-                                      <th>Department</th>
-                                      <th>Phone</th>
-                                      <th>Actions</th>
-                                  </tr>
-                              </thead>
-                              <tbody>
-                                  <tr>
-                                      <td>John Doe</td>
-                                      <td>Administration</td>
-                                      <td>(171) 555-2222</td>
-                                      <td>
-                                          <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                                          <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                          <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td>Peter Parker</td>
-                                      <td>Customer Service</td>
-                                      <td>(313) 555-5735</td>
-                                      <td>
-                                          <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                                          <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                          <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                                      </td>
-                                  </tr>
-                                  <tr>
-                                      <td>Fran Wilson</td>
-                                      <td>Human Resources</td>
-                                      <td>(503) 555-9931</td>
-                                      <td>
-                                          <a class="add" title="Add" data-toggle="tooltip"><i class="material-icons">&#xE03B;</i></a>
-                                          <a class="edit" title="Edit" data-toggle="tooltip"><i class="material-icons">&#xE254;</i></a>
-                                          <a class="delete" title="Delete" data-toggle="tooltip"><i class="material-icons">&#xE872;</i></a>
-                                      </td>
-                                  </tr>      
-                              </tbody>
-                          </table>
-                      </div>
-                  </div>
-              </div>      -->
               </form>
 
               <button class="btn-close-popup" onclick="togglePopup()">
