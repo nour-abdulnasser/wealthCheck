@@ -211,95 +211,14 @@ async function cca2ToCommon(cca2) {
   return country.name.common;
 }
 
-// // each row given id?
-// function addRow(assetType) {
-//   const table = document
-//     .getElementById(`dataTable-${assetType}`)
-//     .getElementsByTagName("tbody")[0];
-//   const newRow = table.insertRow(table.rows.length);
-
-//   for (let i = 0; i < 4; i++) {
-//     const cell = newRow.insertCell(i);
-//     if (i == 1 || i == 2) {
-//       const input = document.createElement("input");
-//       if (i == 1) {
-//         input.classList.add("ie-concept-input");
-//       } else if (i == 2) {
-//         input.classList.add("ie-amount-input");
-//       }
-//       input.type = i === 2 ? "number" : "text";
-//       input.placeholder = i == 1 ? "Concept" : "Amount";
-//       cell.appendChild(input);
-//     } else if (i == 0) {
-//       const selectEl = document.createElement("select");
-//       selectEl.classList.add("income-expense-select");
-
-//       const defaultOption = document.createElement("option");
-//       defaultOption.disabled = true;
-//       defaultOption.textContent = "Please select type";
-//       defaultOption.selected = true;
-//       selectEl.appendChild(defaultOption);
-
-//       const options = ["Income", "Expense"];
-//       populateSelect(options, selectEl);
-//       cell.appendChild(selectEl);
-//     } else {
-//       const selectEl = document.createElement("select");
-//       selectEl.classList.add("ie-frequency-select");
-
-//       const defaultOption = document.createElement("option");
-//       defaultOption.disabled = true;
-//       defaultOption.textContent = "Please select frequency";
-//       defaultOption.selected = true;
-//       selectEl.appendChild(defaultOption);
-
-//       const options = ["Monthly", "Annual"];
-//       populateSelect(options, selectEl);
-//       cell.appendChild(selectEl);
-//     }
-//   }
-
-//   const rows = document.querySelectorAll("#dataTable tbody tr");
-//   console.log(rows);
-// }
-
-// // grabbing values from the rows
-// function getTableData(assetType) {
-//   const rows = document.querySelectorAll(`#dataTable-${assetType} tbody tr`);
-
-//   const data = [];
-//   rows.forEach((row) => {
-//     const typeSelect = row.querySelector(".income-expense-select");
-//     const conceptInput = row.querySelector(".ie-concept-input");
-//     const amountInput = row.querySelector(".ie-amount-input");
-//     const frequencySelect = row.querySelector(".ie-frequency-select");
-
-//     const type = typeSelect ? typeSelect.value : null;
-//     const concept = conceptInput ? conceptInput.value : null;
-//     const amount = amountInput ? parseFloat(amountInput.value) : NaN;
-//     const frequency = frequencySelect ? frequencySelect.value : null;
-
-//     // if (type && concept && !isNaN(amount) && frequency) {
-//     data.push({
-//       type: type,
-//       concept: concept,
-//       amount: amount,
-//       frequency: frequency,
-//     });
-//     // }
-//   });
-
-//   console.log(data);
-//   return data;
-// }
-
 function addRow(assetType) {
   const table = document
     .getElementById(`dataTable-${assetType}`)
     .getElementsByTagName("tbody")[0];
   const newRow = table.insertRow(table.rows.length);
 
-  for (let i = 0; i < 5; i++) { // Adjusted loop to include an extra cell for delete button
+  for (let i = 0; i < 5; i++) {
+    // Adjusted loop to include an extra cell for delete button
     const cell = newRow.insertCell(i);
     if (i == 1 || i == 2) {
       const input = document.createElement("input");
@@ -342,7 +261,7 @@ function addRow(assetType) {
       deleteBtn.textContent = "Delete";
       deleteBtn.type = "button";
       deleteBtn.classList.add("delete-row-btn");
-      deleteBtn.onclick = function() {
+      deleteBtn.onclick = function () {
         deleteRow(this);
       };
       cell.appendChild(deleteBtn);
@@ -350,7 +269,6 @@ function addRow(assetType) {
   }
 
   const rows = document.querySelectorAll("#dataTable tbody tr");
-
 }
 
 function deleteRow(btn) {
@@ -394,6 +312,10 @@ function populateSelect(options, selectElement) {
   });
 }
 
+function togglePopup() {
+  const overlay = document.getElementById("popupOverlay");
+  overlay.classList.toggle("show");
+}
 
 loadClientDetails();
 
@@ -766,14 +688,14 @@ async function handleRealEstateFormPage() {
     });
   });
 
-  document.getElementById("ieCheck").addEventListener("change", function () {
-    var table = document.getElementById("income-expense-table");
-    if (this.checked) {
-      table.style.display = "block";
-    } else {
-      table.style.display = "none";
-    }
-  });
+  // document.getElementById("ieCheck").addEventListener("change", function () {
+  //   var table = document.getElementById("income-expense-table");
+  //   if (this.checked) {
+  //     table.style.display = "block";
+  //   } else {
+  //     table.style.display = "none";
+  //   }
+  // });
 
   nextAssetBtn.addEventListener("click", function (e) {
     e.preventDefault();
@@ -802,7 +724,6 @@ async function handleRealEstateFormPage() {
     // clientDetails.assets[clientDetails.currentAssetType].push(newAsset);
 
     clientDetails.assets.realEstate.push(newAsset);
-
 
     saveClientDetails();
     console.log("Added new asset:", newAsset);
