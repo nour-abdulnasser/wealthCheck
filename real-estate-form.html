@@ -29,22 +29,24 @@
     <link rel="stylesheet" href="./css/popup.css" />
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./css/form.css" />
+    <link rel="stylesheet" href="./css/table.css" />
   </head>
   <body>
-    <div class="form-wrapper">
+    <div class="form-wrapper container">
       <div
         id="real-estate-form"
-        class="container d-flex justify-content-center"
+        class="overflow-hidden"
       >
-        <div class="real-estate-form-container w-75 p-5">
-          <h1 class="">Real Estate Asset Details</h1>
+      <div class="form-img-container"></div>
+        <div class="real-estate-form-container">
+          <h1 class="fancy-label-heading my-0">Real Estate Asset Details</h1>
           <form id="asset-details-form">
             <div class="non-table">
-              <div class="form-img-container"></div>
+              
               <div
                 class="form-section d-flex flex-column align-items-start ps-3"
               >
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-1">
                   <input
                     type="text"
                     class="form-control asset-name-input"
@@ -162,7 +164,7 @@
                   </div>
                 </div>
 
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-1">
                   <input
                     type="text"
                     class="form-control address-input"
@@ -173,7 +175,7 @@
                     >Address (optional)</label
                   >
                 </div>
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-1">
                   <input
                     type="number"
                     class="form-control value-input"
@@ -185,13 +187,13 @@
                     >Value ($)</label
                   >
                 </div>
-                <div class="mb-3">
+                <div class="mb-1">
                   <label
-                    class="fancy-label"
+                    class="fancy-label my-2"
                     for="formFileMultiple"
-                    class="custom-file-upload form-label"
-                    >Please upload any supporting documents: <br />
-                    e.g. House deed (optional)</label
+                    class="custom-file-upload form-label "
+                  >
+                    Upload any supporting documents: e.g. House deed (optional)</label
                   >
                   <input
                     class="form-control"
@@ -200,9 +202,9 @@
                     multiple
                   />
                 </div>
-                <div class="d-flex w-100 justify-content-between">
+                <div class="d-flex mt-4 w-100 justify-content-between">
                   <button
-                    class="btn-open-popup w-50 d-flex justify-content-between align-items-center"
+                    class="btn-open-popup d-flex justify-content-around align-items-center"
                     onclick="togglePopup()"
                   >
                     <i class="fa fa-plus"></i>
@@ -223,20 +225,21 @@
           </form>
           <div id="popupOverlay" class="overlay-container">
             <div class="popup-box">
-              <h2 style="color: green">Popup Form</h2>
               <form class="form-container">
                 <div class="container-lg">
                   <div class="table-responsive">
                     <div class="table-wrapper">
                       <div class="table-title">
-                        <div class="row">
+                        <div
+                          class="d-flex p-4 justify-content-between align-items-center"
+                        >
                           <div class="col-sm-8">
-                            <h2>Employee <b>Details</b></h2>
+                            <h2 class="fancy-label-heading">Asset Income and Expenses</h2>
                           </div>
-                          <div class="col-sm-4">
+                          <div class="col-sm-4 text-end">
                             <button
                               type="button"
-                              class="btn btn-info add-new"
+                              class="add-new simple-fancy-btn"
                               onclick="addRow('re')"
                             >
                               <i class="fa fa-plus"></i> Add New
@@ -244,22 +247,22 @@
                           </div>
                         </div>
                       </div>
-                      <table id="dataTable-re" class="table table-bordered">
+                      <table id="dataTable-re" class="table">
                         <thead>
                           <tr>
-                            <th class="text-center">Income or Expense</th>
-                            <th class="text-center">Concept</th>
-                            <th class="text-center">Amount</th>
-                            <th class="text-center">Frequency</th>
-                            <th class="text-center">Actions</th>
+                            <th class="text-start">Income or Expense</th>
+                            <th class="text-start">Concept</th>
+                            <th class="text-start">Amount</th>
+                            <th class="text-start">Frequency</th>
+                            <th class="text-start">Actions</th>
                           </tr>
                         </thead>
-                        <tbody>
+                        <tbody class="">
                           <tr>
                             <td>
                               <select name="" class="income-expense-select">
                                 <option selected="true" disabled="disabled">
-                                  Please select type
+                                  Select type
                                 </option>
                                 <option value="Income">Income</option>
                                 <option value="Expense">Expense</option>
@@ -282,39 +285,46 @@
                             <td>
                               <select name="" class="ie-frequency-select">
                                 <option selected="true" disabled="disabled">
-                                  Please select frequency
+                                  Select frequency
                                 </option>
                                 <option value="Monthly">Monthly</option>
                                 <option value="Annual">Annual</option>
                               </select>
                             </td>
-                            <td>
-                                <a
+                            <td class="actionCell">
+                              <a
                                 class="delete"
                                 id="deleteBtn"
                                 onclick="deleteRow(this, 're')"
                                 title="Delete"
                                 data-toggle="tooltip"
-                                ><i class="fa-solid fa-trash-can"></i></a
-                              >
+                                style="cursor: pointer"
+                                ><i class="fa-solid fa-trash-can"></i
+                              ></a>
                             </td>
                           </tr>
-                        
                         </tbody>
                       </table>
                     </div>
                   </div>
                 </div>
+                
               </form>
-
-              <button class="btn-close-popup" onclick="togglePopup()">
-                Close
-              </button>
+              <div class="btn-container ">
+                
+                <button class=" me-5 popup-done simple-fancy-btn" onclick="togglePopup()">
+                  Done
+                </button>
+                <button class="btn-close-popup ms-5 simple-fancy-btn" onclick="nevermind()">
+                  Cancel
+                </button>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
+    <input type="hidden" class="income-expense-data" name="income_expense_data" />
 
     <script src="script.js"></script>
     <script src="./node_modules/@fortawesome/fontawesome-free/js/all.min.js"></script>

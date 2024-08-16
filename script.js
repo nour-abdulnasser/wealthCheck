@@ -314,6 +314,33 @@ function deleteRow(btn, assetType) {
 }
 
 
+// function getTableData(assetType) {
+//   const rows = document.querySelectorAll(`#dataTable-${assetType} tbody tr`);
+
+//   const data = [];
+//   rows.forEach((row) => {
+//     const typeSelect = row.querySelector(".income-expense-select");
+//     const conceptInput = row.querySelector(".ie-concept-input");
+//     const amountInput = row.querySelector(".ie-amount-input");
+//     const frequencySelect = row.querySelector(".ie-frequency-select");
+
+//     const type = typeSelect ? typeSelect.value : null;
+//     const concept = conceptInput ? conceptInput.value : null;
+//     const amount = amountInput ? parseFloat(amountInput.value) : NaN;
+//     const frequency = frequencySelect ? frequencySelect.value : null;
+
+//     data.push({
+//       type: type,
+//       concept: concept,
+//       amount: amount,
+//       frequency: frequency,
+//     });
+//   });
+
+//   console.log(data);
+//   return data;
+// }
+
 function getTableData(assetType) {
   const rows = document.querySelectorAll(`#dataTable-${assetType} tbody tr`);
 
@@ -329,15 +356,17 @@ function getTableData(assetType) {
     const amount = amountInput ? parseFloat(amountInput.value) : NaN;
     const frequency = frequencySelect ? frequencySelect.value : null;
 
-    data.push({
-      type: type,
-      concept: concept,
-      amount: amount,
-      frequency: frequency,
-    });
+    // Only push if there is valid data
+    if (type && concept && !isNaN(amount) && frequency) {
+      data.push({
+        type: type,
+        concept: concept,
+        amount: amount,
+        frequency: frequency,
+      });
+    }
   });
 
-  console.log(data);
   return data;
 }
 
@@ -350,10 +379,27 @@ function populateSelect(options, selectElement) {
   });
 }
 
-function togglePopup() {
+// function togglePopup() {
+//   const overlay = document.getElementById("popupOverlay");
+//   overlay.classList.toggle("show");
+// }
+
+function togglePopup(storeData = true) {
   const overlay = document.getElementById("popupOverlay");
+
+  if (storeData) {
+    // Collect the table data before closing the popup
+    const incomeExpenseData = getTableData("re");
+    document.querySelector(".income-expense-data").value = JSON.stringify(incomeExpenseData);
+  }
+
   overlay.classList.toggle("show");
 }
+
+function nevermind() {
+  togglePopup(false); // Close the popup without storing data
+}
+
 
 loadClientDetails();
 
@@ -711,6 +757,65 @@ function handlePrivateEquityReviewPage() {
   });
 }
 
+// async function handleRealEstateFormPage() {
+//   await initDropdown();
+
+//   const nextAssetBtn = document.getElementById("asset-details-next-btn");
+//   const countryListItems = document.querySelectorAll("#countryList li a");
+//   const cityListItems = document.querySelectorAll("#cityList li a");
+
+//   let countryValue = "";
+
+//   countryListItems.forEach((item) => {
+//     item.addEventListener("click", (e) => {
+//       countryValue = e.target.innerText;
+//     });
+//   });
+
+//   // document.getElementById("ieCheck").addEventListener("change", function () {
+//   //   var table = document.getElementById("income-expense-table");
+//   //   if (this.checked) {
+//   //     table.style.display = "block";
+//   //   } else {
+//   //     table.style.display = "none";
+//   //   }
+//   // });
+
+//   nextAssetBtn.addEventListener("click", function (e) {
+//     e.preventDefault();
+//     const countryElement = document.getElementById("countryDropdown");
+//     const cityElement = document.getElementById("cityDropdown");
+
+//     let newAsset = {
+//       // need to add more deets: income, expense, subtypes
+//       type: clientDetails.currentSubAssetType,
+//       name: document.querySelector(".asset-name-input").value,
+//       country: countryElement.innerText.match(/Select/gi)
+//         ? "unspecified"
+//         : countryElement.innerText,
+//       city: cityElement.innerText.match(/Select/gi)
+//         ? "unspecified"
+//         : cityElement.innerText,
+//       assetCategory: document.getElementById("subCategories").value,
+//       address: document.querySelector(".address-input").value,
+//       value: document.querySelector(".value-input").value,
+//       income_expense: getTableData("re") || "NA",
+//     };
+
+//     // if (!clientDetails.assets[clientDetails.currentAssetType]) {
+//     //   clientDetails.assets[clientDetails.currentAssetType] = [];
+//     // }
+//     // clientDetails.assets[clientDetails.currentAssetType].push(newAsset);
+
+//     clientDetails.assets.realEstate.push(newAsset);
+
+//     saveClientDetails();
+//     console.log("Added new asset:", newAsset);
+//     console.log("Updated clientDetails:", clientDetails);
+//     window.location.href = "./review-screen.html";
+//   });
+// }
+
 async function handleRealEstateFormPage() {
   await initDropdown();
 
@@ -726,22 +831,12 @@ async function handleRealEstateFormPage() {
     });
   });
 
-  // document.getElementById("ieCheck").addEventListener("change", function () {
-  //   var table = document.getElementById("income-expense-table");
-  //   if (this.checked) {
-  //     table.style.display = "block";
-  //   } else {
-  //     table.style.display = "none";
-  //   }
-  // });
-
   nextAssetBtn.addEventListener("click", function (e) {
     e.preventDefault();
     const countryElement = document.getElementById("countryDropdown");
     const cityElement = document.getElementById("cityDropdown");
 
     let newAsset = {
-      // need to add more deets: income, expense, subtypes
       type: clientDetails.currentSubAssetType,
       name: document.querySelector(".asset-name-input").value,
       country: countryElement.innerText.match(/Select/gi)
@@ -753,13 +848,8 @@ async function handleRealEstateFormPage() {
       assetCategory: document.getElementById("subCategories").value,
       address: document.querySelector(".address-input").value,
       value: document.querySelector(".value-input").value,
-      income_expense: getTableData("re") || "NA",
+      income_expense: JSON.parse(document.querySelector(".income-expense-data").value) || [],
     };
-
-    // if (!clientDetails.assets[clientDetails.currentAssetType]) {
-    //   clientDetails.assets[clientDetails.currentAssetType] = [];
-    // }
-    // clientDetails.assets[clientDetails.currentAssetType].push(newAsset);
 
     clientDetails.assets.realEstate.push(newAsset);
 

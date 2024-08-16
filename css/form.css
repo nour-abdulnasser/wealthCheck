@@ -1,25 +1,25 @@
 /******** real-estate-form screen ********/
-
 .form-wrapper {
-  /* background-color: #a7b46a; */
   width: 100vw;
   height: 100vh;
-  overflow: scroll;
+  padding: 2.5rem;
 }
 
+.fancy-label-heading {
+  font-family: "Baskervville", serif;
+  font-weight: bold;
+  /* font-style: normal; */
+  /* font-size: 1.1rem; */
+}
 
-
-.real-estate-form-container {
+#real-estate-form {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas: "img form";
+  max-height: 100%; /* Ensure the grid takes up the full height */
   -webkit-box-shadow: -1px 1px 5px 9px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -1px 1px 5px 9px rgba(0, 0, 0, 0.75);
   box-shadow: -1px 1px 15px 6px rgb(187, 199, 207);
-}
-
-
-.real-estate-form-inner {
-  background-color: #fff;
-  width: 58%;
-  padding: 1.5rem 3rem 1.5rem 3rem;
 }
 
 h1 {
@@ -59,7 +59,7 @@ h1 {
 }
 
 #asset-details-next-btn {
-  padding: 9px 20px;
+  padding: 5px 15px;
   font-family: "Baskervville", serif;
   font-weight: 400;
   font-style: normal;
@@ -73,29 +73,24 @@ h1 {
   transform: scale(1.1);
 }
 
-
 /*********** Rest of form // non table ***********/
 
-.non-table {
-  display: grid;
-  grid-template-columns: 1fr 2fr;
-  grid-template-areas: "image form ";
-}
-
 .form-img-container {
-  /* background-color: #f7c1ff; */
-  grid-area: image;
+  grid-area: img;
   background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
     url("../images/brian-babb-XbwHrt87mQ0-unsplash.jpg");
   background-size: cover;
-  background-position: center center;
+  background-position: center;
+  height: 100%; /* Ensure the image container takes up the full height */
 }
-.form-section {
-  /* background-color: #b11076; */
+.real-estate-form-container {
   grid-area: form;
+  padding: 30px;
+  
+  /* overflow: scroll; */
 }
 
-.form-section > *{
+.form-section > * {
   width: 100%;
 }
 .dropdown-container {
@@ -103,7 +98,7 @@ h1 {
   /* justify-content: space-between; */
   text-align: start;
   align-items: center;
-  margin-bottom: 1rem;
+  /* margin-bottom: 1rem; */
 }
 
 .dropdown-container label {
@@ -114,7 +109,7 @@ h1 {
   width: 80%;
 }
 
-.dropdown-container button{
+.dropdown-container button {
   width: 80%;
   height: 2.5rem;
   margin: 0.5rem 0;
@@ -138,14 +133,14 @@ h1 {
   margin-left: auto;
 }
 
-.dropdown-container ul li{
+.dropdown-container ul li {
   padding: 0px;
   margin-top: 2px;
   border: none;
   background-color: #fff;
 }
 
-.dropdown-menu{
+.dropdown-menu {
   height: 300px;
   width: inherit;
   overflow-y: scroll;
@@ -163,7 +158,7 @@ h1 {
   font-family: "Baskervville", serif;
 }
 
-select:focus-visible{
+select:focus-visible {
   outline: none;
 }
 
@@ -195,8 +190,6 @@ th {
 button {
   margin-top: 10px;
 }
-
-
 
 @media (min-width: 768px) {
   .masthead-inner {
@@ -262,4 +255,3 @@ button {
 select {
   padding: 5px;
 }
-
