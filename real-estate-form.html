@@ -22,24 +22,31 @@
       href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Baskervville:ital@0;1&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./css/popup.css" />
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./css/form.css" />
+    <link rel="stylesheet" href="./css/table.css" />
   </head>
   <body>
-    <div class="form-wrapper">
+    <div class="form-wrapper container">
       <div
         id="real-estate-form"
-        class="container d-flex justify-content-center"
+        class="overflow-hidden"
       >
-        <div class="real-estate-form-container w-75 p-5">
-          <h1 class="">Real Estate Asset Details</h1>
+      <div class="form-img-container"></div>
+        <div class="real-estate-form-container">
+          <h1 class="fancy-label-heading my-0">Real Estate Asset Details</h1>
           <form id="asset-details-form">
             <div class="non-table">
-              <div class="form-img-container"></div>
+              
               <div
                 class="form-section d-flex flex-column align-items-start ps-3"
               >
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-1">
                   <input
                     type="text"
                     class="form-control asset-name-input"
@@ -52,55 +59,112 @@
                   >
                 </div>
                 <div class="dropdown-container">
-                  <label for="countries" class="fancy-label"
+                  <label for="countryDropdown" class="fancy-label"
                     ><span>Asset country</span>
-                    <span>:</span> 
+                    <span>:</span>
                   </label>
-                  <select id="countries">
-                    <option selected="true" disabled="disabled">Country</option>
-                  </select>
-                </div>
-                <div class="dropdown-container">
-                  <label for="cities" class="fancy-label"
-                    ><span>Asset city</span>
-                    <span>:</span> </label
+                  <div
+                    class="dropdown dropdown-inner d-flex justify-content-end"
                   >
-                  <select id="cities">
-                    <option selected="true" disabled="disabled">City</option>
-                  </select>
+                    <button
+                      class="dropdown-toggle"
+                      type="button"
+                      id="countryDropdown"
+                      aria-haspopup="true"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <span>Select Country</span>
+                      <span>
+                        <i class="fa fa-solid fa-angle-down"></i>
+                      </span>
+                    </button>
+                    <ul
+                      class="dropdown-menu country-dropdown-menu"
+                      aria-labelledby="countryDropdown"
+                    >
+                      <li>
+                        <input
+                          type="text"
+                          class="form-control mb-2"
+                          id="countrySearch"
+                          placeholder="Search countries..."
+                        />
+                      </li>
+                      <div id="countryList"></div>
+                    </ul>
+                  </div>
                 </div>
+
+                <div class="dropdown-container">
+                  <label for="cityDropdown" class="fancy-label"
+                    ><span>Asset city</span>
+                    <span>:</span>
+                  </label>
+                  <div
+                    class="dropdown dropdown-inner d-flex justify-content-end"
+                  >
+                    <button
+                      class="dropdown-toggle"
+                      type="button"
+                      id="cityDropdown"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <span id="citySpan"> Select City </span>
+                      <i class="fa fa-solid fa-angle-down"></i>
+                    </button>
+                    <ul
+                      class="dropdown-menu city-dropdown-menu"
+                      aria-labelledby="cityDropdown"
+                    >
+                      <li>
+                        <input
+                          type="text"
+                          class="form-control mb-2"
+                          id="citySearch"
+                          placeholder="Search cities..."
+                        />
+                      </li>
+                      <div id="cityList"></div>
+                    </ul>
+                  </div>
+                </div>
+
                 <div class="dropdown-container">
                   <label for="subCategories" class="fancy-label"
-                    ><span>Asset category</span>
-                    <span>:</span> </label
-                  >
-                  <select id="subCategories">
-                    <option selected="true" disabled="disabled">
-                      Subcategory
-                    </option>
+                    ><span>Asset category</span> <span>:</span>
+                  </label>
+                  <div class="dropdown-inner d-flex justify-content-end">
+                    <select id="subCategories">
+                      <option selected="true" disabled="disabled">
+                        Subcategory
+                      </option>
 
-                    <optgroup label="Commercial">
-                      <option value="commercial for rent">
-                        Commercial property for rent
-                      </option>
-                      <option value="office">Office</option>
-                    </optgroup>
-                    <optgroup label="Industrial">
-                      <option value="factories">Factories</option>
-                      <option value="warehouses">Warehouses</option>
-                    </optgroup>
-                    <optgroup label="Residential">
-                      <option value="residential for rent">
-                        Residential property for rent
-                      </option>
-                      <option value="housing">Residential housing</option>
-                    </optgroup>
-                    <optgroup label="Land">
-                      <option value="agricultural">Agricultural land</option>
-                    </optgroup>
-                  </select>
+                      <optgroup label="Commercial">
+                        <option value="commercial for rent">
+                          Commercial property for rent
+                        </option>
+                        <option value="office">Office</option>
+                      </optgroup>
+                      <optgroup label="Industrial">
+                        <option value="factories">Factories</option>
+                        <option value="warehouses">Warehouses</option>
+                      </optgroup>
+                      <optgroup label="Residential">
+                        <option value="residential for rent">
+                          Residential property for rent
+                        </option>
+                        <option value="housing">Residential housing</option>
+                      </optgroup>
+                      <optgroup label="Land">
+                        <option value="agricultural">Agricultural land</option>
+                      </optgroup>
+                    </select>
+                  </div>
                 </div>
-                <div class="form-floating mb-3">
+
+                <div class="form-floating mb-1">
                   <input
                     type="text"
                     class="form-control address-input"
@@ -111,7 +175,7 @@
                     >Address (optional)</label
                   >
                 </div>
-                <div class="form-floating mb-3">
+                <div class="form-floating mb-1">
                   <input
                     type="number"
                     class="form-control value-input"
@@ -123,13 +187,13 @@
                     >Value ($)</label
                   >
                 </div>
-                <div class="mb-3">
+                <div class="mb-1">
                   <label
-                    class="fancy-label"
+                    class="fancy-label my-2"
                     for="formFileMultiple"
-                    class="custom-file-upload form-label"
-                    >Please upload any supporting documents: <br />
-                    e.g. House deed (optional)</label
+                    class="custom-file-upload form-label "
+                  >
+                    Upload any supporting documents: e.g. House deed (optional)</label
                   >
                   <input
                     class="form-control"
@@ -138,21 +202,14 @@
                     multiple
                   />
                 </div>
-                <div class="d-flex w-100 justify-content-between">
-                  <div
-                    class="income-expense-check d-flex align-items-center "
+                <div class="d-flex mt-4 w-100 justify-content-between">
+                  <button
+                    class="btn-open-popup d-flex justify-content-around align-items-center"
+                    onclick="togglePopup()"
                   >
-                    <input
-                      type="checkbox"
-                      id="ieCheck"
-                      name="checkForTable"
-                      value="checkForTable"
-                    />
-                    <label for="ieCheck" class="ms-1"
-                      >Would you like to fill in income and expense
-                      details?</label
-                    ><br />
-                  </div>
+                    <i class="fa fa-plus"></i>
+                    <span>Add income and expenses</span>
+                  </button>
                   <div class="button-container">
                     <button
                       type="button"
@@ -165,65 +222,113 @@
                 </div>
               </div>
             </div>
-            <div class="table-wrapper mt-3">
-              <div id="income-expense-table" style="display: none">
-                <table id="dataTable-re" class="table-light">
-                  <thead>
-                    <tr>
-                      <th class="text-center">Income or Expense</th>
-                      <th class="text-center">Concept</th>
-                      <th class="text-center">Amount</th>
-                      <th class="text-center">Frequency</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <select name="" class="income-expense-select">
-                          <option selected="true" disabled="disabled">
-                            Please select type
-                          </option>
-                          <option value="Income">Income</option>
-                          <option value="Expense">Expense</option>
-                        </select>
-                      </td>
-                      <td>
-                        <input
-                          type="text"
-                          placeholder="Concept"
-                          class="ie-concept-input"
-                        />
-                      </td>
-                      <td>
-                        <input
-                          type="number"
-                          placeholder="Amount"
-                          class="ie-amount-input"
-                        />
-                      </td>
-                      <td>
-                        <select name="" class="ie-frequency-select">
-                          <option selected="true" disabled="disabled">
-                            Please select frequency
-                          </option>
-                          <option value="Monthly">Monthly</option>
-                          <option value="Annual">Annual</option>
-                        </select>
-                      </td>
-                    </tr>
-                  </tbody>
-                </table>
-                <button type="button" onclick="addRow('re')">
-                  Add another row?
+          </form>
+          <div id="popupOverlay" class="overlay-container">
+            <div class="popup-box">
+              <form class="form-container">
+                <div class="container-lg">
+                  <div class="table-responsive">
+                    <div class="table-wrapper">
+                      <div class="table-title">
+                        <div
+                          class="d-flex p-4 justify-content-between align-items-center"
+                        >
+                          <div class="col-sm-8">
+                            <h2 class="fancy-label-heading">Asset Income and Expenses</h2>
+                          </div>
+                          <div class="col-sm-4 text-end">
+                            <button
+                              type="button"
+                              class="add-new simple-fancy-btn"
+                              onclick="addRow('re')"
+                            >
+                              <i class="fa fa-plus"></i> Add New
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <table id="dataTable-re" class="table">
+                        <thead>
+                          <tr>
+                            <th class="text-start">Income or Expense</th>
+                            <th class="text-start">Concept</th>
+                            <th class="text-start">Amount</th>
+                            <th class="text-start">Frequency</th>
+                            <th class="text-start">Actions</th>
+                          </tr>
+                        </thead>
+                        <tbody class="">
+                          <tr>
+                            <td>
+                              <select name="" class="income-expense-select">
+                                <option selected="true" disabled="disabled">
+                                  Select type
+                                </option>
+                                <option value="Income">Income</option>
+                                <option value="Expense">Expense</option>
+                              </select>
+                            </td>
+                            <td>
+                              <input
+                                type="text"
+                                placeholder="Concept"
+                                class="ie-concept-input"
+                              />
+                            </td>
+                            <td>
+                              <input
+                                type="number"
+                                placeholder="Amount"
+                                class="ie-amount-input"
+                              />
+                            </td>
+                            <td>
+                              <select name="" class="ie-frequency-select">
+                                <option selected="true" disabled="disabled">
+                                  Select frequency
+                                </option>
+                                <option value="Monthly">Monthly</option>
+                                <option value="Annual">Annual</option>
+                              </select>
+                            </td>
+                            <td class="actionCell">
+                              <a
+                                class="delete"
+                                id="deleteBtn"
+                                onclick="deleteRow(this, 're')"
+                                title="Delete"
+                                data-toggle="tooltip"
+                                style="cursor: pointer"
+                                ><i class="fa-solid fa-trash-can"></i
+                              ></a>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                </div>
+                
+              </form>
+              <div class="btn-container ">
+                
+                <button class=" me-5 popup-done simple-fancy-btn" onclick="togglePopup()">
+                  Done
+                </button>
+                <button class="btn-close-popup ms-5 simple-fancy-btn" onclick="nevermind()">
+                  Cancel
                 </button>
               </div>
             </div>
-          </form>
+          </div>
         </div>
       </div>
     </div>
+    <input type="hidden" class="income-expense-data" name="income_expense_data" />
 
     <script src="script.js"></script>
+    <script src="./node_modules/@fortawesome/fontawesome-free/js/all.min.js"></script>
+
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>
