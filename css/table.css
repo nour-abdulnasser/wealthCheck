@@ -1,0 +1,83 @@
+table input[type="text"], input, table select{
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: solid #333 1px;
+    border-radius: 0px;
+    font-family: "Baskervville", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+
+table input[type="text"]:focus, table input{
+    outline: none;
+}
+
+table td {
+    text-align: start; /* Center horizontally */
+    vertical-align: middle; /* Center vertically */
+    padding: 10px; /* Add some padding for better spacing */
+    border-left: none;
+    border-right: none;
+}
+
+table tbody tr{
+    border: #333 2px solid;
+    border-left: none;
+    border-right: none;
+}
+
+table select, table option{
+    font-family: "Baskervville", serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+table th{
+    font-family: "Baskervville", serif;
+    font-weight: bold;
+    font-style: normal;
+    border: none;
+    /* border-left: solid 1px; */
+}
+
+.actionCell{
+    text-align: center;
+}
+
+.simple-fancy-btn{
+    padding: 9px 20px;
+    font-family: "Baskervville", serif;
+    font-weight: bold;
+    font-size: 1rem;
+    background-color: #fff;
+    border: #333 solid 1px;
+    border-radius: 2px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+}
+
+.simple-fancy-btn:hover{
+    background-color: #e6e6e6;
+}
+
+.fa-trash-can{
+    color: #a50000;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    font-weight: bolder;
+}
+.fa-trash-can:hover{
+    color: #964141;
+}
+.add-new{
+    background-color: #f5f5ea;
+}
+.popup-done{
+    background-color: #ffffff;
+}
+

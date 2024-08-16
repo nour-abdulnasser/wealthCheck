@@ -427,8 +427,8 @@ document.addEventListener("DOMContentLoaded", function () {
     case "private-equity-types.html":
       handlePrivateEquityTypePage();
       break;
-    case "niche-types.html":
-      handleNicheAssetsTypePage();
+    case "niche-assets-type.html":
+      handleNicheAssetTypePage();
       break;
     case "real-estate-form.html":
       handleRealEstateFormPage();
@@ -436,16 +436,20 @@ document.addEventListener("DOMContentLoaded", function () {
     case "private-equity-form.html":
       handlePrivateEquityFormPage();
       break;
-    // case "niche-assets-form.html":
+    case "niche-asset-form.html":
+      handleNicheAssetFormPage()
+      break;
     case "financial-assets-form.html":
       handleFinancialAssetsFormPage();
-
       break;
     case "review-screen.html":
       handleReviewPage();
       break;
     case "private-equity-review-screen.html":
       handlePrivateEquityReviewPage();
+      break;
+      case "niche-asset-review-screen.html":
+      handleNicheAssetReviewPage();
       break;
     case "add-another-asset-screen.html":
       handleAddAnotherAssetPage();
@@ -526,7 +530,7 @@ function handleAssetTypesPage() {
           window.location.href = "./private-equity-types.html";
           break;
         case "nicheAssets":
-          window.location.href = "./niche-types.html";
+          window.location.href = "./niche-assets-type.html";
           break;
         case "financialAssetsWithOtherAdvisors":
           window.location.href = "./financial-assets-form.html";
@@ -571,19 +575,150 @@ function handlePrivateEquityTypePage() {
   });
 }
 
-function handleNicheAssetsTypePage() {
+function handleNicheAssetTypePage() {
   const subAssetButtons = document.querySelectorAll(
-    ".inner-niche-assets .fancy-button"
+    ".inner-niche-asset  .fancy-button"
   );
   subAssetButtons.forEach((btn) => {
     btn.addEventListener("click", (e) => {
       e.preventDefault();
-      clientDetails.currentSubAssetType = btn.id.replace("-btn", "");
+      if (btn.id === "skip-niche-asset-type-btn") {
+        clientDetails.currentSubAssetType = "unspecified";
+      } else {
+        clientDetails.currentSubAssetType = btn.id.replace("-btn", "");
+      }
       saveClientDetails();
-      window.location.href = "./niche-assets-form.html";
+      window.location.href = "niche-asset-form.html";
     });
   });
 }
+
+function handleNicheAssetFormPage() {
+  const nicheAssetsDetailsForm = document.getElementById("nicheAsset-asset-details-form");
+  const nicheAssetsNextBtn = document.getElementById("nicheAsset-asset-details-next-btn");
+  const nicheImgContainer = document.querySelector(".nicheAsset-image-container");
+
+  console.log("Current clientDetails:", clientDetails); // Debugging log
+
+  // Check if clientDetails and currentSubAssetType are defined
+  if (clientDetails && clientDetails.currentSubAssetType) {
+    console.log("Current sub asset type:", clientDetails.currentSubAssetType); // Debugging log
+
+    // Update background image based on the selected niche asset type
+    switch (clientDetails.currentSubAssetType) {
+      case "art":
+        nicheImgContainer.style.backgroundImage = "url('./images/art.jpg')";
+        break;
+      case "luxuryVehicle":
+        nicheImgContainer.style.backgroundImage = "url('./images/yacht.jpg')";
+        break;
+      case "otherCollection":
+        nicheImgContainer.style.backgroundImage = "url('./images/wine.jpg')";
+        break;
+      default:
+        // Keep the default image if no specific type is selected or for "unspecified"
+        nicheImgContainer.style.backgroundImage = "url('./images/ cornelia-ng-2zHQhfEpisc-unsplash.jpg')";
+        console.log("No specific type selected or unspecified"); // Debugging log
+        break;
+    }
+  } else {
+    console.log("clientDetails or currentSubAssetType is undefined"); // Debugging log
+  }
+
+  // Add event listener for the next button
+  nicheAssetsNextBtn.addEventListener("click", function (e) {
+    e.preventDefault();
+
+    let newAsset = {
+      type: clientDetails.currentSubAssetType,
+      name: document.querySelector(".nicheAsset-name-input").value,
+      value: document.querySelector(".nicheAsset-value-input").value,
+    };
+
+    if (!clientDetails.assets.nicheAssets) {
+      clientDetails.assets.nicheAssets = [];
+    }
+
+    clientDetails.assets.nicheAssets.push(newAsset);
+    saveClientDetails();
+
+    console.log("Added new niche asset:", newAsset);
+    console.log("Updated clientDetails:", clientDetails);
+
+    // Navigate to the review screen
+    window.location.href = "./niche-asset-review-screen.html";
+  });
+}
+
+
+
+
+
+function handleNicheAssetReviewPage() {
+  const nicheAssetEditBtn = document.getElementById("niche-asset-edit-details-btn");
+  const nicheAssetConfirmBtn = document.getElementById("niche-asset-confirm-details-btn");
+  const nicheAssetEditForm = document.getElementById("niche-edit-form");
+  const editTypeSelect = document.getElementById("edit-type");
+
+  // Populate review fields
+  const currentAsset = clientDetails.assets.nicheAssets[clientDetails.assets.nicheAssets.length - 1];
+  document.getElementById("edit-client-name").value = clientDetails.name;
+  editTypeSelect.value = currentAsset.type;
+  document.getElementById("edit-nicheAsset-name").value = currentAsset.name;
+  document.getElementById("edit-nicheAsset-value").value = currentAsset.value;
+
+  // Initially disable all form fields
+  document.querySelectorAll("#niche-edit-form input, #niche-edit-form select")
+    .forEach(el => el.disabled = true);
+
+  nicheAssetEditBtn.addEventListener("click", function() {
+    // Enable editing of fields
+    document.querySelectorAll("#niche-edit-form input, #niche-edit-form select")
+      .forEach(el => el.disabled = false);
+    nicheAssetEditBtn.style.display = "none";
+    nicheAssetConfirmBtn.style.display = "inline-block";
+  });
+
+  nicheAssetConfirmBtn.addEventListener("click", function(e) {
+    e.preventDefault();
+    const editedAsset = {
+      type: editTypeSelect.value,
+      name: document.getElementById("edit-nicheAsset-name").value,
+      value: document.getElementById("edit-nicheAsset-value").value
+    };
+
+    clientDetails.assets.nicheAssets[clientDetails.assets.nicheAssets.length - 1] = editedAsset;
+    saveClientDetails();
+    console.log("Updated niche asset:", editedAsset);
+    console.log("Updated clientDetails:", clientDetails);
+
+    // Navigate to add-another-asset screen
+    window.location.href = "./add-another-asset-screen.html";
+  });
+
+  // Update background image based on the asset type
+  const nicheReviewImgContainer = document.querySelector(".niche-reviewImage-container");
+  switch (currentAsset.type) {
+    case "art":
+      nicheReviewImgContainer.style.backgroundImage = "url('./images/art.jpg')";
+      break;
+    case "luxuryVehicle":
+      nicheReviewImgContainer.style.backgroundImage = "url('./images/yacht.jpg')";
+      break;
+    case "otherCollection":
+      nicheReviewImgContainer.style.backgroundImage = "url('./images/wine.jpg')";
+      break;
+    default:
+      // Keep the default image for unspecified type
+      break;
+  }
+}
+
+
+
+
+
+
 
 function handlePrivateEquityFormPage() {
   const privateEquityDetailsForm = document.getElementById(
