@@ -550,10 +550,10 @@ function handlePrivateEquityFormPage() {
 
   if (clientDetails.currentSubAssetType === "unspecified") {
     const fundOrCompanyNameInput = document.querySelector(
-      ".pe-asset-name-input"
+      ".pe-asset-fundOrCompanyName-input"
     );
     const fundOrCompanyNameLabel = document.querySelector(
-      ".pe-asset-name-label"
+      ".pe-asset-fundOrCompanyName-label"
     );
     const isinInput = document.querySelector(".pe-isin-input");
     const isinLabel = document.querySelector(".pe-isin-label");
@@ -572,7 +572,7 @@ function handlePrivateEquityFormPage() {
       fundOrCompanyName:
         clientDetails.currentSubAssetType === "unspecified"
           ? "unspecified"
-          : document.querySelector(".pe-asset-name-input").value,
+          : document.querySelector(".pe-asset-fundOrCompanyName-input").value,
       isin:
         clientDetails.currentSubAssetType === "unspecified"
           ? "unspecified"
@@ -580,6 +580,7 @@ function handlePrivateEquityFormPage() {
       sharesAmount: document.querySelector(".pe-sharesAmount-input").value,
       investmentValue: document.querySelector(".pe-value-input").value,
       buyPrice: document.querySelector(".pe-buyPrice-input").value,
+      assetName: document.querySelector(".pe-assetName-input").value,
       income_expense: getTableData('pe') || "NA",
     };
 
@@ -588,6 +589,7 @@ function handlePrivateEquityFormPage() {
     }
 
     // Update clientDetails with the new asset information
+    clientDetails.assetName = newAsset.assetName
     clientDetails.sharesAmount = newAsset.sharesAmount;
     clientDetails.investmentValue = newAsset.investmentValue;
     clientDetails.buyPrice = newAsset.buyPrice;
@@ -603,7 +605,7 @@ function handlePrivateEquityFormPage() {
   });
 }
 
-function handlePrivateEquityReviewPage() {
+      function handlePrivateEquityReviewPage() {
   const privateEquityEditBtn = document.getElementById(
     "private-equity-edit-details-btn"
   );
@@ -633,6 +635,7 @@ function handlePrivateEquityReviewPage() {
   editTypeSelect.value = currentAsset.type;
   fundOrCompanyNameInput.value = currentAsset.fundOrCompanyName;
   isinInput.value = currentAsset.isin;
+  document.getElementById("edit-assetName").value = currentAsset.assetName
   document.getElementById("edit-shares").value = currentAsset.sharesAmount;
   document.getElementById("edit-investmentValue").value =
     currentAsset.investmentValue;
