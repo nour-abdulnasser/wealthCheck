@@ -99,22 +99,22 @@ async function loadCountries() {
   return data.sort((a, b) => a.name.common.localeCompare(b.name.common));
 }
 
-async function loadCities(country) {
-  const response = await fetch(
-    "https://countriesnow.space/api/v0.1/countries/cities",
-    {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        country: country,
-      }),
-    }
-  );
-  const data = await response.json();
-  return data.data;
-}
+// async function loadCities(country) {
+//   const response = await fetch(
+//     "https://countriesnow.space/api/v0.1/countries/cities",
+//     {
+//       method: "POST",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         country: country,
+//       }),
+//     }
+//   );
+//   const data = await response.json();
+//   return data.data;
+// }
 
 // for cities and countries
 function populateDropdown(
@@ -133,11 +133,11 @@ function populateDropdown(
     a.textContent = itemName;
     a.onclick = () => {
       document.getElementById(dropdownButtonId).textContent = itemName;
-      if (isCountry) {
-        selectedCountry = itemName;
+      // if (isCountry) {
+      //   selectedCountry = itemName;
 
-        updateCities();
-      }
+      //   updateCities();
+      // }
     };
     li.appendChild(a);
     listElement.appendChild(li);
@@ -172,24 +172,24 @@ function populateSelect(items, selectElement) {
   });
 }
 
-async function updateCities() {
-  if (selectedCountry) {
-    citiesArr = await loadCities(selectedCountry);
-    document.getElementById("cityDropdown").textContent = "Select City";
-    populateDropdown(
-      citiesArr,
-      document.getElementById("cityList"),
-      "citySearch",
-      "cityDropdown",
-      false
-    );
-    document.querySelectorAll("#cityList li a").forEach((cityItem) => {
-      cityItem.addEventListener("click", (e) => {
-        console.log("from cityyyyyyyyyy", e.target.innerText);
-      });
-    });
-  }
-}
+// async function updateCities() {
+//   if (selectedCountry) {
+//     citiesArr = await loadCities(selectedCountry);
+//     document.getElementById("cityDropdown").textContent = "Select City";
+//     populateDropdown(
+//       citiesArr,
+//       document.getElementById("cityList"),
+//       "citySearch",
+//       "cityDropdown",
+//       false
+//     );
+//     document.querySelectorAll("#cityList li a").forEach((cityItem) => {
+//       cityItem.addEventListener("click", (e) => {
+//         console.log("from cityyyyyyyyyy", e.target.innerText);
+//       });
+//     });
+//   }
+// }
 
 async function initDropdown() {
   countriesArr = await loadCountries();
@@ -956,7 +956,7 @@ async function handleRealEstateFormPage() {
 
   const nextAssetBtn = document.getElementById("asset-details-next-btn");
   const countryListItems = document.querySelectorAll("#countryList li a");
-  const cityListItems = document.querySelectorAll("#cityList li a");
+  // const cityListItems = document.querySelectorAll("#cityList li a");
 
   let countryValue = "";
 
@@ -969,7 +969,7 @@ async function handleRealEstateFormPage() {
   nextAssetBtn.addEventListener("click", function (e) {
     e.preventDefault();
     const countryElement = document.getElementById("countryDropdown");
-    const cityElement = document.getElementById("cityDropdown");
+    // const cityElement = document.getElementById("cityDropdown");
 
     let newAsset = {
       type: clientDetails.currentSubAssetType,
@@ -977,9 +977,9 @@ async function handleRealEstateFormPage() {
       country: countryElement.innerText.match(/Select/gi)
         ? "unspecified"
         : countryElement.innerText,
-      city: cityElement.innerText.match(/Select/gi)
-        ? "unspecified"
-        : cityElement.innerText,
+      // city: cityElement.innerText.match(/Select/gi)
+      //   ? "unspecified"
+      //   : cityElement.innerText,
       assetCategory: document.getElementById("subCategories").value,
       address: document.querySelector(".address-input").value,
       value: document.querySelector(".value-input").value,
@@ -1011,7 +1011,7 @@ async function handleReviewPage() {
   document.getElementById("edit-asset-name").value = currentAsset.name;
   document.getElementById("edit-address").value = currentAsset.address;
   document.getElementById("edit-country").value = currentAsset.country;
-  document.getElementById("edit-city").value = currentAsset.city;
+  // document.getElementById("edit-city").value = currentAsset.city;
   document.getElementById("edit-value").value = currentAsset.value;
 
   // Initially disable all form fields
@@ -1039,7 +1039,7 @@ async function handleReviewPage() {
       country: capitalizeFirstLetter(
         document.getElementById("edit-country").value
       ),
-      city: capitalizeFirstLetter(document.getElementById("edit-city").value),
+      // city: capitalizeFirstLetter(document.getElementById("edit-city").value),
       value: document.getElementById("edit-value").value,
     };
 
