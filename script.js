@@ -971,8 +971,17 @@ async function handleRealEstateFormPage() {
 
   nextAssetBtn.addEventListener("click", function (e) {
     e.preventDefault();
+    let incomeExpenseDataElement = document.querySelector(".income-expense-data");
     const countryElement = document.getElementById("countryDropdown");
     // const cityElement = document.getElementById("cityDropdown");
+    let incomeExpenseData = [];
+    if (incomeExpenseDataElement && incomeExpenseDataElement.value.trim()) {
+        try {
+            incomeExpenseData = JSON.parse(incomeExpenseDataElement.value);
+        } catch (error) {
+            console.error("Error parsing income/expense data:", error);
+        }
+    }
 
     let newAsset = {
       type: clientDetails.currentSubAssetType,
@@ -986,7 +995,7 @@ async function handleRealEstateFormPage() {
       assetCategory: document.getElementById("subCategories").value,
       address: document.querySelector(".address-input").value,
       value: document.querySelector(".value-input").value,
-      income_expense: JSON.parse(document.querySelector(".income-expense-data").value) || [],
+      income_expense: incomeExpenseData,
     };
 
     clientDetails.assets.realEstate.push(newAsset);
