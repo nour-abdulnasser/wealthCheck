@@ -1,24 +1,124 @@
-#asset-type-screen{
-    /* background-color: teal; */
-    background: url("../images/kate-j-townsend-nx-dCfKxJLs-unsplash.jpg") ;
+:root {
+    --color-dark-blue: #101326;
+    --color-light-blue: #5280AC;
+    --color-cream: #EDE3DD;
+  }
+  
+  body, html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: Arial, sans-serif;
+  }
+  
+  #asset-type-screen {
+    background: url("../images/kate-j-townsend-nx-dCfKxJLs-unsplash.jpg");
     background-size: cover;
-    background-position: center 35%;
+    background-position: center center;
     height: 100vh;
     width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 5vh;
+  }
+  
+  #asset-type-header {
+    margin-bottom: 20px;
+  }
+  
+h1 {
+    font-size: 1rem;
+
+}
+
+  #please-select-asset-type {
+    color: whitesmoke; /* Ensuring this is whitesmoke, not black */
+    font-size: 1.8rem;
+    text-align: center;
+    font-family: "Baskervville", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-weight: bold;
+  }
+  
+  #asset-type-inner-container {
+    width: 90%; /* Increased from 60% to make buttons larger */
+    max-width: 900px; /* Increased from 600px to make buttons larger */
+  }
+  
+  .fancy-button {
+    aspect-ratio: 1 / 1;
+    background-color: transparent;
+    border: 2px solid whitesmoke;
+    color: whitesmoke;
+    font-size: 1.7rem;
+    text-align: center;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease-in-out;
+    padding: 48px;
+    font-family: "Baskervville", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  .four-squares {
     display: grid;
-    grid-template-rows: 1.5fr 3fr;
-    grid-template-areas: "header" "content";
+    grid-template-columns: repeat(2, 1fr);
+    gap: 40px;
+  }
+  
 
-}
-#asset-type-inner-container{
-    /* background-color: purple; */
-    grid-area: content;
+  
+  .fancy-button:hover {
+    color: whitesmoke;
+    transform: scale(1.05);
+  }
+  
+  #realEstate-btn:hover,
+  #privateEquity-btn:hover,
+  #nicheAssets-btn:hover,
+  #financialAssets-btn:hover {
+    background-blend-mode: overlay;
+    background-size: cover;
+    background-position: center;
+  }
+  
+  #realEstate-btn:hover {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./images/frames-for-your-heart-2d4lAQAlbDA-unsplash.jpg");
+  background-size: cover;
+  background-position: center;
+    text-shadow: 2px 2px 2px #000000;   
 
-}
-#asset-type-header{
-    /* background-color: blue; */
-    margin: 0;
-    grid-area: header;
-}
+  }
+  
+  #privateEquity-btn:hover {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./images/lo-lo-CeVj8lPBJSc-unsplash\ \(1\).jpg");
+  background-size: cover;
+  background-position: center;
 
+    text-shadow: 2px 2px 2px #000000;   
 
+  }
+  
+  #nicheAssets-btn:hover {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./images/andrew-neel-acowe0pCVBg-unsplash.jpg");
+  background-size: cover;
+  background-position: center;    
+    text-shadow: 2px 2px 2px #000000;   
+  }
+
+  
+  #financialAssets-btn:hover {
+    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./images/scott-graham-5fNmWej4tAA-unsplash.jpg");
+    background-size: cover;
+    background-position: center;
+    text-shadow: 2px 2px 2px #000000;   
+  }

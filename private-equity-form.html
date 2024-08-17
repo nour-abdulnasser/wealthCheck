@@ -24,15 +24,29 @@
           <div class="private-equity-form-inner">
             <h1 class="fancy-label">Enter Asset Details</h1>
             <form id="private-equity-asset-details-form">
+
               <div class="form-floating mb-3">
                 <input
                   type="text"
-                  class="form-control pe-asset-name-input"
+                  class="form-control pe-assetName-input"
                   id="floatingInput"
-                  placeholder="Name of Fund"
+                  placeholder="Asset Name"
                   required
                 />
-                <label class="fancy-label pe-asset-name-label" for="floatingInput"
+                <label class="fancy-label pe-assetName-label" for="floatingInput"
+                  >Asset Name</label
+                >
+              </div>
+
+              <div class="form-floating mb-3">
+                <input
+                  type="text"
+                  class="form-control pe-asset-fundOrCompanyName-input"
+                  id="floatingInput"
+                  placeholder="Name of Fund / Company"
+                  required
+                />
+                <label class="fancy-label pe-asset-fundOrCompanyName-label" for="floatingInput"
                   >Name of Fund / Company</label
                 >
               </div>

@@ -1,0 +1,138 @@
+/* Global styles */
+body, html {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Real estate type screen specific styles */
+  #real-estate-type-screen {
+    width: 100%;
+    height: 100vh;
+    background: url("./images/kate-j-townsend-nx-dCfKxJLs-unsplash.jpg");
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .inner-real-estate-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .inner-real-estate {
+    width: 90%;
+    max-width: 650px; /* Adjusted to accommodate wider buttons */
+    text-align: center;
+  }
+  
+  .inner-real-estate h1 {
+    color: whitesmoke;
+    font-family: "Baskervville", serif;
+    font-weight: 400;
+    font-style: normal;
+    margin-bottom: 30px;
+    font-size: 24px;
+  }
+  
+  .four-squares {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 30px;
+  }
+  
+  .four-squares a {
+    width: 100%; /* This will make the anchor take full width of its grid cell */
+    height: 250px; /* Set a fixed height */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  
+  .fancy-button {
+    background-color: transparent;
+    border: whitesmoke solid 1.8px;
+    color: whitesmoke;
+    font-size: 25px;
+    border-radius: 0;
+    transition: all 0.3s ease-in-out;
+    font-family: "Baskervville SC", serif;
+    letter-spacing: 2px;
+    padding: 25px 20px; /* Adjusted padding for better control */
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .fancy-button:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    transform: scale(1.05)
+  }
+  
+  /* Specific button hover effects */
+  #residential-btn:hover,
+  #commercial-btn:hover,
+  #industrial-btn:hover,
+  #land-btn:hover {
+    background-size: cover;
+    background-position: center;
+  }
+  
+  #residential-btn:hover {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("./images/point3d-commercial-imaging-ltd-Rah-1gGE4nk-unsplash.jpg");
+      text-shadow: 2px 2px 2px #000000;   
+
+  }
+  
+  #commercial-btn:hover {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("./images/chris-greenhow-Jenh_W-2kpQ-unsplash.jpg");
+      text-shadow: 2px 2px 2px #000000;   
+
+  }
+  
+  #industrial-btn:hover {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("./images/adrian-sulyok-sczNLg6rrhQ-unsplash.jpg");
+      text-shadow: 2px 2px 2px #000000;   
+
+  }
+  
+  #land-btn:hover {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("./images/juan-cruz-mountford-oFweDg39ldw-unsplash.jpg");
+      text-shadow: 2px 2px 2px #000000;   
+
+  }
+  
+  #skip-real-estate-type-btn {
+    width: 200px;
+    padding: 10px 0;
+    margin: 20px auto 0;
+    font-family: "Baskervville", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 16px;
+    display: block;
+  }
+  
+  #skip-real-estate-type-btn:hover {
+    background-color: rgba(224, 238, 243, 0.2);
+    transform: scale(1.05);
+    text-shadow: 2px 2px 2px #000000;   
+
+  }

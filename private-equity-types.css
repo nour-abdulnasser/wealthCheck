@@ -1,0 +1,136 @@
+/* Private Equity Types Screen Styles */
+#private-equity-type-screen {
+    width: 100%;
+    height: 100vh;
+    background: url("./images/kate-j-townsend-nx-dCfKxJLs-unsplash.jpg");
+    background-size: cover;
+    background-position: center center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  #inner-private-equity-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .inner-private-equity {
+    width: 90%;
+    max-width: 650px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .inner-private-equity h1 {
+    color: whitesmoke;
+    font-family: "Baskervville", serif;
+    font-weight: bold;
+    font-style: normal;
+    margin-bottom: 30px;
+    font-size: 24px;
+  }
+  
+  .four-squares {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-bottom: 20px;
+    justify-content: center;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  
+  .four-squares a {
+    width: 100%;
+    height: 250px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    text-decoration: none;
+  }
+  
+  .fancy-button {
+    background-color: transparent;
+    border: whitesmoke solid 1.8px;
+    color: whitesmoke;
+    font-size: 25px;
+    border-radius: 0;
+    transition: all 0.3s ease-in-out;
+    font-family: "Baskervville SC", serif;
+    letter-spacing: 2px;
+    padding: 25px 20px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .fancy-button:hover {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    transform: scale(1.05);
+  }
+  
+  /* Specific button hover effects */
+  #fund-btn:hover,
+  #investment-btn:hover,
+  #ownCompany-btn:hover,
+  #skip-private-equity-type-btn:hover {
+    background-size: cover;
+    background-position: center;
+  }
+  
+  #fund-btn:hover {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("./images/pexels-sevenstormphotography-443383.jpg");
+      text-shadow: 2px 2px 2px #000000;   
+
+  }
+  
+  #investment-btn:hover {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("./images/markus-spiske-69ppqHiG9Xo-unsplash.jpg");
+      text-shadow: 2px 2px 2px #000000;   
+
+  }
+  
+  #ownCompany-btn:hover {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+      url("./images/dane-deaner-_-KLkj7on_c-unsplash.jpg");
+      text-shadow: 2px 2px 2px #000000;   
+
+  }
+  
+  #skip-private-equity-type-btn:hover {
+    background-color: rgba(224, 238, 243, 0.2);
+    text-shadow: 2px 2px 2px #000000;   
+
+  }
+  
+  /* Adjust the layout for the 4 buttons including skip */
+  .four-squares {
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+  }
+  
+  #ownCompany-btn {
+    grid-column: 1 / -1;
+    width: 100%;
+  }
+  
+  #skip-private-equity-type-btn {
+    grid-column: 1 / -1;
+    width: 100%;
+    margin-top: 0;
+  }
