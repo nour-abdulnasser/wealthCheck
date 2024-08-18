@@ -17,6 +17,80 @@
 }
 #main-menu-header{
     /* background-color: blue; */
-    margin: 0;
+    margin: 0 auto;
     grid-area: header;
 }
+
+
+.four-squares a:hover {
+    transform: scale(1.1);
+  }
+
+  .four-squares {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  
+  .four-squares a {
+    height: 100px;
+  }
+
+
+
+
+
+
+
+
+.monserrat {
+    font-family: "Montserrat", sans-serif;
+  }
+  .baskerville {
+    font-family: "Baskervville SC", serif;
+  }
+  
+  .baskervville-regular {
+    font-family: "Baskervville", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  .baskervville-regular-italic {
+    font-family: "Baskervville", serif;
+    font-weight: 400;
+    font-style: italic;
+  }
+  
+  .fancy-button {
+    background-color: transparent;
+    border: whitesmoke solid;
+    color: whitesmoke;
+    font-size: 1.5rem;
+    padding: 13px 25px;
+    /* margin-top: 20px; */
+    border-width: 1.5px;
+    border-radius: 0px;
+    transition: all 0.5s ease-in-out;
+    font-family: "Baskervville", serif;
+    font-weight: 400;
+    font-style: normal;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .fancy-button:hover {
+    background-color: whitesmoke;
+    color: rgba(28, 28, 129, 0.754);
+    transition: all 0.5s ease-in-out;
+  }
+
+  
+  .fancy-label {
+    color: whitesmoke;
+    font-family: "Baskervville", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+  

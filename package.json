@@ -13,5 +13,8 @@
     "bootstrap": "^5.3.3",
     "chart.js": "^4.4.3"
   },
-  "description": ""
+  "description": "",
+  "devDependencies": {
+    "tailwindcss": "^3.4.10"
+  }
 }
