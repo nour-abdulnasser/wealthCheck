@@ -1,124 +1,235 @@
 :root {
-    --color-dark-blue: #101326;
-    --color-light-blue: #5280AC;
-    --color-cream: #EDE3DD;
-  }
-  
-  body, html {
-    margin: 0;
-    padding: 0;
-    height: 100%;
-    font-family: Arial, sans-serif;
-  }
-  
-  #asset-type-screen {
-    background: url("../images/kate-j-townsend-nx-dCfKxJLs-unsplash.jpg");
-    background-size: cover;
-    background-position: center center;
-    height: 100vh;
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    padding-bottom: 5vh;
-  }
-  
-  #asset-type-header {
-    margin-bottom: 20px;
-  }
-  
-h1 {
-    font-size: 1rem;
-
+  --color-dark-blue: #101326;
+  --color-light-blue: #5280AC;
+  --color-cream: #EDE3DD;
 }
 
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+}
+
+#asset-type-screen {
+  background: url("../images/kate-j-townsend-nx-dCfKxJLs-unsplash.jpg");
+  background-size: cover;
+  background-position: center center;
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 5vh;
+}
+
+#asset-type-header {
+  margin-bottom: 20px;
+}
+
+h1 {
+  font-size: 1rem;
+}
+
+#please-select-asset-type {
+  color: whitesmoke;
+  font-size: 1.8rem;
+  text-align: center;
+  font-family: "Baskervville", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-weight: bold;
+}
+
+#asset-type-inner-container {
+  width: 90%;
+  max-width: 900px;
+}
+
+.fancy-button {
+  aspect-ratio: 1 / 1;
+  background-color: transparent;
+  border: 2px solid whitesmoke;
+  color: whitesmoke;
+  font-size: 1.7rem;
+  text-align: center;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease-in-out;
+  padding: 48px;
+  font-family: "Baskervville", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+.four-squares {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 40px;
+}
+
+.fancy-button:hover {
+  color: whitesmoke;
+  transform: scale(1.05);
+}
+
+#realEstate-btn:hover,
+#privateEquity-btn:hover,
+#nicheAssets-btn:hover,
+#financialAssets-btn:hover {
+  background-blend-mode: overlay;
+  background-size: cover;
+  background-position: center;
+}
+
+#realEstate-btn:hover {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+  url("/images/frames-for-your-heart-2d4lAQAlbDA-unsplash.jpg");
+  background-size: cover;
+  background-position: center;
+  text-shadow: 2px 2px 2px #000000;   
+}
+
+#privateEquity-btn:hover {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+  url("/images/lo-lo-CeVj8lPBJSc-unsplash\ \(1\).jpg");
+  background-size: cover;
+  background-position: center;
+  text-shadow: 2px 2px 2px #000000;   
+}
+
+#nicheAssets-btn:hover {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+  url("/images/andrew-neel-acowe0pCVBg-unsplash.jpg");
+  background-size: cover;
+  background-position: center;    
+  text-shadow: 2px 2px 2px #000000;   
+}
+
+#financialAssets-btn:hover {
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+  url("/images/scott-graham-5fNmWej4tAA-unsplash.jpg");
+  background-size: cover;
+  background-position: center;
+  text-shadow: 2px 2px 2px #000000;   
+}
+
+/* Media Queries for Smaller Screens */
+@media (max-width: 768px) {
+  #asset-type-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 20px 10px;
+    height: 100vh;
+    overflow: hidden;
+    background-position: center top;
+    background-size: cover;
+  }
+
+  #asset-type-header {
+    margin-top: 40px;
+    margin-bottom: 30px;
+    text-align: center;
+    width: 100%;
+  }
+
   #please-select-asset-type {
-    color: whitesmoke; /* Ensuring this is whitesmoke, not black */
     font-size: 1.8rem;
-    text-align: center;
-    font-family: "Baskervville", serif;
-    font-weight: 400;
-    font-style: normal;
-    font-weight: bold;
-  }
-  
-  #asset-type-inner-container {
-    width: 90%; /* Increased from 60% to make buttons larger */
-    max-width: 900px; /* Increased from 600px to make buttons larger */
-  }
-  
-  .fancy-button {
-    aspect-ratio: 1 / 1;
-    background-color: transparent;
-    border: 2px solid whitesmoke;
     color: whitesmoke;
-    font-size: 1.7rem;
     text-align: center;
-    text-decoration: none;
+  }
+
+  h1 {
+    font-size: 1.6rem;
+    color: whitesmoke;
+    margin: 0;
+    padding: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+  }
+
+  .fancy-button {
+    font-size: 1.5rem;
+    padding: 20px;
+    aspect-ratio: auto;
+    width: 100%;
+    height: 120px;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.3s ease-in-out;
-    padding: 48px;
-    font-family: "Baskervville", serif;
-    font-weight: 400;
-    font-style: normal;
   }
+
   .four-squares {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 40px;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    width: 100%;
+    max-width: 500px;
   }
-  
 
-  
-  .fancy-button:hover {
+  #asset-type-inner-container {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  #asset-type-screen {
+    height: 100vh;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    overflow: hidden;
+    background-position: center top;
+    background-size: cover;
+  }
+
+  #asset-type-header {
+    margin-top: 30px;
+    margin-bottom: 20px;
+    text-align: center;
+    width: 100%;
+  }
+
+  #please-select-asset-type {
+    font-size: 1.4rem;
     color: whitesmoke;
-    transform: scale(1.05);
-  }
-  
-  #realEstate-btn:hover,
-  #privateEquity-btn:hover,
-  #nicheAssets-btn:hover,
-  #financialAssets-btn:hover {
-    background-blend-mode: overlay;
-    background-size: cover;
-    background-position: center;
-  }
-  
-  #realEstate-btn:hover {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("./images/frames-for-your-heart-2d4lAQAlbDA-unsplash.jpg");
-  background-size: cover;
-  background-position: center;
-    text-shadow: 2px 2px 2px #000000;   
-
-  }
-  
-  #privateEquity-btn:hover {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("./images/lo-lo-CeVj8lPBJSc-unsplash\ \(1\).jpg");
-  background-size: cover;
-  background-position: center;
-
-    text-shadow: 2px 2px 2px #000000;   
-
-  }
-  
-  #nicheAssets-btn:hover {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("./images/andrew-neel-acowe0pCVBg-unsplash.jpg");
-  background-size: cover;
-  background-position: center;    
-    text-shadow: 2px 2px 2px #000000;   
+    text-align: center;
   }
 
-  
-  #financialAssets-btn:hover {
-    background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
-    url("./images/scott-graham-5fNmWej4tAA-unsplash.jpg");
-    background-size: cover;
-    background-position: center;
-    text-shadow: 2px 2px 2px #000000;   
+  h1 {
+    font-size: 1.2rem;
+    color: whitesmoke;
+    margin: 0;
+    padding: 0;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
   }
+
+  #asset-type-inner-container {
+    width: 100%;
+    max-width: 350px;
+    margin: 0 auto;
+  }
+
+  .fancy-button {
+    font-size: 1.65rem;
+    padding: 16px;
+    width: 100%;
+    height: 140px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .four-squares {
+    grid-template-columns: 1fr;
+    gap: 15px;
+    width: 100%;
+  }
+}
