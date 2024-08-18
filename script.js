@@ -11,45 +11,6 @@ let clientDetails = {
   currentSubAssetType: "",
 };
 
-// // for demo only
-// let subSubTypes = {
-//   realEstate: {
-//     residential: ["residential property for rent", "residential housing"],
-//     commercial: ["commercial property for rent", "office"],
-//     industrial: ["factories", "warehouses"],
-//     land: ["agricultural land"],
-//   },
-//   privateEquity: {
-//     privateEquityFund: [
-//       {
-//         nameOfFund: "",
-//         ISIN: 0,
-//         CUSIP: 0,
-//         ID: 0,
-//         amountOfShares: 0,
-//         valueOfInvestment: 0,
-//         buyPricePerShare: 0,
-//       },
-//     ],
-//     personalInvestment: [
-//       {
-//         nameOfCompany: "",
-//         amountOfShares: 0,
-//         valueOfInvestment: 0,
-//         buyPricePerShare: 0,
-//       },
-//     ],
-//     ownCompany: [
-//       {
-//         nameOfCompany: "",
-//         amountOfShares: 0, // ownership %
-//         valueOfInvestment: 0,
-//         buyPricePerShare: 0,
-//       },
-//     ],
-//   },
-// };
-
 function loadClientDetails() {
   const sessionData = sessionStorage.getItem("clientDetails");
   const localData = localStorage.getItem("clientDetails");
@@ -98,23 +59,6 @@ async function loadCountries() {
   const data = await response.json();
   return data.sort((a, b) => a.name.common.localeCompare(b.name.common));
 }
-
-// async function loadCities(country) {
-//   const response = await fetch(
-//     "https://countriesnow.space/api/v0.1/countries/cities",
-//     {
-//       method: "POST",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         country: country,
-//       }),
-//     }
-//   );
-//   const data = await response.json();
-//   return data.data;
-// }
 
 // for cities and countries
 function populateDropdown(
@@ -172,25 +116,6 @@ function populateSelect(items, selectElement) {
   });
 }
 
-// async function updateCities() {
-//   if (selectedCountry) {
-//     citiesArr = await loadCities(selectedCountry);
-//     document.getElementById("cityDropdown").textContent = "Select City";
-//     populateDropdown(
-//       citiesArr,
-//       document.getElementById("cityList"),
-//       "citySearch",
-//       "cityDropdown",
-//       false
-//     );
-//     document.querySelectorAll("#cityList li a").forEach((cityItem) => {
-//       cityItem.addEventListener("click", (e) => {
-//         console.log("from cityyyyyyyyyy", e.target.innerText);
-//       });
-//     });
-//   }
-// }
-
 async function initDropdown() {
   countriesArr = await loadCountries();
   populateDropdown(
@@ -211,74 +136,7 @@ async function cca2ToCommon(cca2) {
   return country.name.common;
 }
 
-// // manually creating elements - delete action not included
-// function addRow(assetType) {
-//   const table = document
-//     .getElementById(`dataTable-${assetType}`)
-//     .getElementsByTagName("tbody")[0];
-//   const newRow = table.insertRow(table.rows.length);
-
-//   for (let i = 0; i < 5; i++) {
-//     // Adjusted loop to include an extra cell for delete button
-//     const cell = newRow.insertCell(i);
-//     if (i == 1 || i == 2) {
-//       const input = document.createElement("input");
-//       if (i == 1) {
-//         input.classList.add("ie-concept-input");
-//       } else if (i == 2) {
-//         input.classList.add("ie-amount-input");
-//       }
-//       input.type = i === 2 ? "number" : "text";
-//       input.placeholder = i == 1 ? "Concept" : "Amount";
-//       cell.appendChild(input);
-//     } else if (i == 0) {
-//       const selectEl = document.createElement("select");
-//       selectEl.classList.add("income-expense-select");
-
-//       const defaultOption = document.createElement("option");
-//       defaultOption.disabled = true;
-//       defaultOption.textContent = "Please select type";
-//       defaultOption.selected = true;
-//       selectEl.appendChild(defaultOption);
-
-//       const options = ["Income", "Expense"];
-//       populateSelect(options, selectEl);
-//       cell.appendChild(selectEl);
-//     } else if (i == 3) {
-//       const selectEl = document.createElement("select");
-//       selectEl.classList.add("ie-frequency-select");
-
-//       const defaultOption = document.createElement("option");
-//       defaultOption.disabled = true;
-//       defaultOption.textContent = "Please select frequency";
-//       defaultOption.selected = true;
-//       selectEl.appendChild(defaultOption);
-
-//       const options = ["Monthly", "Annual"];
-//       populateSelect(options, selectEl);
-//       cell.appendChild(selectEl);
-//     } else {
-//       const deleteBtn = document.createElement("button");
-//       deleteBtn.textContent = "Delete";
-//       deleteBtn.type = "button";
-//       deleteBtn.classList.add("delete-row-btn");
-//       deleteBtn.onclick = function () {
-//         deleteRow(this);
-//       };
-//       cell.appendChild(deleteBtn);
-//     }
-//   }
-
-//   const rows = document.querySelectorAll("#dataTable tbody tr");
-// }
-
-// function deleteRow(btn) {
-//   const row = btn.closest("tr"); // Find the closest row to the clicked button
-//   row.parentNode.removeChild(row); // Remove the row from the table
-// }
-
 function addRow(assetType) {
-  
   const rowTemplate = document.querySelector(
     `#dataTable-${assetType} tbody tr:last-child`
   );
@@ -287,19 +145,17 @@ function addRow(assetType) {
     const newRow = rowTemplate.cloneNode(true); // Clone the last row
 
     // Clear the values of the cloned row (optional)
-    const inputs = newRow.querySelectorAll('input, select');
-    inputs.forEach(input => {
-      if (input.tagName === 'SELECT') {
+    const inputs = newRow.querySelectorAll("input, select");
+    inputs.forEach((input) => {
+      if (input.tagName === "SELECT") {
         input.selectedIndex = 0; // Reset the select dropdown
       } else {
-        input.value = ''; // Clear the input field
+        input.value = ""; // Clear the input field
       }
     });
 
     // Append the new row to the table body
-    document
-      .querySelector(`#dataTable-${assetType} tbody`)
-      .appendChild(newRow);
+    document.querySelector(`#dataTable-${assetType} tbody`).appendChild(newRow);
   }
 }
 
@@ -312,34 +168,6 @@ function deleteRow(btn, assetType) {
     row.parentNode.removeChild(row); // Remove the row from the table
   }
 }
-
-
-// function getTableData(assetType) {
-//   const rows = document.querySelectorAll(`#dataTable-${assetType} tbody tr`);
-
-//   const data = [];
-//   rows.forEach((row) => {
-//     const typeSelect = row.querySelector(".income-expense-select");
-//     const conceptInput = row.querySelector(".ie-concept-input");
-//     const amountInput = row.querySelector(".ie-amount-input");
-//     const frequencySelect = row.querySelector(".ie-frequency-select");
-
-//     const type = typeSelect ? typeSelect.value : null;
-//     const concept = conceptInput ? conceptInput.value : null;
-//     const amount = amountInput ? parseFloat(amountInput.value) : NaN;
-//     const frequency = frequencySelect ? frequencySelect.value : null;
-
-//     data.push({
-//       type: type,
-//       concept: concept,
-//       amount: amount,
-//       frequency: frequency,
-//     });
-//   });
-
-//   console.log(data);
-//   return data;
-// }
 
 function getTableData(assetType) {
   const rows = document.querySelectorAll(`#dataTable-${assetType} tbody tr`);
@@ -379,18 +207,14 @@ function populateSelect(options, selectElement) {
   });
 }
 
-// function togglePopup() {
-//   const overlay = document.getElementById("popupOverlay");
-//   overlay.classList.toggle("show");
-// }
-
 function togglePopup(storeData = true) {
   const overlay = document.getElementById("popupOverlay");
 
   if (storeData) {
     // Collect the table data before closing the popup
     const incomeExpenseData = getTableData("re");
-    document.querySelector(".income-expense-data").value = JSON.stringify(incomeExpenseData);
+    document.querySelector(".income-expense-data").value =
+      JSON.stringify(incomeExpenseData);
   }
 
   overlay.classList.toggle("show");
@@ -399,7 +223,6 @@ function togglePopup(storeData = true) {
 function nevermind() {
   togglePopup(false); // Close the popup without storing data
 }
-
 
 loadClientDetails();
 
@@ -437,7 +260,7 @@ document.addEventListener("DOMContentLoaded", function () {
       handlePrivateEquityFormPage();
       break;
     case "niche-asset-form.html":
-      handleNicheAssetFormPage()
+      handleNicheAssetFormPage();
       break;
     case "financial-assets-form.html":
       handleFinancialAssetsFormPage();
@@ -448,7 +271,7 @@ document.addEventListener("DOMContentLoaded", function () {
     case "private-equity-review-screen.html":
       handlePrivateEquityReviewPage();
       break;
-      case "niche-asset-review-screen.html":
+    case "niche-asset-review-screen.html":
       handleNicheAssetReviewPage();
       break;
     case "add-another-asset-screen.html":
@@ -594,9 +417,15 @@ function handleNicheAssetTypePage() {
 }
 
 function handleNicheAssetFormPage() {
-  const nicheAssetsDetailsForm = document.getElementById("nicheAsset-asset-details-form");
-  const nicheAssetsNextBtn = document.getElementById("nicheAsset-asset-details-next-btn");
-  const nicheImgContainer = document.querySelector(".nicheAsset-image-container");
+  const nicheAssetsDetailsForm = document.getElementById(
+    "nicheAsset-asset-details-form"
+  );
+  const nicheAssetsNextBtn = document.getElementById(
+    "nicheAsset-asset-details-next-btn"
+  );
+  const nicheImgContainer = document.querySelector(
+    ".nicheAsset-image-container"
+  );
 
   console.log("Current clientDetails:", clientDetails); // Debugging log
 
@@ -617,7 +446,8 @@ function handleNicheAssetFormPage() {
         break;
       default:
         // Keep the default image if no specific type is selected or for "unspecified"
-        nicheImgContainer.style.backgroundImage = "url('./images/ cornelia-ng-2zHQhfEpisc-unsplash.jpg')";
+        nicheImgContainer.style.backgroundImage =
+          "url('./images/ cornelia-ng-2zHQhfEpisc-unsplash.jpg')";
         console.log("No specific type selected or unspecified"); // Debugging log
         break;
     }
@@ -650,44 +480,51 @@ function handleNicheAssetFormPage() {
   });
 }
 
-
-
-
-
 function handleNicheAssetReviewPage() {
-  const nicheAssetEditBtn = document.getElementById("niche-asset-edit-details-btn");
-  const nicheAssetConfirmBtn = document.getElementById("niche-asset-confirm-details-btn");
+  const nicheAssetEditBtn = document.getElementById(
+    "niche-asset-edit-details-btn"
+  );
+  const nicheAssetConfirmBtn = document.getElementById(
+    "niche-asset-confirm-details-btn"
+  );
   const nicheAssetEditForm = document.getElementById("niche-edit-form");
   const editTypeSelect = document.getElementById("edit-type");
 
   // Populate review fields
-  const currentAsset = clientDetails.assets.nicheAssets[clientDetails.assets.nicheAssets.length - 1];
+  const currentAsset =
+    clientDetails.assets.nicheAssets[
+      clientDetails.assets.nicheAssets.length - 1
+    ];
   document.getElementById("edit-client-name").value = clientDetails.name;
   editTypeSelect.value = currentAsset.type;
   document.getElementById("edit-nicheAsset-name").value = currentAsset.name;
   document.getElementById("edit-nicheAsset-value").value = currentAsset.value;
 
   // Initially disable all form fields
-  document.querySelectorAll("#niche-edit-form input, #niche-edit-form select")
-    .forEach(el => el.disabled = true);
+  document
+    .querySelectorAll("#niche-edit-form input, #niche-edit-form select")
+    .forEach((el) => (el.disabled = true));
 
-  nicheAssetEditBtn.addEventListener("click", function() {
+  nicheAssetEditBtn.addEventListener("click", function () {
     // Enable editing of fields
-    document.querySelectorAll("#niche-edit-form input, #niche-edit-form select")
-      .forEach(el => el.disabled = false);
+    document
+      .querySelectorAll("#niche-edit-form input, #niche-edit-form select")
+      .forEach((el) => (el.disabled = false));
     nicheAssetEditBtn.style.display = "none";
     nicheAssetConfirmBtn.style.display = "inline-block";
   });
 
-  nicheAssetConfirmBtn.addEventListener("click", function(e) {
+  nicheAssetConfirmBtn.addEventListener("click", function (e) {
     e.preventDefault();
     const editedAsset = {
       type: editTypeSelect.value,
       name: document.getElementById("edit-nicheAsset-name").value,
-      value: document.getElementById("edit-nicheAsset-value").value
+      value: document.getElementById("edit-nicheAsset-value").value,
     };
 
-    clientDetails.assets.nicheAssets[clientDetails.assets.nicheAssets.length - 1] = editedAsset;
+    clientDetails.assets.nicheAssets[
+      clientDetails.assets.nicheAssets.length - 1
+    ] = editedAsset;
     saveClientDetails();
     console.log("Updated niche asset:", editedAsset);
     console.log("Updated clientDetails:", clientDetails);
@@ -697,28 +534,26 @@ function handleNicheAssetReviewPage() {
   });
 
   // Update background image based on the asset type
-  const nicheReviewImgContainer = document.querySelector(".niche-reviewImage-container");
+  const nicheReviewImgContainer = document.querySelector(
+    ".niche-reviewImage-container"
+  );
   switch (currentAsset.type) {
     case "art":
       nicheReviewImgContainer.style.backgroundImage = "url('./images/art.jpg')";
       break;
     case "luxuryVehicle":
-      nicheReviewImgContainer.style.backgroundImage = "url('./images/yacht.jpg')";
+      nicheReviewImgContainer.style.backgroundImage =
+        "url('./images/yacht.jpg')";
       break;
     case "otherCollection":
-      nicheReviewImgContainer.style.backgroundImage = "url('./images/wine.jpg')";
+      nicheReviewImgContainer.style.backgroundImage =
+        "url('./images/wine.jpg')";
       break;
     default:
       // Keep the default image for unspecified type
       break;
   }
 }
-
-
-
-
-
-
 
 function handlePrivateEquityFormPage() {
   const privateEquityDetailsForm = document.getElementById(
@@ -761,7 +596,7 @@ function handlePrivateEquityFormPage() {
       investmentValue: document.querySelector(".pe-value-input").value,
       buyPrice: document.querySelector(".pe-buyPrice-input").value,
       assetName: document.querySelector(".pe-assetName-input").value,
-      income_expense: getTableData('pe') || "NA",
+      income_expense: getTableData("pe") || "NA",
     };
 
     if (!clientDetails.assets.privateEquity) {
@@ -769,7 +604,7 @@ function handlePrivateEquityFormPage() {
     }
 
     // Update clientDetails with the new asset information
-    clientDetails.assetName = newAsset.assetName
+    clientDetails.assetName = newAsset.assetName;
     clientDetails.sharesAmount = newAsset.sharesAmount;
     clientDetails.investmentValue = newAsset.investmentValue;
     clientDetails.buyPrice = newAsset.buyPrice;
@@ -785,7 +620,7 @@ function handlePrivateEquityFormPage() {
   });
 }
 
-      function handlePrivateEquityReviewPage() {
+function handlePrivateEquityReviewPage() {
   const privateEquityEditBtn = document.getElementById(
     "private-equity-edit-details-btn"
   );
@@ -815,7 +650,7 @@ function handlePrivateEquityFormPage() {
   editTypeSelect.value = currentAsset.type;
   fundOrCompanyNameInput.value = currentAsset.fundOrCompanyName;
   isinInput.value = currentAsset.isin;
-  document.getElementById("edit-assetName").value = currentAsset.assetName
+  document.getElementById("edit-assetName").value = currentAsset.assetName;
   document.getElementById("edit-shares").value = currentAsset.sharesAmount;
   document.getElementById("edit-investmentValue").value =
     currentAsset.investmentValue;
@@ -895,72 +730,12 @@ function handlePrivateEquityFormPage() {
   });
 }
 
-// async function handleRealEstateFormPage() {
-//   await initDropdown();
-
-//   const nextAssetBtn = document.getElementById("asset-details-next-btn");
-//   const countryListItems = document.querySelectorAll("#countryList li a");
-//   const cityListItems = document.querySelectorAll("#cityList li a");
-
-//   let countryValue = "";
-
-//   countryListItems.forEach((item) => {
-//     item.addEventListener("click", (e) => {
-//       countryValue = e.target.innerText;
-//     });
-//   });
-
-//   // document.getElementById("ieCheck").addEventListener("change", function () {
-//   //   var table = document.getElementById("income-expense-table");
-//   //   if (this.checked) {
-//   //     table.style.display = "block";
-//   //   } else {
-//   //     table.style.display = "none";
-//   //   }
-//   // });
-
-//   nextAssetBtn.addEventListener("click", function (e) {
-//     e.preventDefault();
-//     const countryElement = document.getElementById("countryDropdown");
-//     const cityElement = document.getElementById("cityDropdown");
-
-//     let newAsset = {
-//       // need to add more deets: income, expense, subtypes
-//       type: clientDetails.currentSubAssetType,
-//       name: document.querySelector(".asset-name-input").value,
-//       country: countryElement.innerText.match(/Select/gi)
-//         ? "unspecified"
-//         : countryElement.innerText,
-//       city: cityElement.innerText.match(/Select/gi)
-//         ? "unspecified"
-//         : cityElement.innerText,
-//       assetCategory: document.getElementById("subCategories").value,
-//       address: document.querySelector(".address-input").value,
-//       value: document.querySelector(".value-input").value,
-//       income_expense: getTableData("re") || "NA",
-//     };
-
-//     // if (!clientDetails.assets[clientDetails.currentAssetType]) {
-//     //   clientDetails.assets[clientDetails.currentAssetType] = [];
-//     // }
-//     // clientDetails.assets[clientDetails.currentAssetType].push(newAsset);
-
-//     clientDetails.assets.realEstate.push(newAsset);
-
-//     saveClientDetails();
-//     console.log("Added new asset:", newAsset);
-//     console.log("Updated clientDetails:", clientDetails);
-//     window.location.href = "./review-screen.html";
-//   });
-// }
-
 async function handleRealEstateFormPage() {
   await initDropdown();
+  document.querySelector(".income-expense-data").value = JSON.stringify([]);
 
   const nextAssetBtn = document.getElementById("asset-details-next-btn");
   const countryListItems = document.querySelectorAll("#countryList li a");
-  // const cityListItems = document.querySelectorAll("#cityList li a");
-
   let countryValue = "";
 
   countryListItems.forEach((item) => {
@@ -971,16 +746,14 @@ async function handleRealEstateFormPage() {
 
   nextAssetBtn.addEventListener("click", function (e) {
     e.preventDefault();
-    let incomeExpenseDataElement = document.querySelector(".income-expense-data");
+
     const countryElement = document.getElementById("countryDropdown");
-    // const cityElement = document.getElementById("cityDropdown");
-    let incomeExpenseData = [];
-    if (incomeExpenseDataElement && incomeExpenseDataElement.value.trim()) {
-        try {
-            incomeExpenseData = JSON.parse(incomeExpenseDataElement.value);
-        } catch (error) {
-            console.error("Error parsing income/expense data:", error);
-        }
+    let incomeExpenseData = document.querySelector(".income-expense-data");
+    let incomeExpenseArray;
+    try {
+      incomeExpenseArray = JSON.parse(incomeExpenseData.value);
+    } catch (error) {
+      incomeExpenseArray = []; 
     }
 
     let newAsset = {
@@ -989,13 +762,10 @@ async function handleRealEstateFormPage() {
       country: countryElement.innerText.match(/Select/gi)
         ? "unspecified"
         : countryElement.innerText,
-      // city: cityElement.innerText.match(/Select/gi)
-      //   ? "unspecified"
-      //   : cityElement.innerText,
       assetCategory: document.getElementById("subCategories").value,
       address: document.querySelector(".address-input").value,
       value: document.querySelector(".value-input").value,
-      income_expense: incomeExpenseData,
+      income_expense: incomeExpenseArray,
     };
 
     clientDetails.assets.realEstate.push(newAsset);
