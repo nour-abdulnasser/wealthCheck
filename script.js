@@ -350,6 +350,8 @@ function editIncomeExpense(elementId) {
   });
 }
 
+
+
 loadClientDetails();
 
 document.addEventListener("DOMContentLoaded", function () {
@@ -858,8 +860,9 @@ function handlePrivateEquityReviewPage() {
 
 async function handleRealEstateFormPage() {
   await initDropdown();
-  document.querySelector(".income-expense-data").value = JSON.stringify([]);
 
+  document.querySelector(".income-expense-data").value = JSON.stringify([]);
+ 
   const nextAssetBtn = document.getElementById("asset-details-next-btn");
   const countryListItems = document.querySelectorAll("#countryList li a");
   let countryValue = "";
