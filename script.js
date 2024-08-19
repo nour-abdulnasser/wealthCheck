@@ -350,7 +350,89 @@ function editIncomeExpense(elementId) {
   });
 }
 
+function populateRealEstateSubtypes(isReviewPage = false, selectElement = null) {
+  const subCategoriesSelect = selectElement || document.getElementById('subCategories');
+  if (!subCategoriesSelect) {
+    console.error('Asset category select element not found');
+    return;
+  }
 
+  const subCategoriesContainer = subCategoriesSelect.closest('.dropdown-container');
+  const realEstateType = clientDetails.currentSubAssetType;
+
+  // Clear existing options
+  subCategoriesSelect.innerHTML = '';
+
+  // Define subtypes for each real estate type
+  const subtypes = {
+    unspecified: [
+      { value: 'unspecified', label: 'Unspecified' }
+    ],
+    residential: [
+      { value: 'unspecified', label: 'Unspecified' },
+      { value: 'residential for rent', label: 'Residential property for rent' },
+      { value: 'housing', label: 'Residential housing' }
+    ],
+    commercial: [
+      { value: 'unspecified', label: 'Unspecified' },
+
+      { value: 'commercial for rent', label: 'Commercial property for rent' },
+      { value: 'office', label: 'Office' }
+    ],
+    industrial: [
+      { value: 'unspecified', label: 'Unspecified' },
+
+      { value: 'factories', label: 'Factories' },
+      { value: 'warehouses', label: 'Warehouses' }
+    ],
+    land: [
+      { value: 'unspecified', label: 'Unspecified' },
+
+      { value: 'agricultural', label: 'Agricultural land' }
+    ]
+  };
+
+  if (realEstateType === 'unspecified' && !isReviewPage) {
+    // Hide the dropdown if unspecified and not on review page
+    if (subCategoriesContainer) {
+      subCategoriesContainer.style.display = 'none';
+    }
+  } else {
+    if (subCategoriesContainer) {
+      subCategoriesContainer.style.display = 'flex';
+    }
+
+    if (isReviewPage) {
+      // Add all types and subtypes for the review page
+      Object.entries(subtypes).forEach(([type, typeSubtypes]) => {
+        const optgroup = document.createElement('optgroup');
+        optgroup.label = capitalizeFirstLetter(type);
+        
+        typeSubtypes.forEach(subtype => {
+          const option = document.createElement('option');
+          option.value = subtype.value;
+          option.textContent = subtype.label;
+          optgroup.appendChild(option);
+        });
+        
+        subCategoriesSelect.appendChild(optgroup);
+      });
+    } else {
+      // Add specific subtypes for the selected real estate type
+      const relevantSubtypes = subtypes[realEstateType] || subtypes.unspecified;
+      relevantSubtypes.forEach(subtype => {
+        const option = document.createElement('option');
+        option.value = subtype.value;
+        option.textContent = subtype.label;
+        subCategoriesSelect.appendChild(option);
+      });
+    }
+  }
+}
+
+function capitalizeFirstLetter(string) {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+}
 
 loadClientDetails();
 
@@ -858,11 +940,153 @@ function handlePrivateEquityReviewPage() {
   });
 }
 
+// async function handleRealEstateFormPage() {
+//   await initDropdown();
+
+//   document.querySelector(".income-expense-data").value = JSON.stringify([]);
+ 
+//   const nextAssetBtn = document.getElementById("asset-details-next-btn");
+//   const countryListItems = document.querySelectorAll("#countryList li a");
+//   let countryValue = "";
+
+//   countryListItems.forEach((item) => {
+//     item.addEventListener("click", (e) => {
+//       countryValue = e.target.innerText;
+//     });
+//   });
+
+//   nextAssetBtn.addEventListener("click", function (e) {
+//     e.preventDefault();
+
+//     const countryElement = document.getElementById("countryDropdown");
+//     let incomeExpenseData = document.querySelector(".income-expense-data");
+//     let incomeExpenseArray;
+
+//     try {
+//       incomeExpenseArray = JSON.parse(incomeExpenseData.value);
+//     } catch (error) {
+//       incomeExpenseArray = [];
+//     }
+
+//     let newAsset = {
+//       type: clientDetails.currentSubAssetType,
+//       name: document.querySelector(".asset-name-input").value,
+//       country: countryElement.innerText.match(/Select/gi)
+//         ? "unspecified"
+//         : countryElement.innerText,
+//       assetCategory: document.getElementById("subCategories").value,
+//       address: document.querySelector(".address-input").value,
+//       value: document.querySelector(".value-input").value,
+//       income_expense: incomeExpenseArray,
+//     };
+
+//     clientDetails.assets.realEstate.push(newAsset);
+
+//     saveClientDetails();
+//     console.log("Added new asset:", newAsset);
+//     console.log("Updated clientDetails:", clientDetails);
+//     window.location.href = "./real-estate-review-screen.html";
+//   });
+// }
+
+// async function handleRealEstateReviewPage() {
+//   const editBtn = document.getElementById("edit-details-btn");
+//   const confirmBtn = document.getElementById("confirm-details-btn");
+
+//   // Populate review fields
+//   const currentAsset =
+//     clientDetails.assets[clientDetails.currentAssetType][
+//       clientDetails.assets[clientDetails.currentAssetType].length - 1
+//     ];
+
+//   document.querySelector(".income-expense-data-edit").value = JSON.stringify(
+//     currentAsset.income_expense
+//   );
+
+//   document.getElementById("edit-client-name").value = clientDetails.name;
+//   document.getElementById("edit-subtype").value =
+//     currentAsset.assetCategory || "unspecified";
+//   document.getElementById("edit-asset-name").value = currentAsset.name;
+//   document.getElementById("edit-address").value = currentAsset.address;
+//   document.getElementById("edit-country").innerText = currentAsset.country;
+//   document.getElementById("edit-value").value = currentAsset.value;
+
+//   // console.log(JSON.parse(incomeExpenseDataPlaceholder.value));
+//   // Initially disable all form fields
+//   document
+//     .querySelectorAll("#edit-form input, #edit-form select")
+//     .forEach((el) => (el.disabled = true));
+
+//   editBtn.addEventListener("click", async function () {
+//     countriesArr = await loadCountries();
+//     populateDropdown(
+//       countriesArr,
+//       document.getElementById("countryListEdit"),
+//       "countrySearchEdit",
+//       "edit-country"
+//     );
+//     const countryListItems = document.querySelectorAll("#countryList li a");
+//     let countryValue = "";
+//     countryListItems.forEach((item) => {
+//       item.addEventListener("click", (e) => {
+//         console.log("hi");
+
+//         countryValue = e.target.innerText;
+//       });
+//     });
+//     // Enable editing of fields
+//     document
+//       .querySelectorAll("#edit-form input, #edit-form select, #edit-country")
+//       .forEach((el) => (el.disabled = false));
+//     editBtn.style.display = "none";
+//     confirmBtn.style.display = "inline-block";
+//   });
+
+//   confirmBtn.addEventListener("click", function (e) {
+//     e.preventDefault();
+//     let incomeExpenseInput = document.querySelector(
+//       ".income-expense-data-edit"
+//     );
+//     let incomeExpenseArray;
+
+//     try {
+//       incomeExpenseArray = JSON.parse(incomeExpenseInput.value);
+//     } catch (error) {
+//       incomeExpenseArray = [];
+//     }
+
+//     const editedAsset = {
+//       type: document.getElementById("edit-subtype").value,
+//       name: document.getElementById("edit-asset-name").value.toUpperCase(),
+//       address: capitalizeFirstLetter(
+//         document.getElementById("edit-address").value
+//       ),
+//       country: capitalizeFirstLetter(
+//         document.getElementById("edit-country").innerText
+//       ),
+//       value: document.getElementById("edit-value").value,
+//       income_expense: incomeExpenseArray,
+//     };
+
+//     clientDetails.assets[clientDetails.currentAssetType][
+//       clientDetails.assets[clientDetails.currentAssetType].length - 1
+//     ] = editedAsset;
+//     saveClientDetails();
+//     console.log("Updated asset:", editedAsset);
+//     console.log("Updated clientDetails:", clientDetails);
+
+//     // Navigate to add-another-asset screen
+//     window.location.href = "./add-another-asset-screen.html";
+//   });
+// }
+
 async function handleRealEstateFormPage() {
   await initDropdown();
-
   document.querySelector(".income-expense-data").value = JSON.stringify([]);
- 
+
+  // Call the new function to populate subtypes
+  populateRealEstateSubtypes();
+
   const nextAssetBtn = document.getElementById("asset-details-next-btn");
   const countryListItems = document.querySelectorAll("#countryList li a");
   let countryValue = "";
@@ -892,7 +1116,9 @@ async function handleRealEstateFormPage() {
       country: countryElement.innerText.match(/Select/gi)
         ? "unspecified"
         : countryElement.innerText,
-      assetCategory: document.getElementById("subCategories").value,
+      assetCategory: clientDetails.currentSubAssetType === 'unspecified' 
+        ? "unspecified" 
+        : document.getElementById("subCategories").value,
       address: document.querySelector(".address-input").value,
       value: document.querySelector(".value-input").value,
       income_expense: incomeExpenseArray,
@@ -922,17 +1148,23 @@ async function handleRealEstateReviewPage() {
   );
 
   document.getElementById("edit-client-name").value = clientDetails.name;
-  document.getElementById("edit-subtype").value =
-    currentAsset.assetCategory || "unspecified";
   document.getElementById("edit-asset-name").value = currentAsset.name;
   document.getElementById("edit-address").value = currentAsset.address;
-  document.getElementById("edit-country").innerText = currentAsset.country;
+  document.getElementById("edit-country").innerText = currentAsset.country || "Select Country";
   document.getElementById("edit-value").value = currentAsset.value;
 
-  // console.log(JSON.parse(incomeExpenseDataPlaceholder.value));
+  // Populate the asset category dropdown
+  const assetTypeSelect = document.getElementById("edit-subtype");
+  if (assetTypeSelect) {
+    populateRealEstateSubtypes(true, assetTypeSelect);
+    assetTypeSelect.value = currentAsset.assetCategory || "unspecified";
+  } else {
+    console.error("Asset type select element not found on review page");
+  }
+
   // Initially disable all form fields
   document
-    .querySelectorAll("#edit-form input, #edit-form select")
+    .querySelectorAll("#review-details input, #review-details select")
     .forEach((el) => (el.disabled = true));
 
   editBtn.addEventListener("click", async function () {
@@ -943,18 +1175,17 @@ async function handleRealEstateReviewPage() {
       "countrySearchEdit",
       "edit-country"
     );
-    const countryListItems = document.querySelectorAll("#countryList li a");
+    const countryListItems = document.querySelectorAll("#countryListEdit li a");
     let countryValue = "";
     countryListItems.forEach((item) => {
       item.addEventListener("click", (e) => {
-        console.log("hi");
-
         countryValue = e.target.innerText;
+        document.getElementById("edit-country").innerText = countryValue;
       });
     });
     // Enable editing of fields
     document
-      .querySelectorAll("#edit-form input, #edit-form select, #edit-country")
+      .querySelectorAll("#review-details input, #review-details select, #edit-country")
       .forEach((el) => (el.disabled = false));
     editBtn.style.display = "none";
     confirmBtn.style.display = "inline-block";
@@ -974,7 +1205,7 @@ async function handleRealEstateReviewPage() {
     }
 
     const editedAsset = {
-      type: document.getElementById("edit-subtype").value,
+      type: clientDetails.currentSubAssetType,
       name: document.getElementById("edit-asset-name").value.toUpperCase(),
       address: capitalizeFirstLetter(
         document.getElementById("edit-address").value
@@ -982,6 +1213,7 @@ async function handleRealEstateReviewPage() {
       country: capitalizeFirstLetter(
         document.getElementById("edit-country").innerText
       ),
+      assetCategory: document.getElementById("edit-subtype").value,
       value: document.getElementById("edit-value").value,
       income_expense: incomeExpenseArray,
     };
@@ -997,6 +1229,8 @@ async function handleRealEstateReviewPage() {
     window.location.href = "./add-another-asset-screen.html";
   });
 }
+
+
 
 function handleAddAnotherAssetPage() {
   console.log("Current clientDetails:", clientDetails);
