@@ -93,6 +93,7 @@ h1 {
 .form-section > * {
   width: 100%;
 }
+
 .dropdown-container {
   display: flex;
   /* justify-content: space-between; */

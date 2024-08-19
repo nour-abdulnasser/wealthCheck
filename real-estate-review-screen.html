@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Wealth Check - Real Estate Form</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baskervville+SC&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Baskervville:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./css/real-estate-review.css" />
+    <link rel="stylesheet" href="./css/popup.css" />
+    <link rel="stylesheet" href="./css/table.css" />
+  </head>
+  <body>
+    <!-- review-screen is still a white screen and for some reeason i csnt fix it myself. look the form in the review screen should have what the client inputted but everything disabled until the user clicks edit. maybe its because you didnt save the things the client entered to the data structre and local storage/session? you can take this old script.js  before we split the html pages as ispiration on this part only. please share full js code when youre doe. also here have review-screen html in case it helps maybe  -->
+
+    <div id="review-screen">
+      <div class="review-screen-inner-container">
+        <div class="review-image"></div>
+        <div class="review-screen-inner">
+          <h1>Review your asset details</h1>
+          <div id="review-details" class="row">
+            <div class="container">
+              <form class="form" action="" id="edit-form">
+                <h2><span>Real Estate</span></h2>
+
+                <label for="edit-client-name">Client's name</label>
+                <input disabled type="text" id="edit-client-name" />
+                <label for="edit-subtype">Asset Type</label>
+                <select
+                  disabled
+                  id="edit-subtype"
+                  class="form-select mb-3"
+                  aria-label="Default select example"
+                >
+                  <optgroup label="Commercial">
+                    <option value="commercial for rent">
+                      Commercial property for rent
+                    </option>
+                    <option value="office">Office</option>
+                  </optgroup>
+                  <optgroup label="Industrial">
+                    <option value="factories">Factories</option>
+                    <option value="warehouses">Warehouses</option>
+                  </optgroup>
+                  <optgroup label="Residential">
+                    <option value="residential for rent">
+                      Residential property for rent
+                    </option>
+                    <option value="housing">Residential housing</option>
+                  </optgroup>
+                  <optgroup label="Land">
+                    <option value="agricultural">Agricultural land</option>
+                  </optgroup>
+                  <!-- <option value="unspecified">Unspecified</option>
+                    <option value="building">Building</option>
+                    <option value="apartment">Apartment</option>
+                    <option value="house">House</option>
+                    <option value="land">Land</option> -->
+                </select>
+                <label for="edit-asset-name">Asset name</label>
+                <input disabled type="text" id="edit-asset-name" />
+                <label for="edit-address">Address</label>
+                <input disabled type="text" id="edit-address" />
+                <div class="dropdown-container">
+                  <label for="edit-country" class="fancy-label"
+                    ><span>Asset country</span>
+                    <span>:</span>
+                  </label>
+                  <div
+                    class="dropdown dropdown-inner d-flex justify-content-end"
+                  >
+                    <button
+                      class="dropdown-toggle"
+                      disabled
+                      type="button"
+                      id="edit-country"
+                      aria-haspopup="true"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <span>Select Country</span>
+                      <span>
+                        <i class="fa fa-solid fa-angle-down"></i>
+                      </span>
+                    </button>
+                    <ul
+                      class="dropdown-menu country-dropdown-menu"
+                      aria-labelledby="edit-country"
+                    >
+                      <li>
+                        <input
+                          type="text"
+                          class="form-control mb-2"
+                          id="countrySearchEdit"
+                          placeholder="Search countries..."
+                        />
+                      </li>
+                      <div id="countryListEdit"></div>
+                    </ul>
+                  </div>
+                </div>
+                <label for="edit-value">Asset value</label>
+                <input disabled type="text" id="edit-value" />
+              </form>
+              <div id="popupOverlayRealEstateReview" class=" overlay-container">
+                <div class="popup-box">
+                  <form class="form-container">
+                    <div class="container-lg">
+                      <div class="table-responsive">
+                        <div class="table-wrapper">
+                          <div class="table-title">
+                            <div
+                              class="d-flex p-4 justify-content-between align-items-center"
+                            >
+                              <div class="col-sm-8">
+                                <h2 class="fancy-label-heading">
+                                  Asset Income and Expenses
+                                </h2>
+                              </div>
+                              <div class="col-sm-4 text-end">
+                                <button
+                                  type="button"
+                                  class="add-new hidden simple-fancy-btn"
+                                  onclick="addRow('re-edit')"
+                                >
+                                  <i class="fa fa-plus"></i> Add New
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <table id="dataTable-re-edit" class="table">
+                            <thead>
+                              <tr>
+                                <th class="text-start">Income or Expense</th>
+                                <th class="text-start">Concept</th>
+                                <th class="text-start">Amount</th>
+                                <th class="text-start">Frequency</th>
+                                <th class="text-start">Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody class="">
+                              <tr>
+                                <td>
+                                  <select name="" class="income-expense-select">
+                                    <option selected="true" disabled="disabled">
+                                      Select type
+                                    </option>
+                                    <option value="Income">Income</option>
+                                    <option value="Expense">Expense</option>
+                                  </select>
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    placeholder="Concept"
+                                    class="ie-concept-input"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="number"
+                                    placeholder="Amount"
+                                    class="ie-amount-input"
+                                  />
+                                </td>
+                                <td>
+                                  <select name="" class="ie-frequency-select">
+                                    <option selected="true" disabled="disabled">
+                                      Select frequency
+                                    </option>
+                                    <option value="Monthly">Monthly</option>
+                                    <option value="Annual">Annual</option>
+                                  </select>
+                                </td>
+                                <td class="actionCell">
+                                  <a
+                                    class="delete"
+                                    id="deleteBtn"
+                                    onclick="deleteRow(this, 're')"
+                                    title="Delete"
+                                    data-toggle="tooltip"
+                                    style="cursor: pointer"
+                                    ><i class="fa-solid fa-trash-can"></i
+                                  ></a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <div class="btn-container">
+                    <button
+                    id="review-done-re"
+                      class="me-5 popup-done simple-fancy-btn"
+                      onclick="popupDone('popupOverlayRealEstateReview')"
+                    >
+                      Done
+                    </button>
+                    <button
+                      class="me-5 popup-edit simple-fancy-btn"
+                      onclick="editIncomeExpense('popupOverlayRealEstateReview')"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      class="btn-close-popup ms-5 simple-fancy-btn"
+                      onclick="togglePopup(false, 'popupOverlayRealEstateReview')"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <button id="edit-details-btn">Edit</button>
+            </div>
+            <div class="col-4">
+              <button id="confirm-details-btn">Confirm</button>
+            </div>
+            <div class="col-4">
+              <button
+                class="btn-open-popup d-flex justify-content-around align-items-center"
+                id="review-ie-btn"
+                onclick="togglePopup(true, 'popupOverlayRealEstateReview', 'review')"
+                type="button"
+              >
+                <span>Review income and expenses</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <input
+      type="hidden"
+      class="income-expense-data-edit"
+      name="income_expense_data_edit"
+    />
+
+    <script src="script.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+  </body>
+</html>

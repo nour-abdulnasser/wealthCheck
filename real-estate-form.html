@@ -96,41 +96,6 @@
                   </div>
                 </div>
 
-                <!-- <div class="dropdown-container">
-                  <label for="cityDropdown" class="fancy-label"
-                    ><span>Asset city</span>
-                    <span>:</span>
-                  </label>
-                  <div
-                    class="dropdown dropdown-inner d-flex justify-content-end"
-                  >
-                    <button
-                      class="dropdown-toggle"
-                      type="button"
-                      id="cityDropdown"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <span id="citySpan"> Select City </span>
-                      <i class="fa fa-solid fa-angle-down"></i>
-                    </button>
-                    <ul
-                      class="dropdown-menu city-dropdown-menu"
-                      aria-labelledby="cityDropdown"
-                    >
-                      <li>
-                        <input
-                          type="text"
-                          class="form-control mb-2"
-                          id="citySearch"
-                          placeholder="Search cities..."
-                        />
-                      </li>
-                      <div id="cityList"></div>
-                    </ul>
-                  </div>
-                </div> -->
-
                 <div class="dropdown-container">
                   <label for="subCategories" class="fancy-label"
                     ><span>Asset category</span> <span>:</span>
@@ -205,7 +170,8 @@
                 <div class="d-flex mt-4 w-100 justify-content-between">
                   <button
                     class="btn-open-popup d-flex justify-content-around align-items-center"
-                    onclick="togglePopup()"
+                    onclick="togglePopup(true, 'popupOverlayRealEstateForm', 'form')"
+                    type="button"
                   >
                     <i class="fa fa-plus"></i>
                     <span>Add income and expenses</span>
@@ -223,7 +189,7 @@
               </div>
             </div>
           </form>
-          <div id="popupOverlay" class="overlay-container">
+          <div id="popupOverlayRealEstateForm" class="overlay-container">
             <div class="popup-box">
               <form class="form-container">
                 <div class="container-lg">
@@ -312,10 +278,10 @@
               </form>
               <div class="btn-container ">
                 
-                <button class=" me-5 popup-done simple-fancy-btn" onclick="togglePopup()">
+                <button class=" me-5 popup-done simple-fancy-btn" onclick="togglePopup(true, 'popupOverlayRealEstateForm', 'form')">
                   Done
                 </button>
-                <button class="btn-close-popup ms-5 simple-fancy-btn" onclick="nevermind()">
+                <button class="btn-close-popup ms-5 simple-fancy-btn" onclick="togglePopup(false, 'popupOverlayRealEstateForm')">
                   Cancel
                 </button>
               </div>

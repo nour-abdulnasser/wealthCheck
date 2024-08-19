@@ -207,21 +207,147 @@ function populateSelect(options, selectElement) {
   });
 }
 
-function togglePopup(storeData = true) {
-  const overlay = document.getElementById("popupOverlay");
+function togglePopup(storeData = true, overlayId, page) {
+  /// page can be 'form' or 'review'
+  // the reason i didnt rely on id is bc it differs from asset to the other
+  // i didnt wanna use .includes
+  /// false toggle means to close without saving data
+  const overlay = document.getElementById(overlayId);
 
-  if (storeData) {
+  if (storeData && page == "form") {
     // Collect the table data before closing the popup
     const incomeExpenseData = getTableData("re");
     document.querySelector(".income-expense-data").value =
       JSON.stringify(incomeExpenseData);
+  } else if (storeData && page == "review") {
+    populateIncomeExpenseTable(
+      JSON.parse(document.querySelector(".income-expense-data-edit").value)
+    );
   }
 
   overlay.classList.toggle("show");
 }
 
-function nevermind() {
-  togglePopup(false); // Close the popup without storing data
+function popupDone(overlayId) {
+  const incomeExpenseDataEdit = getTableData("re-edit");
+  document.querySelector(".income-expense-data-edit").value = JSON.stringify(
+    incomeExpenseDataEdit
+  );
+  togglePopup(false, overlayId);
+
+  console.log(document.querySelector(".income-expense-data-edit"));
+}
+
+// for the income expense table review
+function populateIncomeExpenseTable(dataArray) {
+  const tableBody = document.querySelector("#dataTable-re-edit tbody");
+  tableBody.innerHTML = ""; // Clear existing rows
+
+  dataArray.forEach((item) => {
+    const row = document.createElement("tr");
+
+    // Create and append the type select
+    const typeCell = document.createElement("td");
+    const typeSelect = document.createElement("select");
+    typeSelect.className = "income-expense-select";
+
+    const typeOptionPlaceholder = document.createElement("option");
+    typeOptionPlaceholder.disabled = true;
+    typeOptionPlaceholder.textContent = "Select type";
+    typeSelect.appendChild(typeOptionPlaceholder);
+
+    const incomeOption = document.createElement("option");
+    incomeOption.value = "Income";
+    incomeOption.textContent = "Income";
+    if (item.type === "Income") incomeOption.selected = true;
+    typeSelect.appendChild(incomeOption);
+
+    const expenseOption = document.createElement("option");
+    expenseOption.value = "Expense";
+    expenseOption.textContent = "Expense";
+    if (item.type === "Expense") expenseOption.selected = true;
+    typeSelect.appendChild(expenseOption);
+
+    typeCell.appendChild(typeSelect);
+    row.appendChild(typeCell);
+
+    // Create and append the concept input
+    const conceptCell = document.createElement("td");
+    const conceptInput = document.createElement("input");
+    conceptInput.type = "text";
+    conceptInput.className = "ie-concept-input";
+    conceptInput.value = item.concept;
+    conceptCell.appendChild(conceptInput);
+    row.appendChild(conceptCell);
+
+    // Create and append the amount input
+    const amountCell = document.createElement("td");
+    const amountInput = document.createElement("input");
+    amountInput.type = "number";
+    amountInput.className = "ie-amount-input";
+    amountInput.value = item.amount;
+    amountCell.appendChild(amountInput);
+    row.appendChild(amountCell);
+
+    // Create and append the frequency select
+    const frequencyCell = document.createElement("td");
+    const frequencySelect = document.createElement("select");
+    frequencySelect.className = "ie-frequency-select";
+
+    const frequencyOptionPlaceholder = document.createElement("option");
+    frequencyOptionPlaceholder.disabled = true;
+    frequencyOptionPlaceholder.textContent = "Select frequency";
+    frequencySelect.appendChild(frequencyOptionPlaceholder);
+
+    const monthlyOption = document.createElement("option");
+    monthlyOption.value = "Monthly";
+    monthlyOption.textContent = "Monthly";
+    if (item.frequency === "Monthly") monthlyOption.selected = true;
+    frequencySelect.appendChild(monthlyOption);
+
+    const annualOption = document.createElement("option");
+    annualOption.value = "Annual";
+    annualOption.textContent = "Annual";
+    if (item.frequency === "Annual") annualOption.selected = true;
+    frequencySelect.appendChild(annualOption);
+
+    frequencyCell.appendChild(frequencySelect);
+    row.appendChild(frequencyCell);
+
+    // Create and append the delete action cell
+    const actionCell = document.createElement("td");
+    actionCell.className = "actionCell";
+    const deleteLink = document.createElement("a");
+    deleteLink.className = "delete";
+    deleteLink.title = "Delete";
+    deleteLink.dataset.toggle = "tooltip";
+    deleteLink.style.cursor = "pointer";
+    deleteLink.onclick = function () {
+      deleteRow(this, "re");
+    };
+
+    const deleteIcon = document.createElement("i");
+    deleteIcon.className = "fa-solid fa-trash-can";
+    deleteLink.appendChild(deleteIcon);
+
+    actionCell.appendChild(deleteLink);
+    row.appendChild(actionCell);
+
+    // Append the row to the table body
+    tableBody.appendChild(row);
+  });
+  document
+    .querySelectorAll(
+      "#dataTable-re-edit tbody input, #dataTable-re-edit tbody select"
+    )
+    .forEach((element) => (element.disabled = true));
+}
+
+function editIncomeExpense(elementId) {
+  const element = document.getElementById(`${elementId}`);
+  element.querySelectorAll("tbody input, tbody select").forEach((el) => {
+    el.disabled = false;
+  });
 }
 
 loadClientDetails();
@@ -265,8 +391,8 @@ document.addEventListener("DOMContentLoaded", function () {
     case "financial-assets-form.html":
       handleFinancialAssetsFormPage();
       break;
-    case "review-screen.html":
-      handleReviewPage();
+    case "real-estate-review-screen.html":
+      handleRealEstateReviewPage();
       break;
     case "private-equity-review-screen.html":
       handlePrivateEquityReviewPage();
@@ -750,10 +876,11 @@ async function handleRealEstateFormPage() {
     const countryElement = document.getElementById("countryDropdown");
     let incomeExpenseData = document.querySelector(".income-expense-data");
     let incomeExpenseArray;
+
     try {
       incomeExpenseArray = JSON.parse(incomeExpenseData.value);
     } catch (error) {
-      incomeExpenseArray = []; 
+      incomeExpenseArray = [];
     }
 
     let newAsset = {
@@ -773,38 +900,58 @@ async function handleRealEstateFormPage() {
     saveClientDetails();
     console.log("Added new asset:", newAsset);
     console.log("Updated clientDetails:", clientDetails);
-    window.location.href = "./review-screen.html";
+    window.location.href = "./real-estate-review-screen.html";
   });
 }
 
-async function handleReviewPage() {
+async function handleRealEstateReviewPage() {
   const editBtn = document.getElementById("edit-details-btn");
   const confirmBtn = document.getElementById("confirm-details-btn");
-  const editForm = document.getElementById("edit-form");
 
   // Populate review fields
   const currentAsset =
     clientDetails.assets[clientDetails.currentAssetType][
       clientDetails.assets[clientDetails.currentAssetType].length - 1
     ];
+
+  document.querySelector(".income-expense-data-edit").value = JSON.stringify(
+    currentAsset.income_expense
+  );
+
   document.getElementById("edit-client-name").value = clientDetails.name;
-  document.getElementById("edit-type").value =
-    currentAsset.type || "unspecified";
+  document.getElementById("edit-subtype").value =
+    currentAsset.assetCategory || "unspecified";
   document.getElementById("edit-asset-name").value = currentAsset.name;
   document.getElementById("edit-address").value = currentAsset.address;
-  document.getElementById("edit-country").value = currentAsset.country;
-  // document.getElementById("edit-city").value = currentAsset.city;
+  document.getElementById("edit-country").innerText = currentAsset.country;
   document.getElementById("edit-value").value = currentAsset.value;
 
+  // console.log(JSON.parse(incomeExpenseDataPlaceholder.value));
   // Initially disable all form fields
   document
     .querySelectorAll("#edit-form input, #edit-form select")
     .forEach((el) => (el.disabled = true));
 
-  editBtn.addEventListener("click", function () {
+  editBtn.addEventListener("click", async function () {
+    countriesArr = await loadCountries();
+    populateDropdown(
+      countriesArr,
+      document.getElementById("countryListEdit"),
+      "countrySearchEdit",
+      "edit-country"
+    );
+    const countryListItems = document.querySelectorAll("#countryList li a");
+    let countryValue = "";
+    countryListItems.forEach((item) => {
+      item.addEventListener("click", (e) => {
+        console.log("hi");
+
+        countryValue = e.target.innerText;
+      });
+    });
     // Enable editing of fields
     document
-      .querySelectorAll("#edit-form input, #edit-form select")
+      .querySelectorAll("#edit-form input, #edit-form select, #edit-country")
       .forEach((el) => (el.disabled = false));
     editBtn.style.display = "none";
     confirmBtn.style.display = "inline-block";
@@ -812,17 +959,28 @@ async function handleReviewPage() {
 
   confirmBtn.addEventListener("click", function (e) {
     e.preventDefault();
+    let incomeExpenseInput = document.querySelector(
+      ".income-expense-data-edit"
+    );
+    let incomeExpenseArray;
+
+    try {
+      incomeExpenseArray = JSON.parse(incomeExpenseInput.value);
+    } catch (error) {
+      incomeExpenseArray = [];
+    }
+
     const editedAsset = {
-      type: document.getElementById("edit-type").value,
+      type: document.getElementById("edit-subtype").value,
       name: document.getElementById("edit-asset-name").value.toUpperCase(),
       address: capitalizeFirstLetter(
         document.getElementById("edit-address").value
       ),
       country: capitalizeFirstLetter(
-        document.getElementById("edit-country").value
+        document.getElementById("edit-country").innerText
       ),
-      // city: capitalizeFirstLetter(document.getElementById("edit-city").value),
       value: document.getElementById("edit-value").value,
+      income_expense: incomeExpenseArray,
     };
 
     clientDetails.assets[clientDetails.currentAssetType][
