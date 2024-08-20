@@ -3,7 +3,7 @@
 /******** real-estate-form screen ********/
 
 
-body{
+.real-estate-body{
   background-color: var(--color-cream);
 }
 .form-wrapper {
@@ -183,6 +183,7 @@ select:focus-visible {
   stroke: white;
   stroke-width: 30px;
 }
+
 
 /********** table stuff ************/
 
