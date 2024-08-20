@@ -148,7 +148,7 @@
                 <div class="d-flex mt-4 w-100 justify-content-between">
                   <button
                     class="btn-open-popup d-flex justify-content-around align-items-center"
-                    onclick="togglePopup(true, 'popupOverlayRealEstateForm', 'form')"
+                    onclick="togglePopup('popupOverlayRealEstateForm')"
                     type="button"
                   >
                     <i class="fa fa-plus"></i>
@@ -256,10 +256,10 @@
               </form>
               <div class="btn-container ">
                 
-                <button class=" me-5 popup-done simple-fancy-btn" onclick="togglePopup(true, 'popupOverlayRealEstateForm', 'form')">
+                <button class=" me-5 popup-done simple-fancy-btn" onclick="popupDone('popupOverlayRealEstateForm','re' )">
                   Done
                 </button>
-                <button class="btn-close-popup ms-5 simple-fancy-btn" onclick="togglePopup(false, 'popupOverlayRealEstateForm')">
+                <button class="btn-close-popup ms-5 simple-fancy-btn" onclick="togglePopup('popupOverlayRealEstateForm')">
                   Cancel
                 </button>
               </div>
@@ -268,7 +268,7 @@
         </div>
       </div>
     </div>
-    <input type="hidden" class="income-expense-data" name="income_expense_data" />
+    <input type="hidden" class="income-expense-data-re" name="income_expense_data" />
 
     <script src="script.js"></script>
     <script src="./node_modules/@fortawesome/fontawesome-free/js/all.min.js"></script>

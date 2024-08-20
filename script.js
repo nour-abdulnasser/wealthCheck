@@ -179,20 +179,32 @@ function getTableData(assetType) {
     const amountInput = row.querySelector(".ie-amount-input");
     const frequencySelect = row.querySelector(".ie-frequency-select");
 
-    const type = typeSelect ? typeSelect.value : null;
-    const concept = conceptInput ? conceptInput.value : null;
-    const amount = amountInput ? parseFloat(amountInput.value) : NaN;
-    const frequency = frequencySelect ? frequencySelect.value : null;
+    const type = typeSelect
+      ? typeSelect.value.match(/select/gi)
+        ? "unspecified"
+        : typeSelect.value
+      : null;
+    const concept = conceptInput ? conceptInput.value : "unspecified";
+    const amount = amountInput
+      ? parseFloat(amountInput.value) == null
+        ? "unspecified"
+        : parseFloat(amountInput.value)
+      : NaN;
+    const frequency = frequencySelect
+      ? frequencySelect.value.match(/select/gi)
+        ? "unspecified"
+        : frequencySelect.value
+      : null;
 
     // Only push if there is valid data
-    if (type && concept && !isNaN(amount) && frequency) {
-      data.push({
-        type: type,
-        concept: concept,
-        amount: amount,
-        frequency: frequency,
-      });
-    }
+    // if (type && concept && !isNaN(amount) && frequency) {
+    data.push({
+      type: type,
+      concept: concept,
+      amount: amount,
+      frequency: frequency,
+    });
+    // }
   });
 
   return data;
@@ -207,40 +219,41 @@ function populateSelect(options, selectElement) {
   });
 }
 
-function togglePopup(storeData = true, overlayId, page) {
-  /// page can be 'form' or 'review'
-  // the reason i didnt rely on id is bc it differs from asset to the other
-  // i didnt wanna use .includes
-  /// false toggle means to close without saving data
+// toggle for simple toggling, no data manipulation
+// toggle in form not review
+function togglePopup(overlayId) {
   const overlay = document.getElementById(overlayId);
-
-  if (storeData && page == "form") {
-    // Collect the table data before closing the popup
-    const incomeExpenseData = getTableData("re");
-    document.querySelector(".income-expense-data").value =
-      JSON.stringify(incomeExpenseData);
-  } else if (storeData && page == "review") {
-    populateIncomeExpenseTable(
-      JSON.parse(document.querySelector(".income-expense-data-edit").value)
-    );
-  }
-
   overlay.classList.toggle("show");
 }
 
-function popupDone(overlayId) {
-  const incomeExpenseDataEdit = getTableData("re-edit");
-  document.querySelector(".income-expense-data-edit").value = JSON.stringify(
-    incomeExpenseDataEdit
-  );
-  togglePopup(false, overlayId);
+// for populating in popup in review
+function popupPopulate(overlayId, identifier) {
+  const overlay = document.getElementById(overlayId);
+  document.querySelector(".popup-edit").style.display = "inline-block";
+  document.querySelector(".popup-done").style.display = "none";
 
-  console.log(document.querySelector(".income-expense-data-edit"));
+  const dataInput = document.querySelector(
+    `.income-expense-data-${identifier}`
+  );
+  populateIncomeExpenseTable(JSON.parse(dataInput.value), identifier);
+  overlay.classList.toggle("show");
+}
+
+// done -> store table data
+function popupDone(overlayId, identifier) {
+  const overlay = document.getElementById(overlayId);
+  const incomeExpenseDataEdit = getTableData(identifier);
+  document.querySelector(`.income-expense-data-${identifier}`).value =
+    JSON.stringify(incomeExpenseDataEdit);
+
+  overlay.classList.toggle("show");
+
+  console.log(document.querySelector(`.income-expense-data-${identifier}`));
 }
 
 // for the income expense table review
-function populateIncomeExpenseTable(dataArray) {
-  const tableBody = document.querySelector("#dataTable-re-edit tbody");
+function populateIncomeExpenseTable(dataArray, identifier) {
+  const tableBody = document.querySelector(`#dataTable-${identifier} tbody`);
   tableBody.innerHTML = ""; // Clear existing rows
 
   dataArray.forEach((item) => {
@@ -338,90 +351,96 @@ function populateIncomeExpenseTable(dataArray) {
   });
   document
     .querySelectorAll(
-      "#dataTable-re-edit tbody input, #dataTable-re-edit tbody select"
+      `#dataTable-${identifier} tbody input, #dataTable-${identifier} tbody select`
     )
     .forEach((element) => (element.disabled = true));
 }
 
 function editIncomeExpense(elementId) {
+  document.querySelector(".popup-done").style.display = "inline-block";
+  document.querySelector(".popup-edit").style.display = "none";
   const element = document.getElementById(`${elementId}`);
   element.querySelectorAll("tbody input, tbody select").forEach((el) => {
     el.disabled = false;
   });
 }
 
-function populateRealEstateSubtypes(isReviewPage = false, selectElement = null) {
-  const subCategoriesSelect = selectElement || document.getElementById('subCategories');
+function populateRealEstateSubtypes(
+  isReviewPage = false,
+  selectElement = null
+) {
+  const subCategoriesSelect =
+    selectElement || document.getElementById("subCategories");
   if (!subCategoriesSelect) {
-    console.error('Asset category select element not found');
+    console.error("Asset category select element not found");
     return;
   }
 
-  const subCategoriesContainer = subCategoriesSelect.closest('.dropdown-container');
+  const subCategoriesContainer = subCategoriesSelect.closest(
+    ".dropdown-container"
+  );
   const realEstateType = clientDetails.currentSubAssetType;
 
   // Clear existing options
-  subCategoriesSelect.innerHTML = '';
+  subCategoriesSelect.innerHTML = "";
 
   // Define subtypes for each real estate type
   const subtypes = {
-    unspecified: [
-      { value: 'unspecified', label: 'Unspecified' }
-    ],
+    unspecified: [{ value: "unspecified", label: "Unspecified" }],
     residential: [
-      { value: 'unspecified', label: 'Unspecified' },
-      { value: 'residential for rent', label: 'Residential property for rent' },
-      { value: 'housing', label: 'Residential housing' }
+      { value: "unspecified", label: "Unspecified" },
+      { value: "residential for rent", label: "Residential property for rent" },
+      { value: "housing", label: "Residential housing" },
     ],
     commercial: [
-      { value: 'unspecified', label: 'Unspecified' },
+      { value: "unspecified", label: "Unspecified" },
 
-      { value: 'commercial for rent', label: 'Commercial property for rent' },
-      { value: 'office', label: 'Office' }
+      { value: "commercial for rent", label: "Commercial property for rent" },
+      { value: "office", label: "Office" },
     ],
     industrial: [
-      { value: 'unspecified', label: 'Unspecified' },
+      { value: "unspecified", label: "Unspecified" },
 
-      { value: 'factories', label: 'Factories' },
-      { value: 'warehouses', label: 'Warehouses' }
+      { value: "factories", label: "Factories" },
+      { value: "warehouses", label: "Warehouses" },
     ],
     land: [
-      { value: 'unspecified', label: 'Unspecified' },
+      { value: "unspecified", label: "Unspecified" },
 
-      { value: 'agricultural', label: 'Agricultural land' }
-    ]
+      { value: "agricultural", label: "Agricultural land" },
+    ],
   };
 
-  if (realEstateType === 'unspecified' && !isReviewPage) {
+  if (realEstateType === "unspecified" && !isReviewPage) {
     // Hide the dropdown if unspecified and not on review page
     if (subCategoriesContainer) {
-      subCategoriesContainer.style.display = 'none';
+      subCategoriesContainer.style.display = "none";
     }
   } else {
     if (subCategoriesContainer) {
-      subCategoriesContainer.style.display = 'flex';
+      subCategoriesContainer.style.display = "flex";
     }
 
     if (isReviewPage) {
       // Add all types and subtypes for the review page
       Object.entries(subtypes).forEach(([type, typeSubtypes]) => {
-        const optgroup = document.createElement('optgroup');
+        const optgroup = document.createElement("optgroup");
         optgroup.label = capitalizeFirstLetter(type);
-        
-        typeSubtypes.forEach(subtype => {
-          const option = document.createElement('option');
+
+        typeSubtypes.forEach((subtype) => {
+          const option = document.createElement("option");
           option.value = subtype.value;
           option.textContent = subtype.label;
           optgroup.appendChild(option);
         });
-        
+
         subCategoriesSelect.appendChild(optgroup);
       });
     } else {
       // Add specific subtypes for the selected real estate type
       const relevantSubtypes = subtypes[realEstateType] || subtypes.unspecified;
-      relevantSubtypes.forEach(subtype => {
-        const option = document.createElement('option');
+      relevantSubtypes.forEach((subtype) => {
+        const option = document.createElement("option");
         option.value = subtype.value;
         option.textContent = subtype.label;
         subCategoriesSelect.appendChild(option);
@@ -766,6 +785,8 @@ function handleNicheAssetReviewPage() {
 }
 
 function handlePrivateEquityFormPage() {
+  document.querySelector(".income-expense-data-pe").value = JSON.stringify([]);
+
   const privateEquityDetailsForm = document.getElementById(
     "private-equity-asset-details-form"
   );
@@ -791,6 +812,14 @@ function handlePrivateEquityFormPage() {
 
   privateEquityNextBtn.addEventListener("click", function (e) {
     e.preventDefault();
+    let incomeExpenseData = document.querySelector(".income-expense-data-pe");
+    let incomeExpenseArray;
+
+    try {
+      incomeExpenseArray = JSON.parse(incomeExpenseData.value);
+    } catch (error) {
+      incomeExpenseArray = [];
+    }
 
     let newAsset = {
       type: clientDetails.currentSubAssetType,
@@ -806,7 +835,7 @@ function handlePrivateEquityFormPage() {
       investmentValue: document.querySelector(".pe-value-input").value,
       buyPrice: document.querySelector(".pe-buyPrice-input").value,
       assetName: document.querySelector(".pe-assetName-input").value,
-      income_expense: getTableData("pe") || "NA",
+      income_expense: incomeExpenseArray,
     };
 
     if (!clientDetails.assets.privateEquity) {
@@ -856,6 +885,9 @@ function handlePrivateEquityReviewPage() {
     clientDetails.assets[clientDetails.currentAssetType][
       clientDetails.assets[clientDetails.currentAssetType].length - 1
     ];
+  document.querySelector(".income-expense-data-pe-edit").value = JSON.stringify(
+    currentAsset.income_expense
+  );
   document.getElementById("edit-client-name").value = clientDetails.name;
   editTypeSelect.value = currentAsset.type;
   fundOrCompanyNameInput.value = currentAsset.fundOrCompanyName;
@@ -913,6 +945,16 @@ function handlePrivateEquityReviewPage() {
 
   privateEquityConfirmBtn.addEventListener("click", function (e) {
     e.preventDefault();
+    let incomeExpenseInput = document.querySelector(
+      ".income-expense-data-pe-edit"
+    );
+    let incomeExpenseArray;
+
+    try {
+      incomeExpenseArray = JSON.parse(incomeExpenseInput.value);
+    } catch (error) {
+      incomeExpenseArray = [];
+    }
     const editedAsset = {
       type: editTypeSelect.value,
       fundOrCompanyName:
@@ -926,6 +968,7 @@ function handlePrivateEquityReviewPage() {
       sharesAmount: document.getElementById("edit-shares").value,
       investmentValue: document.getElementById("edit-investmentValue").value,
       buyPrice: document.getElementById("edit-buyPrice").value,
+      income_expense: incomeExpenseArray,
     };
 
     clientDetails.assets[clientDetails.currentAssetType][
@@ -940,149 +983,9 @@ function handlePrivateEquityReviewPage() {
   });
 }
 
-// async function handleRealEstateFormPage() {
-//   await initDropdown();
-
-//   document.querySelector(".income-expense-data").value = JSON.stringify([]);
- 
-//   const nextAssetBtn = document.getElementById("asset-details-next-btn");
-//   const countryListItems = document.querySelectorAll("#countryList li a");
-//   let countryValue = "";
-
-//   countryListItems.forEach((item) => {
-//     item.addEventListener("click", (e) => {
-//       countryValue = e.target.innerText;
-//     });
-//   });
-
-//   nextAssetBtn.addEventListener("click", function (e) {
-//     e.preventDefault();
-
-//     const countryElement = document.getElementById("countryDropdown");
-//     let incomeExpenseData = document.querySelector(".income-expense-data");
-//     let incomeExpenseArray;
-
-//     try {
-//       incomeExpenseArray = JSON.parse(incomeExpenseData.value);
-//     } catch (error) {
-//       incomeExpenseArray = [];
-//     }
-
-//     let newAsset = {
-//       type: clientDetails.currentSubAssetType,
-//       name: document.querySelector(".asset-name-input").value,
-//       country: countryElement.innerText.match(/Select/gi)
-//         ? "unspecified"
-//         : countryElement.innerText,
-//       assetCategory: document.getElementById("subCategories").value,
-//       address: document.querySelector(".address-input").value,
-//       value: document.querySelector(".value-input").value,
-//       income_expense: incomeExpenseArray,
-//     };
-
-//     clientDetails.assets.realEstate.push(newAsset);
-
-//     saveClientDetails();
-//     console.log("Added new asset:", newAsset);
-//     console.log("Updated clientDetails:", clientDetails);
-//     window.location.href = "./real-estate-review-screen.html";
-//   });
-// }
-
-// async function handleRealEstateReviewPage() {
-//   const editBtn = document.getElementById("edit-details-btn");
-//   const confirmBtn = document.getElementById("confirm-details-btn");
-
-//   // Populate review fields
-//   const currentAsset =
-//     clientDetails.assets[clientDetails.currentAssetType][
-//       clientDetails.assets[clientDetails.currentAssetType].length - 1
-//     ];
-
-//   document.querySelector(".income-expense-data-edit").value = JSON.stringify(
-//     currentAsset.income_expense
-//   );
-
-//   document.getElementById("edit-client-name").value = clientDetails.name;
-//   document.getElementById("edit-subtype").value =
-//     currentAsset.assetCategory || "unspecified";
-//   document.getElementById("edit-asset-name").value = currentAsset.name;
-//   document.getElementById("edit-address").value = currentAsset.address;
-//   document.getElementById("edit-country").innerText = currentAsset.country;
-//   document.getElementById("edit-value").value = currentAsset.value;
-
-//   // console.log(JSON.parse(incomeExpenseDataPlaceholder.value));
-//   // Initially disable all form fields
-//   document
-//     .querySelectorAll("#edit-form input, #edit-form select")
-//     .forEach((el) => (el.disabled = true));
-
-//   editBtn.addEventListener("click", async function () {
-//     countriesArr = await loadCountries();
-//     populateDropdown(
-//       countriesArr,
-//       document.getElementById("countryListEdit"),
-//       "countrySearchEdit",
-//       "edit-country"
-//     );
-//     const countryListItems = document.querySelectorAll("#countryList li a");
-//     let countryValue = "";
-//     countryListItems.forEach((item) => {
-//       item.addEventListener("click", (e) => {
-//         console.log("hi");
-
-//         countryValue = e.target.innerText;
-//       });
-//     });
-//     // Enable editing of fields
-//     document
-//       .querySelectorAll("#edit-form input, #edit-form select, #edit-country")
-//       .forEach((el) => (el.disabled = false));
-//     editBtn.style.display = "none";
-//     confirmBtn.style.display = "inline-block";
-//   });
-
-//   confirmBtn.addEventListener("click", function (e) {
-//     e.preventDefault();
-//     let incomeExpenseInput = document.querySelector(
-//       ".income-expense-data-edit"
-//     );
-//     let incomeExpenseArray;
-
-//     try {
-//       incomeExpenseArray = JSON.parse(incomeExpenseInput.value);
-//     } catch (error) {
-//       incomeExpenseArray = [];
-//     }
-
-//     const editedAsset = {
-//       type: document.getElementById("edit-subtype").value,
-//       name: document.getElementById("edit-asset-name").value.toUpperCase(),
-//       address: capitalizeFirstLetter(
-//         document.getElementById("edit-address").value
-//       ),
-//       country: capitalizeFirstLetter(
-//         document.getElementById("edit-country").innerText
-//       ),
-//       value: document.getElementById("edit-value").value,
-//       income_expense: incomeExpenseArray,
-//     };
-
-//     clientDetails.assets[clientDetails.currentAssetType][
-//       clientDetails.assets[clientDetails.currentAssetType].length - 1
-//     ] = editedAsset;
-//     saveClientDetails();
-//     console.log("Updated asset:", editedAsset);
-//     console.log("Updated clientDetails:", clientDetails);
-
-//     // Navigate to add-another-asset screen
-//     window.location.href = "./add-another-asset-screen.html";
-//   });
-// }
-
 async function handleRealEstateFormPage() {
   await initDropdown();
-  document.querySelector(".income-expense-data").value = JSON.stringify([]);
+  document.querySelector(".income-expense-data-re").value = JSON.stringify([]);
 
   // Call the new function to populate subtypes
   populateRealEstateSubtypes();
@@ -1101,7 +1004,7 @@ async function handleRealEstateFormPage() {
     e.preventDefault();
 
     const countryElement = document.getElementById("countryDropdown");
-    let incomeExpenseData = document.querySelector(".income-expense-data");
+    let incomeExpenseData = document.querySelector(".income-expense-data-re");
     let incomeExpenseArray;
 
     try {
@@ -1116,9 +1019,10 @@ async function handleRealEstateFormPage() {
       country: countryElement.innerText.match(/Select/gi)
         ? "unspecified"
         : countryElement.innerText,
-      assetCategory: clientDetails.currentSubAssetType === 'unspecified' 
-        ? "unspecified" 
-        : document.getElementById("subCategories").value,
+      assetCategory:
+        clientDetails.currentSubAssetType === "unspecified"
+          ? "unspecified"
+          : document.getElementById("subCategories").value,
       address: document.querySelector(".address-input").value,
       value: document.querySelector(".value-input").value,
       income_expense: incomeExpenseArray,
@@ -1143,14 +1047,15 @@ async function handleRealEstateReviewPage() {
       clientDetails.assets[clientDetails.currentAssetType].length - 1
     ];
 
-  document.querySelector(".income-expense-data-edit").value = JSON.stringify(
+  document.querySelector(".income-expense-data-re-edit").value = JSON.stringify(
     currentAsset.income_expense
   );
 
   document.getElementById("edit-client-name").value = clientDetails.name;
   document.getElementById("edit-asset-name").value = currentAsset.name;
   document.getElementById("edit-address").value = currentAsset.address;
-  document.getElementById("edit-country").innerText = currentAsset.country || "Select Country";
+  document.getElementById("edit-country").innerText =
+    currentAsset.country || "Select Country";
   document.getElementById("edit-value").value = currentAsset.value;
 
   // Populate the asset category dropdown
@@ -1185,7 +1090,9 @@ async function handleRealEstateReviewPage() {
     });
     // Enable editing of fields
     document
-      .querySelectorAll("#review-details input, #review-details select, #edit-country")
+      .querySelectorAll(
+        "#review-details input, #review-details select, #edit-country"
+      )
       .forEach((el) => (el.disabled = false));
     editBtn.style.display = "none";
     confirmBtn.style.display = "inline-block";
@@ -1194,7 +1101,7 @@ async function handleRealEstateReviewPage() {
   confirmBtn.addEventListener("click", function (e) {
     e.preventDefault();
     let incomeExpenseInput = document.querySelector(
-      ".income-expense-data-edit"
+      ".income-expense-data-re-edit"
     );
     let incomeExpenseArray;
 
@@ -1229,8 +1136,6 @@ async function handleRealEstateReviewPage() {
     window.location.href = "./add-another-asset-screen.html";
   });
 }
-
-
 
 function handleAddAnotherAssetPage() {
   console.log("Current clientDetails:", clientDetails);
