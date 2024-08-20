@@ -11,8 +11,10 @@
     <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Baskervville:ital@0;1&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./styles.css" />
+    <link rel="stylesheet" href="./css/popup.css" />
     <link rel="stylesheet" href="./css/form.css" />
     <link rel="stylesheet" href="./niche-asset.css" />
+    <link rel="stylesheet" href="./css/table.css" />
 </head>
 <body>
     
@@ -62,64 +64,112 @@
                 </div>
               </div>
             </form>
+            <div id="popupOverlayNicheAssetsForm" class="overlay-container">
+              <div class="popup-box">
+                <form class="form-container">
+                  <div class="container-lg">
+                    <div class="table-responsive">
+                      <div class="table-wrapper">
+                        <div class="table-title">
+                          <div
+                            class="d-flex p-4 justify-content-between align-items-center"
+                          >
+                            <div class="col-sm-8">
+                              <h2 class="fancy-label-heading">Asset Income and Expenses</h2>
+                            </div>
+                            <div class="col-sm-4 text-end">
+                              <button
+                                type="button"
+                                class="add-new simple-fancy-btn"
+                                onclick="addRow('re')"
+                              >
+                                <i class="fa fa-plus"></i> Add New
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                        <table id="dataTable-re" class="table">
+                          <thead>
+                            <tr>
+                              <th class="text-start">Income or Expense</th>
+                              <th class="text-start">Concept</th>
+                              <th class="text-start">Amount</th>
+                              <th class="text-start">Frequency</th>
+                              <th class="text-start">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody class="">
+                            <tr>
+                              <td>
+                                <select name="" class="income-expense-select">
+                                  <option selected="true" disabled="disabled">
+                                    Select type
+                                  </option>
+                                  <option value="Income">Income</option>
+                                  <option value="Expense">Expense</option>
+                                </select>
+                              </td>
+                              <td>
+                                <input
+                                  type="text"
+                                  placeholder="Concept"
+                                  class="ie-concept-input"
+                                />
+                              </td>
+                              <td>
+                                <input
+                                  type="number"
+                                  placeholder="Amount"
+                                  class="ie-amount-input"
+                                />
+                              </td>
+                              <td>
+                                <select name="" class="ie-frequency-select">
+                                  <option selected="true" disabled="disabled">
+                                    Select frequency
+                                  </option>
+                                  <option value="Monthly">Monthly</option>
+                                  <option value="Annual">Annual</option>
+                                </select>
+                              </td>
+                              <td class="actionCell">
+                                <a
+                                  class="delete"
+                                  id="deleteBtn"
+                                  onclick="deleteRow(this, 're')"
+                                  title="Delete"
+                                  data-toggle="tooltip"
+                                  style="cursor: pointer"
+                                  ><i class="fa-solid fa-trash-can"></i
+                                ></a>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                  
+                </form>
+                <div class="btn-container ">
+                  
+                  <button class=" me-5 popup-done simple-fancy-btn" onclick="popupDone('popupOverlayNicheAssetsForm','re' )">
+                    Done
+                  </button>
+                  <button class="btn-close-popup ms-5 simple-fancy-btn" onclick="togglePopup('popupOverlayNicheAssetsForm')">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
 
           </div>
         </div>
         
       </div>
-      <!-- <div class="table-wrapper mt-3">
-        <div id="income-expense-table" style="display: block">
-          <table id="dataTable-pe" class="table-light">
-            <thead>
-              <tr>
-                <th class="text-center">Income or Expense</th>
-                <th class="text-center">Concept</th>
-                <th class="text-center">Amount</th>
-                <th class="text-center">Frequency</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>
-                  <select name="" class="income-expense-select">
-                    <option selected="true" disabled="disabled">
-                      Please select type
-                    </option>
-                    <option value="Income">Income</option>
-                    <option value="Expense">Expense</option>
-                  </select>
-                </td>
-                <td>
-                  <input
-                    type="text"
-                    placeholder="Concept"
-                    class="ie-concept-input"
-                  />
-                </td>
-                <td>
-                  <input
-                    type="number"
-                    placeholder="Amount"
-                    class="ie-amount-input"
-                  />
-                </td>
-                <td>
-                  <select name="" class="ie-frequency-select">
-                    <option selected="true" disabled="disabled">
-                      Please select frequency
-                    </option>
-                    <option value="Monthly">Monthly</option>
-                    <option value="Annual">Annual</option>
-                  </select>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-          <button type="button" onclick="addRow('pe')">
-            Add another row?
-          </button>
-        </div>
-      </div> -->
+ 
+    <input type="hidden" class="income-expense-data-na" name="income_expense_data" />
+       
     <script src="script.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
       <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
