@@ -4,6 +4,12 @@
   --color-cream: #EDE3DD;
 }
 
+.fancy-label-heading {
+  font-family: "Baskervville", serif;
+  font-weight: bold;
+  /* font-style: normal; */
+  /* font-size: 1.1rem; */
+}
 
 
 body {

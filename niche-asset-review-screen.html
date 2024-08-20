@@ -1,73 +1,213 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wealth Check Niche Assets Form</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Baskervville:ital@0;1&display=swap" rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baskervville+SC&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Baskervville:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+    />
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./css/form.css" />
     <link rel="stylesheet" href="./niche-asset.css" />
+    <link rel="stylesheet" href="./css/real-estate-review.css" />
+    <link rel="stylesheet" href="./css/popup.css" />
+    <link rel="stylesheet" href="./css/table.css" />
   </head>
-<body>
-
-
-
+  <body>
     <div id="niche-review-screen">
-        <div class="niche-review-screen-inner-container">
-          <div class="niche-reviewImage-container"></div>
-          <div class="niche-review-screen-inner">
-            <h1>Review your asset details</h1>
-            <div id="niche-review-details" class="row">
-              <div class="container">
-                <form class="form" action="" id="niche-edit-form">
-                  <h2><span>Niche Asset</span></h2>
+      <div class="niche-review-screen-inner-container">
+        <div class="niche-reviewImage-container"></div>
+        <div class="niche-review-screen-inner">
+          <h1>Review your asset details</h1>
+          <div id="niche-review-details" class="row">
+            <div class="container">
+              <form class="form" action="" id="niche-edit-form">
+                <h2><span>Niche Asset</span></h2>
 
-                  <label for="edit-client-name">Client's name</label>
-                  <input disabled type="text" id="edit-client-name" />
-                  <label for="edit-nicheType">Asset Type</label>
-                  <select
-                    disabled
-                    id="edit-type"
-                    class="form-select mb-3"
-                    aria-label="Default select example"
-                  >
-                    <option value="unspecified">Unspecified</option>
-                    <option value="art">Art</option>
-                    <option value="luxuryVehicle">Luxury Vehicles</option>
-                    <option value="otherCollection">Other Collection</option>
-                  </select>
+                <label for="edit-client-name">Client's name</label>
+                <input disabled type="text" id="edit-client-name" />
+                <label for="edit-nicheType">Asset Type</label>
+                <select
+                  disabled
+                  id="edit-type"
+                  class="form-select mb-3"
+                  aria-label="Default select example"
+                >
+                  <option value="unspecified">Unspecified</option>
+                  <option value="art">Art</option>
+                  <option value="luxuryVehicle">Luxury Vehicles</option>
+                  <option value="otherCollection">Other Collection</option>
+                </select>
 
-                  <label for="edit-nicheAsset-name">Asset Name</label>
-                  <input disabled type="text" id="edit-nicheAsset-name" />
+                <label for="edit-nicheAsset-name">Asset Name</label>
+                <input disabled type="text" id="edit-nicheAsset-name" />
 
-                  <label for="edit-nicheAsset-value">Asset Value</label>
-                  <input disabled type="text" id="edit-nicheAsset-value" />
-                  <!-- <label for="edit-value">Asset value</label>
+                <label for="edit-nicheAsset-value">Asset Value</label>
+                <input disabled type="text" id="edit-nicheAsset-value" />
+                <!-- <label for="edit-value">Asset value</label>
                   <input disabled type="text" id="edit-value" /> -->
-                </form>
+              </form>
+              <div
+                id="popupOverlayNicheAssetsReview"
+                class="overlay-container"
+              >
+                <div class="popup-box">
+                  <form class="form-container">
+                    <div class="container-lg">
+                      <div class="table-responsive">
+                        <div class="table-wrapper">
+                          <div class="table-title">
+                            <div
+                              class="d-flex p-4 justify-content-between align-items-center"
+                            >
+                              <div class="col-sm-8">
+                                <h2 class="fancy-label-heading">
+                                  Asset Income and Expenses
+                                </h2>
+                              </div>
+                              <div class="col-sm-4 text-end">
+                                <button
+                                  type="button"
+                                  class="add-new hidden simple-fancy-btn"
+                                  onclick="addRow('na-edit')"
+                                >
+                                  <i class="fa fa-plus"></i> Add New
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                          <table id="dataTable-na-edit" class="table">
+                            <thead>
+                              <tr>
+                                <th class="text-start">Income or Expense</th>
+                                <th class="text-start">Concept</th>
+                                <th class="text-start">Amount</th>
+                                <th class="text-start">Frequency</th>
+                                <th class="text-start">Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody class="">
+                              <tr>
+                                <td>
+                                  <select name="" class="income-expense-select">
+                                    <option selected="true" disabled="disabled">
+                                      Select type
+                                    </option>
+                                    <option value="Income">Income</option>
+                                    <option value="Expense">Expense</option>
+                                  </select>
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    placeholder="Concept"
+                                    class="ie-concept-input"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="number"
+                                    placeholder="Amount"
+                                    class="ie-amount-input"
+                                  />
+                                </td>
+                                <td>
+                                  <select name="" class="ie-frequency-select">
+                                    <option selected="true" disabled="disabled">
+                                      Select frequency
+                                    </option>
+                                    <option value="Monthly">Monthly</option>
+                                    <option value="Annual">Annual</option>
+                                  </select>
+                                </td>
+                                <td class="actionCell">
+                                  <a
+                                    class="delete"
+                                    id="deleteBtn"
+                                    onclick="deleteRow(this, 'na-edit')"
+                                    title="Delete"
+                                    data-toggle="tooltip"
+                                    style="cursor: pointer"
+                                    ><i class="fa-solid fa-trash-can"></i
+                                  ></a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </form>
+                  <div class="btn-container">
+                    <button
+                      id="review-done-na"
+                      class="me-5 popup-done simple-fancy-btn"
+                      onclick="popupDone('popupOverlayNicheAssetsReview', 'na-edit')"
+                    >
+                      Done
+                    </button>
+                    <button
+                      class="me-5 popup-edit simple-fancy-btn"
+                      onclick="editIncomeExpense('popupOverlayNicheAssetsReview')"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      class="btn-close-popup ms-5 simple-fancy-btn"
+                      onclick="togglePopup('popupOverlayNicheAssetsReview')"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-6">
-                <button id="niche-asset-edit-details-btn">Edit</button>
-              </div>
-              <div class="col-6">
-                <button id="niche-asset-confirm-details-btn">Confirm</button>
-              </div>
+          </div>
+          <div class="row">
+            <div class="col-4">
+              <button id="niche-asset-edit-details-btn">Edit</button>
+            </div>
+            <div class="col-4">
+              <button id="niche-asset-confirm-details-btn">Confirm</button>
+            </div>
+            <div class="col-4">
+              <button
+                class="btn-open-popup d-flex justify-content-around align-items-center"
+                id="review-ie-btn"
+                onclick="popupPopulate('popupOverlayNicheAssetsReview', 'na-edit')"
+                type="button"
+              >
+                <span>Review income and expenses</span>
+              </button>
             </div>
           </div>
         </div>
       </div>
+    </div>
+    <input type="hidden" class="income-expense-data-na-edit" name="income_expense_data" />
 
     <script src="script.js"></script>
-  <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-</body>
+  </body>
 </html>

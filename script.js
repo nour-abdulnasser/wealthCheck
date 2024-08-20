@@ -230,6 +230,8 @@ function togglePopup(overlayId) {
 function popupPopulate(overlayId, identifier) {
   const overlay = document.getElementById(overlayId);
   document.querySelector(".popup-edit").style.display = "inline-block";
+  document.querySelector(".add-new").style.display = "none";
+
   document.querySelector(".popup-done").style.display = "none";
 
   const dataInput = document.querySelector(
@@ -267,6 +269,7 @@ function populateIncomeExpenseTable(dataArray, identifier) {
     const typeOptionPlaceholder = document.createElement("option");
     typeOptionPlaceholder.disabled = true;
     typeOptionPlaceholder.textContent = "Select type";
+    typeOptionPlaceholder.selected = true;
     typeSelect.appendChild(typeOptionPlaceholder);
 
     const incomeOption = document.createElement("option");
@@ -310,6 +313,8 @@ function populateIncomeExpenseTable(dataArray, identifier) {
     const frequencyOptionPlaceholder = document.createElement("option");
     frequencyOptionPlaceholder.disabled = true;
     frequencyOptionPlaceholder.textContent = "Select frequency";
+    frequencyOptionPlaceholder.selected = true;
+
     frequencySelect.appendChild(frequencyOptionPlaceholder);
 
     const monthlyOption = document.createElement("option");
@@ -336,7 +341,7 @@ function populateIncomeExpenseTable(dataArray, identifier) {
     deleteLink.dataset.toggle = "tooltip";
     deleteLink.style.cursor = "pointer";
     deleteLink.onclick = function () {
-      deleteRow(this, "re");
+      deleteRow(this, identifier);
     };
 
     const deleteIcon = document.createElement("i");
@@ -358,6 +363,7 @@ function populateIncomeExpenseTable(dataArray, identifier) {
 
 function editIncomeExpense(elementId) {
   document.querySelector(".popup-done").style.display = "inline-block";
+  document.querySelector(".add-new").style.display = "inline-block";
   document.querySelector(".popup-edit").style.display = "none";
   const element = document.getElementById(`${elementId}`);
   element.querySelectorAll("tbody input, tbody select").forEach((el) => {
@@ -656,6 +662,8 @@ function handleNicheAssetFormPage() {
     ".nicheAsset-image-container"
   );
 
+  document.querySelector(".income-expense-data-na").value = JSON.stringify([]);
+
   console.log("Current clientDetails:", clientDetails); // Debugging log
 
   // Check if clientDetails and currentSubAssetType are defined
@@ -687,11 +695,20 @@ function handleNicheAssetFormPage() {
   // Add event listener for the next button
   nicheAssetsNextBtn.addEventListener("click", function (e) {
     e.preventDefault();
+    let incomeExpenseData = document.querySelector(".income-expense-data-na");
+    let incomeExpenseArray;
+
+    try {
+      incomeExpenseArray = JSON.parse(incomeExpenseData.value);
+    } catch (error) {
+      incomeExpenseArray = [];
+    }
 
     let newAsset = {
       type: clientDetails.currentSubAssetType,
       name: document.querySelector(".nicheAsset-name-input").value,
       value: document.querySelector(".nicheAsset-value-input").value,
+      income_expense: incomeExpenseArray,
     };
 
     if (!clientDetails.assets.nicheAssets) {
@@ -724,6 +741,9 @@ function handleNicheAssetReviewPage() {
     clientDetails.assets.nicheAssets[
       clientDetails.assets.nicheAssets.length - 1
     ];
+  document.querySelector(".income-expense-data-na-edit").value = JSON.stringify(
+    currentAsset.income_expense
+  );
   document.getElementById("edit-client-name").value = clientDetails.name;
   editTypeSelect.value = currentAsset.type;
   document.getElementById("edit-nicheAsset-name").value = currentAsset.name;
@@ -745,10 +765,21 @@ function handleNicheAssetReviewPage() {
 
   nicheAssetConfirmBtn.addEventListener("click", function (e) {
     e.preventDefault();
+    let incomeExpenseInput = document.querySelector(
+      ".income-expense-data-na-edit"
+    );
+    let incomeExpenseArray;
+
+    try {
+      incomeExpenseArray = JSON.parse(incomeExpenseInput.value);
+    } catch (error) {
+      incomeExpenseArray = [];
+    }
     const editedAsset = {
       type: editTypeSelect.value,
       name: document.getElementById("edit-nicheAsset-name").value,
       value: document.getElementById("edit-nicheAsset-value").value,
+      income_expense: incomeExpenseArray,
     };
 
     clientDetails.assets.nicheAssets[
