@@ -51,11 +51,13 @@
     font-size: 1.2rem;
     word-spacing: 0.2rem;
     letter-spacing: 1px;
+    
   }
 
   .fancy-label-heading span::before{
     content: "| ";
     font-weight: bolder;
+    
   }
 
   a.delete{
@@ -65,3 +67,7 @@
   .input-value-container{
     width: 64% !important; 
   }
+
+.add-income-expense-btn{
+  width: 70%;
+}
