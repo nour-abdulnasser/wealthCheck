@@ -30,19 +30,16 @@
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./css/form.css" />
     <link rel="stylesheet" href="./css/table.css" />
+    <link rel="stylesheet" href="./css/general-form-styles.css">
   </head>
-  <body>
-    <div class="form-wrapper container">
-      <div
-        id="real-estate-form"
-        class="overflow-hidden"
-      >
-      <div class="form-img-container"></div>
+  <body class="real-estate-body">
+    <div class="form-wrapper">
+      <div id="real-estate-form" class="overflow-hidden w-75">
+        <div class="form-img-container"></div>
         <div class="real-estate-form-container">
-          <h1 class="fancy-label-heading my-0">Real Estate Asset Details</h1>
+          <h1 class="text-start fancy-label-heading my-0 mb-1">Real Estate <span>Asset Details</span></h1>
           <form id="asset-details-form">
             <div class="non-table">
-              
               <div
                 class="form-section d-flex flex-column align-items-start ps-3"
               >
@@ -101,9 +98,7 @@
                     ><span>Asset sub-type</span> <span>:</span>
                   </label>
                   <div class="dropdown-inner d-flex justify-content-end">
-                    <select id="subCategories">
-                      
-                    </select>
+                    <select id="subCategories"></select>
                   </div>
                 </div>
 
@@ -134,9 +129,10 @@
                   <label
                     class="fancy-label my-2"
                     for="formFileMultiple"
-                    class="custom-file-upload form-label "
+                    class="custom-file-upload form-label"
                   >
-                    Upload any supporting documents: e.g. House deed (optional)</label
+                    Upload any supporting documents: e.g. House deed
+                    (optional)</label
                   >
                   <input
                     class="form-control"
@@ -145,9 +141,11 @@
                     multiple
                   />
                 </div>
-                <div class="d-flex mt-4 w-100 justify-content-between">
+                <div
+                  class="d-flex mt-4 w-100 justify-content-between align-items-center"
+                >
                   <button
-                    class="btn-open-popup d-flex justify-content-around align-items-center"
+                    class="btn-open-popup text-start"
                     onclick="togglePopup('popupOverlayRealEstateForm')"
                     type="button"
                   >
@@ -158,7 +156,7 @@
                     <button
                       type="button"
                       id="asset-details-next-btn"
-                      class="fancy-button m-auto"
+                      class=" m-auto done-btn"
                     >
                       Done
                     </button>
@@ -178,7 +176,9 @@
                           class="d-flex p-4 justify-content-between align-items-center"
                         >
                           <div class="col-sm-8">
-                            <h2 class="fancy-label-heading">Asset Income and Expenses</h2>
+                            <h2 class="fancy-label-heading">
+                              Asset Income and Expenses
+                            </h2>
                           </div>
                           <div class="col-sm-4 text-end">
                             <button
@@ -252,14 +252,18 @@
                     </div>
                   </div>
                 </div>
-                
               </form>
-              <div class="btn-container ">
-                
-                <button class=" me-5 popup-done simple-fancy-btn" onclick="popupDone('popupOverlayRealEstateForm','re' )">
+              <div class="btn-container">
+                <button
+                  class="me-5 popup-done simple-fancy-btn"
+                  onclick="popupDone('popupOverlayRealEstateForm','re' )"
+                >
                   Done
                 </button>
-                <button class="btn-close-popup ms-5 simple-fancy-btn" onclick="togglePopup('popupOverlayRealEstateForm')">
+                <button
+                  class="btn-close-popup ms-5 simple-fancy-btn"
+                  onclick="togglePopup('popupOverlayRealEstateForm')"
+                >
                   Cancel
                 </button>
               </div>
@@ -268,7 +272,11 @@
         </div>
       </div>
     </div>
-    <input type="hidden" class="income-expense-data-re" name="income_expense_data" />
+    <input
+      type="hidden"
+      class="income-expense-data-re"
+      name="income_expense_data"
+    />
 
     <script src="script.js"></script>
     <script src="./node_modules/@fortawesome/fontawesome-free/js/all.min.js"></script>

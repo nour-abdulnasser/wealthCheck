@@ -1,0 +1,67 @@
+.done-btn {
+  padding: 9px 20px;
+  font-family: "Baskervville", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.2rem;
+  margin-top: 10px !important;
+  color: white;
+  /* border-color: #333; */
+  border-radius: 3px;
+  border: none;
+  background-color: #333;
+  transition: all 0.3s ease;
+}
+.done-btn:hover {
+  transform: scale(1.1);
+}
+
+.edit-review-btn,
+.income-expense-popup-btn {
+    border-radius: 0px;
+}
+
+.simple-fancy-btn{
+    padding: 9px 20px;
+    font-family: "Baskervville", serif;
+    font-weight: bold;
+    font-size: 1rem;
+    background-color: #fff;
+    border: #333 solid 1px;
+    border-radius: 2px;
+    color: #333;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+}
+
+.simple-fancy-btn:hover{
+    background-color: #e6e6e6;
+}
+
+.fancy-label-heading {
+    font-family: "Baskervville", serif;
+    font-weight: bold;
+    /* font-style: normal; */
+    /* font-size: 1.1rem; */
+  }
+
+  .fancy-label-heading span{
+    font-weight: normal;
+    font-size: 1.2rem;
+    word-spacing: 0.2rem;
+    letter-spacing: 1px;
+  }
+
+  .fancy-label-heading span::before{
+    content: "| ";
+    font-weight: bolder;
+  }
+
+  a.delete{
+    background-color: #ffffff;
+  }
+
+  .input-value-container{
+    width: 64% !important; 
+  }

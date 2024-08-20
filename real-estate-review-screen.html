@@ -30,21 +30,23 @@
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./css/real-estate-review.css" />
     <link rel="stylesheet" href="./css/popup.css" />
+    <link rel="stylesheet" href="./css/form.css" />
     <link rel="stylesheet" href="./css/table.css" />
+    <link rel="stylesheet" href="./css/general-form-styles.css" />
   </head>
   <body>
     <!-- review-screen is still a white screen and for some reeason i csnt fix it myself. look the form in the review screen should have what the client inputted but everything disabled until the user clicks edit. maybe its because you didnt save the things the client entered to the data structre and local storage/session? you can take this old script.js  before we split the html pages as ispiration on this part only. please share full js code when youre doe. also here have review-screen html in case it helps maybe  -->
 
-    <div id="review-screen">
-      <div class="review-screen-inner-container">
+    <div id="review-screen" class="form-wrapper">
+      <div class="review-screen-inner-container w-75">
         <div class="review-image"></div>
         <div class="review-screen-inner">
-          <h1>Review your asset details</h1>
+          <h1 class="text-start fancy-label-heading">
+            Real Estate <span>Review Asset Details</span>
+          </h1>
           <div id="review-details" class="row">
             <div class="container">
               <form class="form" action="" id="edit-form">
-                <h2><span>Real Estate</span></h2>
-
                 <label for="edit-client-name">Client's name</label>
                 <input disabled type="text" id="edit-client-name" />
                 <label for="edit-subtype">Asset Type</label>
@@ -53,20 +55,17 @@
                   id="edit-subtype"
                   class="form-select mb-3"
                   aria-label="Default select example"
-                >
-               
-                </select>
+                ></select>
                 <label for="edit-asset-name">Asset name</label>
                 <input disabled type="text" id="edit-asset-name" />
                 <label for="edit-address">Address</label>
                 <input disabled type="text" id="edit-address" />
-                <div class="dropdown-container">
-                  <label for="edit-country" class="fancy-label"
-                    ><span>Asset country</span>
-                    <span>:</span>
+                <div class="dropdown-container d-flex justify-content-between">
+                  <label for="edit-country" class="fancy-label w-25"
+                    ><span>Asset country :</span>
                   </label>
                   <div
-                    class="dropdown dropdown-inner d-flex justify-content-end"
+                    class="dropdown dropdown-inner w-100 d-flex justify-content-end"
                   >
                     <button
                       class="dropdown-toggle"
@@ -98,10 +97,21 @@
                     </ul>
                   </div>
                 </div>
-                <label for="edit-value">Asset value</label>
-                <input disabled type="text" id="edit-value" />
+                <div class="value d-flex justify-content-between">
+                  <label class="w-25 text-start" for="edit-value"
+                    >Asset value :</label
+                  >
+                  <div class="input-value-container d-flex justify-content-end">
+                    <input
+                      class="input-value"
+                      disabled
+                      type="text"
+                      id="edit-value"
+                    />
+                  </div>
+                </div>
               </form>
-              <div id="popupOverlayRealEstateReview" class=" overlay-container">
+              <div id="popupOverlayRealEstateReview" class="overlay-container">
                 <div class="popup-box">
                   <form class="form-container">
                     <div class="container-lg">
@@ -191,7 +201,7 @@
                   </form>
                   <div class="btn-container">
                     <button
-                    id="review-done-re"
+                      id="review-done-re"
                       class="me-5 popup-done simple-fancy-btn"
                       onclick="popupDone('popupOverlayRealEstateReview', 're-edit')"
                     >
@@ -214,22 +224,27 @@
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-4">
-              <button id="edit-details-btn">Edit</button>
-            </div>
-            <div class="col-4">
-              <button id="confirm-details-btn">Confirm</button>
-            </div>
-            <div class="col-4">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex">
               <button
-                class="btn-open-popup d-flex justify-content-around align-items-center"
+                class="btn-open-popup w-100 simple-fancy-btn income-expense-popup-btn"
                 id="review-ie-btn"
                 onclick="popupPopulate('popupOverlayRealEstateReview', 're-edit')"
                 type="button"
               >
                 <span>Review income and expenses</span>
               </button>
+            </div>
+            <div class="">
+              <button
+                class="simple-fancy-btn edit-review-btn"
+                id="edit-details-btn"
+              >
+                Edit
+              </button>
+            </div>
+            <div class="">
+              <button id="confirm-details-btn" class="done-btn">Confirm</button>
             </div>
           </div>
         </div>

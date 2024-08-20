@@ -556,7 +556,9 @@ body {
   -webkit-box-shadow: -1px 1px 5px 9px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -1px 1px 5px 9px rgba(0, 0, 0, 0.75);
   box-shadow: -1px 1px 15px 6px rgb(187, 199, 207);
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  grid-template-areas: "img-re-rev form-re-rev";
   width: 60%;
   justify-content: space-between;
   /* background-color: teal; */
@@ -571,8 +573,10 @@ body {
 
 .review-screen-inner {
   background-color: #fff;
-  width: 58%;
+
   padding: 1.5rem 3rem 1.5rem 3rem;
+  grid-area: form-re-rev;
+
 }
 
 .review-screen-inner h1, .review-screen-inner h2 {
@@ -614,7 +618,7 @@ padding-bottom: 5px !important;
     url("./images/brian-babb-XbwHrt87mQ0-unsplash.jpg");
   background-size: cover;
   background-position: center center;
-  width: 42%;
+  grid-area: img-re-rev;
 }
 
 #review-details .form input:focus{

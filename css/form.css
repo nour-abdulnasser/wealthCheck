@@ -1,8 +1,18 @@
+@import url(./variables.css);
+
 /******** real-estate-form screen ********/
+
+
+.real-estate-body{
+  background-color: var(--color-cream);
+}
 .form-wrapper {
   width: 100vw;
   height: 100vh;
   padding: 2.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .fancy-label-heading {
@@ -14,6 +24,7 @@
 
 #real-estate-form {
   display: grid;
+  background-color: #fff;
   grid-template-columns: 1fr 2fr;
   grid-template-areas: "img form";
   max-height: 100%; /* Ensure the grid takes up the full height */
@@ -77,7 +88,7 @@ h1 {
 
 .form-img-container {
   grid-area: img;
-  background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+  background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(0, 0, 0, 0.25)),
     url("../images/brian-babb-XbwHrt87mQ0-unsplash.jpg");
   background-size: cover;
   background-position: center;
@@ -172,6 +183,7 @@ select:focus-visible {
   stroke: white;
   stroke-width: 30px;
 }
+
 
 /********** table stuff ************/
 
