@@ -526,6 +526,8 @@ function handleIndexPage() {
     });
   }
 
+
+
   const clearDataBtn = document.getElementById("clear-data-btn");
   if (clearDataBtn) {
     clearDataBtn.addEventListener("click", () => {
@@ -564,6 +566,14 @@ function handleNamePage() {
     });
   }
 }
+
+document.getElementById('name-input').addEventListener('keydown', function(event) {
+  if (event.key === 'Enter') {
+      event.preventDefault();  // Prevent the default form submission behavior
+      // Trigger navigation to the next page or next step in your form
+      window.location.href = 'main-menu.html';  // Replace with the correct URL or function
+  }
+});
 
 // after name. choices: my results, portfolio, etc
 function handleMainMenuPage() {}

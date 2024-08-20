@@ -71,3 +71,17 @@
   .dropdown-toggle::after {
     content: none;
   }
+
+
+
+  #edit-details-btn, #confirm-details-btn{
+    padding: 9px 20px;
+    font-family: "Baskervville", serif;
+    font-weight: 400;
+    font-style: normal;
+    font-size: 1.2rem;
+    margin-top: 10px !important;
+    color: white;
+    border-color: #333;
+    background-color: #333;
+  }

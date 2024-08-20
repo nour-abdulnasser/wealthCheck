@@ -91,6 +91,35 @@
     background-color: #333;
   
   }
+
+#private-equity-confirm-details-btn{
+  padding: 9px 20px;
+  font-family: "Baskervville", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.2rem;
+  margin-top: 10px !important;
+  color: white;
+  border-color: #333;
+  background-color: #333;
+}
+
+
+#private-equity-edit-details-btn{
+  padding: 9px 20px;
+  font-family: "Baskervville", serif;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1.2rem;
+  margin-top: 10px !important;
+  color: white;
+  border-color: #333;
+  background-color: #333;
+}
+
+
+
+
   #private-equity-asset-details-next-btn:hover {
   
     transform: scale(1.1);

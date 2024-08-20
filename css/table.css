@@ -29,6 +29,13 @@ table tbody tr{
     border-right: none;
 }
 
+
+a.delete{
+    background-color: white;
+}
+
+
+
 table select, table option{
     font-family: "Baskervville", serif;
     font-weight: 400;
