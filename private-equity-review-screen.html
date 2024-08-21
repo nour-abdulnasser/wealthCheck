@@ -1,217 +1,233 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wealth Check Private Equity Form</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Baskervville:ital@0;1&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baskervville+SC&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Baskervville:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+    />
     <link rel="stylesheet" href="./styles.css" />
     <link rel="stylesheet" href="./css/form.css" />
     <link rel="stylesheet" href="./private-equity.css" />
     <link rel="stylesheet" href="./css/popup.css" />
     <link rel="stylesheet" href="./css/table.css" />
+    <link rel="stylesheet" href="./css/general-form-styles.css" />
   </head>
-<body>
+  <body>
+    <div id="private-equity-review-screen" class="form-wrapper">
+      <div class="private-equity-review-screen-inner-container w-75">
+        <div class="pe-reviewImage-container"></div>
+        <div class="private-equity-review-screen-inner">
+          <h1 class="fancy-label-heading text-start">
+            Private Equity <span>Review Asset Details</span>
+          </h1>
+          <div id="private-equity-review-details" class="row">
+            <div class="container">
+              <form class="form" action="" id="private-equity-edit-form">
+                <label for="edit-client-name">Client's name</label>
+                <input disabled type="text" id="edit-client-name" />
+                <label for="edit-peType">Asset Type</label>
+                <select
+                  disabled
+                  id="edit-type"
+                  class="form-select mb-3"
+                  aria-label="Default select example"
+                >
+                  <option value="unspecified">Unspecified</option>
+                  <option value="fund">Private Equity Fund</option>
+                  <option value="investment">Private Investment</option>
+                  <option value="ownCompany">Own Comapny</option>
+                </select>
 
+                <label for="edit-assetName">Asset Name</label>
+                <input disabled type="text" id="edit-assetName" />
 
-    <div id="private-equity-review-screen">
-        <div class="private-equity-review-screen-inner-container">
-          <div class="pe-reviewImage-container"></div>
-          <div class="private-equity-review-screen-inner">
-            <h1>Review your asset details</h1>
-            <div id="private-equity-review-details" class="row">
-              <div class="container">
-                <form class="form" action="" id="private-equity-edit-form">
-                  <h2><span>Private Equity</span></h2>
+                <label for="edit-fundOrCompany-name"
+                  >Name of Fund / Company</label
+                >
+                <input disabled type="text" id="edit-fundOrCompany-name" />
 
-                  <label for="edit-client-name">Client's name</label>
-                  <input disabled type="text" id="edit-client-name" />
-                  <label for="edit-peType">Asset Type</label>
-                  <select
-                    disabled
-                    id="edit-type"
-                    class="form-select mb-3"
-                    aria-label="Default select example"
-                  >
-                    <option value="unspecified">Unspecified</option>
-                    <option value="fund">Private Equity Fund</option>
-                    <option value="investment">Private Investment</option>
-                    <option value="ownCompany">Own Comapny</option>
-                  </select>
+                <label for="edit-isin">ISIN/CUSIP/ID (optional)</label>
+                <input disabled type="text" id="edit-isin" />
 
-                  <label for="edit-assetName">Asset Name</label>
-                  <input disabled type="text" id="edit-assetName" />
+                <label for="edit-shares">Amount of Shares</label>
+                <input disabled type="text" id="edit-shares" />
 
-                  <label for="edit-fundOrCompany-name">Name of Fund / Company</label>
-                  <input disabled type="text" id="edit-fundOrCompany-name" />
+                <label for="edit-investmentValue">Value of Investment</label>
+                <input disabled type="text" id="edit-investmentValue" />
 
-                  <label for="edit-isin">ISIN/CUSIP/ID (optional)</label>
-                  <input disabled type="text" id="edit-isin" />
-
-                  <label for="edit-shares">Amount of Shares</label>
-                  <input disabled type="text" id="edit-shares" />
-
-                  <label for="edit-investmentValue">Value of Investment</label>
-                  <input disabled type="text" id="edit-investmentValue" />
-
-                  <label for="edit-buyPrice">Buy Price Per Share</label>
-                  <input disabled type="text" id="edit-buyPrice" />
-
-                  
-
-                  <!-- <label for="edit-value">Asset value</label>
-                  <input disabled type="text" id="edit-value" /> -->
-                </form>
-                <div id="popupOverlayPrivateEquityReview" class=" overlay-container">
-                  <div class="popup-box">
-                    <form class="form-container">
-                      <div class="container-lg">
-                        <div class="table-responsive">
-                          <div class="table-wrapper">
-                            <div class="table-title">
-                              <div
-                                class="d-flex p-4 justify-content-between align-items-center"
-                              >
-                                <div class="col-sm-8">
-                                  <h2 class="fancy-label-heading">
-                                    Asset Income and Expenses
-                                  </h2>
-                                </div>
-                                <div class="col-sm-4 text-end">
-                                  <button
-                                    type="button"
-                                    class="add-new hidden simple-fancy-btn"
-                                    onclick="addRow('pe-edit')"
-                                  >
-                                    <i class="fa fa-plus"></i> Add New
-                                  </button>
-                                </div>
+                <label for="edit-buyPrice">Buy Price Per Share</label>
+                <input disabled type="text" id="edit-buyPrice" />
+              </form>
+              <div
+                id="popupOverlayPrivateEquityReview"
+                class="overlay-container"
+              >
+                <div class="popup-box">
+                  <form class="form-container">
+                    <div class="container-lg">
+                      <div class="table-responsive">
+                        <div class="table-wrapper">
+                          <div class="table-title">
+                            <div
+                              class="d-flex p-4 justify-content-between align-items-center"
+                            >
+                              <div class="col-sm-8">
+                                <h2 class="fancy-label-heading">
+                                  Asset Income and Expenses
+                                </h2>
+                              </div>
+                              <div class="col-sm-4 text-end">
+                                <button
+                                  type="button"
+                                  class="add-new hidden simple-fancy-btn"
+                                  onclick="addRow('pe-edit')"
+                                >
+                                  <i class="fa fa-plus"></i> Add New
+                                </button>
                               </div>
                             </div>
-                            <table id="dataTable-pe-edit" class="table">
-                              <thead>
-                                <tr>
-                                  <th class="text-start">Income or Expense</th>
-                                  <th class="text-start">Concept</th>
-                                  <th class="text-start">Amount</th>
-                                  <th class="text-start">Frequency</th>
-                                  <th class="text-start">Actions</th>
-                                </tr>
-                              </thead>
-                              <tbody class="">
-                                <tr>
-                                  <td>
-                                    <select name="" class="income-expense-select">
-                                      <option selected="true" disabled="disabled">
-                                        Select type
-                                      </option>
-                                      <option value="Income">Income</option>
-                                      <option value="Expense">Expense</option>
-                                    </select>
-                                  </td>
-                                  <td>
-                                    <input
-                                      type="text"
-                                      placeholder="Concept"
-                                      class="ie-concept-input"
-                                    />
-                                  </td>
-                                  <td>
-                                    <input
-                                      type="number"
-                                      placeholder="Amount"
-                                      class="ie-amount-input"
-                                    />
-                                  </td>
-                                  <td>
-                                    <select name="" class="ie-frequency-select">
-                                      <option selected="true" disabled="disabled">
-                                        Select frequency
-                                      </option>
-                                      <option value="Monthly">Monthly</option>
-                                      <option value="Annual">Annual</option>
-                                    </select>
-                                  </td>
-                                  <td class="actionCell">
-                                    <a
-                                      class="delete"
-                                      id="deleteBtn"
-                                      onclick="deleteRow(this, 'pe')"
-                                      title="Delete"
-                                      data-toggle="tooltip"
-                                      style="cursor: pointer"
-                                      ><i class="fa-solid fa-trash-can"></i
-                                    ></a>
-                                  </td>
-                                </tr>
-                              </tbody>
-                            </table>
                           </div>
+                          <table id="dataTable-pe-edit" class="table">
+                            <thead>
+                              <tr>
+                                <th class="text-start">Income or Expense</th>
+                                <th class="text-start">Concept</th>
+                                <th class="text-start">Amount</th>
+                                <th class="text-start">Frequency</th>
+                                <th class="text-start">Actions</th>
+                              </tr>
+                            </thead>
+                            <tbody class="">
+                              <tr>
+                                <td>
+                                  <select name="" class="income-expense-select">
+                                    <option selected="true" disabled="disabled">
+                                      Select type
+                                    </option>
+                                    <option value="Income">Income</option>
+                                    <option value="Expense">Expense</option>
+                                  </select>
+                                </td>
+                                <td>
+                                  <input
+                                    type="text"
+                                    placeholder="Concept"
+                                    class="ie-concept-input"
+                                  />
+                                </td>
+                                <td>
+                                  <input
+                                    type="number"
+                                    placeholder="Amount"
+                                    class="ie-amount-input"
+                                  />
+                                </td>
+                                <td>
+                                  <select name="" class="ie-frequency-select">
+                                    <option selected="true" disabled="disabled">
+                                      Select frequency
+                                    </option>
+                                    <option value="Monthly">Monthly</option>
+                                    <option value="Annual">Annual</option>
+                                  </select>
+                                </td>
+                                <td class="actionCell">
+                                  <a
+                                    class="delete"
+                                    id="deleteBtn"
+                                    onclick="deleteRow(this, 'pe')"
+                                    title="Delete"
+                                    data-toggle="tooltip"
+                                    style="cursor: pointer"
+                                    ><i class="fa-solid fa-trash-can"></i
+                                  ></a>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
                         </div>
                       </div>
-                    </form>
-                    <div class="btn-container">
-                      <button
-                      id="review-done-pe-edit"
-                        class="me-5 popup-done simple-fancy-btn"
-                        onclick="popupDone('popupOverlayPrivateEquityReview', 'pe-edit')"
-                      >
-                        Done
-                      </button>
-                      <button
-                        class="me-5 popup-edit simple-fancy-btn"
-                        onclick="editIncomeExpense('popupOverlayPrivateEquityReview')"
-                      >
-                        Edit
-                      </button>
-                      <button
-                        class="btn-close-popup ms-5 simple-fancy-btn"
-                        onclick="togglePopup('popupOverlayPrivateEquityReview')"
-                      >
-                        Cancel
-                      </button>
                     </div>
+                  </form>
+                  <div class="btn-container">
+                    <button
+                      id="review-done-pe-edit"
+                      class="me-5 popup-done simple-fancy-btn"
+                      onclick="popupDone('popupOverlayPrivateEquityReview', 'pe-edit')"
+                    >
+                      Done
+                    </button>
+                    <button
+                      class="me-5 popup-edit simple-fancy-btn"
+                      onclick="editIncomeExpense('popupOverlayPrivateEquityReview')"
+                    >
+                      Edit
+                    </button>
+                    <button
+                      class="btn-close-popup ms-5 simple-fancy-btn"
+                      onclick="togglePopup('popupOverlayPrivateEquityReview')"
+                    >
+                      Cancel
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-4">
-                <button id="private-equity-edit-details-btn">Edit</button>
-              </div>
-              <div class="col-4">
-                <button id="private-equity-confirm-details-btn">Confirm</button>
-              </div>
-              <div class="col-4">
-                <button
-                  class="btn-open-popup d-flex justify-content-around align-items-center"
-                  id="review-ie-btn"
-                  onclick="popupPopulate('popupOverlayPrivateEquityReview', 'pe-edit')"
-                  type="button"
-                >
-                  <span>Review income and expenses</span>
-                </button>
-              </div>
+          </div>
+
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex">
+              <button
+                class="btn-open-popup w-100 simple-fancy-btn income-expense-popup-btn"
+                id="review-ie-btn"
+                onclick="popupPopulate('popupOverlayPrivateEquityReview', 'pe-edit')"
+                type="button"
+              >
+                <span>Review income and expenses</span>
+              </button>
+            </div>
+            <div class="">
+              <button class="simple-fancy-btn edit-review-btn" id="private-equity-edit-details-btn">Edit</button>
+            </div>
+            <div class="">
+              <button id="private-equity-confirm-details-btn" class="done-btn">
+                Confirm
+              </button>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <input
+    <input
       type="hidden"
       class="income-expense-data-pe-edit"
       name="income_expense_data_edit"
     />
 
     <script src="script.js"></script>
-  <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-
-</body>
+  </body>
 </html>
