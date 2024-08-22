@@ -31,15 +31,16 @@
     <link rel="stylesheet" href="./css/form.css" />
     <link rel="stylesheet" href="./niche-asset.css" />
     <link rel="stylesheet" href="./css/table.css" />
+    <link rel="stylesheet" href="./css/general-form-styles.css">
+
   </head>
   <body>
-    <div id="niche-asset-form">
-      <div class="niche-asset-form-inner-container">
+    <div id="niche-asset-form" class="form-wrapper">
+      <div class="niche-asset-form-inner-container w-75">
         <div class="nicheAsset-image-container">
-          <!-- <img src="./images/brian-babb-XbwHrt87mQ0-unsplash.jpg" class="w-100" alt=""> -->
         </div>
         <div class="niche-asset-form-inner">
-          <h1 class="fancy-label">Enter Asset Details</h1>
+          <h1 class="text-start fancy-label-heading my-0 mb-1">Private Equity <span>Enter Asset Details</span></h1>
           <form id="nicheAsset-asset-details-form">
             <div class="form-floating mb-3">
               <input
@@ -70,21 +71,19 @@
               >
             </div>
 
-            <div class="row d-flex flex-row justify-content-center">
-              <div class="col-6 d-flex justify-content-center">
+            <div class="d-flex mt-4 w-100 justify-content-between align-items-center">
                 <button
-                  class="btn-open-popup w-100 d-flex justify-content-around align-items-center"
+                  class="btn-open-popup w-50 text-start"
                   onclick="togglePopup('popupOverlayNicheAssetsForm')"
                   type="button"
                 >
                   <i class="fa fa-plus"></i>
                   <span>Add income and expenses</span>
                 </button>
-              </div>
-              <div class="col-6 d-flex justify-content-center">
+              <div class="">
                 <button
                   id="nicheAsset-asset-details-next-btn"
-                  class="fancy-button m-auto"
+                  class="done-btn m-auto"
                 >
                   Done
                 </button>

@@ -32,10 +32,12 @@
     <link rel="stylesheet" href="./css/real-estate-review.css" />
     <link rel="stylesheet" href="./css/popup.css" />
     <link rel="stylesheet" href="./css/table.css" />
+    <link rel="stylesheet" href="./css/general-form-styles.css" />
+
   </head>
   <body>
     <div id="niche-review-screen">
-      <div class="niche-review-screen-inner-container">
+      <div class="niche-review-screen-inner-container w-75">
         <div class="niche-reviewImage-container"></div>
         <div class="niche-review-screen-inner">
           <h1>Review your asset details</h1>
@@ -183,16 +185,10 @@
               </div>
             </div>
           </div>
-          <div class="row">
-            <div class="col-4">
-              <button id="niche-asset-edit-details-btn">Edit</button>
-            </div>
-            <div class="col-4">
-              <button id="niche-asset-confirm-details-btn">Confirm</button>
-            </div>
-            <div class="col-4">
+          <div class="d-flex justify-content-between align-items-center">
+            <div class="d-flex">
               <button
-                class="btn-open-popup d-flex justify-content-around align-items-center"
+                class="btn-open-popup w-100 simple-fancy-btn income-expense-popup-btn"
                 id="review-ie-btn"
                 onclick="popupPopulate('popupOverlayNicheAssetsReview', 'na-edit')"
                 type="button"
@@ -200,6 +196,13 @@
                 <span>Review income and expenses</span>
               </button>
             </div>
+            <div class="">
+              <button id="niche-asset-edit-details-btn" class="simple-fancy-btn edit-review-btn">Edit</button>
+            </div>
+            <div class="">
+              <button class="done-btn" id="niche-asset-confirm-details-btn">Confirm</button>
+            </div>
+            
           </div>
         </div>
       </div>

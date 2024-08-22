@@ -29,17 +29,17 @@
     <link rel="stylesheet" href="./css/popup.css" />
     <link rel="stylesheet" href="./css/form.css" />
     <link rel="stylesheet" href="./css/table.css" />
+    <link rel="stylesheet" href="./css/general-form-styles.css">
   </head>
   <body>
     <div id="private-equity-form">
       <div class="private-equity-form-inner-container">
         <div class="pe-image-container">
-          <!-- <img src="./images/brian-babb-XbwHrt87mQ0-unsplash.jpg" class="w-100" alt=""> -->
         </div>
         <div class="private-equity-form-inner">
-          <h1 class="fancy-label">Enter Asset Details</h1>
+          <h1 class="fancy-label-heading text-start">Private Equity <span>Asset Details</span></h1>
           <form id="private-equity-asset-details-form">
-            <div class="form-floating mb-3">
+            <div class="form-floating ">
               <input
                 type="text"
                 class="form-control pe-assetName-input"
@@ -118,7 +118,7 @@
                 class="fancy-label"
                 for="formFileMultiple"
                 class="custom-file-upload form-label"
-                >Please upload any supporting documents: <br />
+                >Please upload any supporting documents:
                 e.g. Stock Certificate (optional)</label
               >
               <input
@@ -131,7 +131,7 @@
             <div class="row d-flex justify-content-between">
               <div class="d-flex w-75 justify-content-start">
                 <button
-                  class="btn-open-popup w-100"
+                  class="btn-open-popup add-income-expense-btn text-start"
                   onclick="togglePopup('popupOverlayPrivateEquityForm')"
                   type="button"
                 >
@@ -142,7 +142,7 @@
               <div class="w-25 justify-content-center">
                 <button
                   id="private-equity-asset-details-next-btn"
-                  class="fancy-button m-auto"
+                  class="m-auto done-btn"
                 >
                   Done
                 </button>
