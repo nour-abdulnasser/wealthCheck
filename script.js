@@ -7,9 +7,14 @@ let clientDetails = {
     nicheAssets: [],
     financialAssetsWithOtherAdvisors: [],
   },
-  currentAssetType: "", // storing temp data here? interesting idea
+  currentAssetType: "",
   currentSubAssetType: "",
+  fullIncomeExpenses: {
+    linked: [],
+    unlinked: []
+  }
 };
+
 
 function loadClientDetails() {
   const sessionData = sessionStorage.getItem("clientDetails");
@@ -21,13 +26,26 @@ function loadClientDetails() {
     clientDetails = JSON.parse(localData);
     sessionStorage.setItem("clientDetails", localData);
   }
+
+  // Ensure fullIncomeExpenses is always present
+  if (!clientDetails.fullIncomeExpenses) {
+    clientDetails.fullIncomeExpenses = {
+      linked: [],
+      unlinked: []
+    };
+  }
+
   console.log("Loaded client details:", clientDetails);
 }
+
 
 function saveClientDetails() {
   localStorage.setItem("clientDetails", JSON.stringify(clientDetails));
   sessionStorage.setItem("clientDetails", JSON.stringify(clientDetails));
   console.log("Saved client details:", clientDetails);
+  if (window.location.pathname.includes('income-expenses.html')) {
+    updateIncomeExpensesTable();
+  }
 }
 
 function clearAllLocalStorage() {
@@ -45,8 +63,11 @@ function clearAllLocalStorage() {
     },
     currentAssetType: "",
     currentSubAssetType: "",
+    fullIncomeExpenses: {
+      linked: [],
+      unlinked: []
+    }
   };
-
   console.log("clientDetails reset to initial state:", clientDetails);
 }
 
@@ -509,6 +530,8 @@ document.addEventListener("DOMContentLoaded", function () {
     case "niche-asset-review-screen.html":
       handleNicheAssetReviewPage();
       break;
+      case "income-expenses.html":
+        handleIncomeExpensesPage();
     case "add-another-asset-screen.html":
       handleAddAnotherAssetPage();
       break;
@@ -795,34 +818,46 @@ function handleNicheAssetReviewPage() {
     clientDetails.assets.nicheAssets[
       clientDetails.assets.nicheAssets.length - 1
     ] = editedAsset;
+
+    // Update fullIncomeExpenses
+    incomeExpenseArray.forEach(item => {
+      const fullItem = {
+        ...item,
+        assetName: editedAsset.name
+      };
+      clientDetails.fullIncomeExpenses.linked.push(fullItem);
+    });
+
     saveClientDetails();
     console.log("Updated niche asset:", editedAsset);
     console.log("Updated clientDetails:", clientDetails);
 
-    // Navigate to add-another-asset screen
+    // Update background image based on the asset type
+    const nicheReviewImgContainer = document.querySelector(
+      ".niche-reviewImage-container"
+    );
+    switch (editedAsset.type) {
+      case "art":
+        nicheReviewImgContainer.style.backgroundImage = "url('./images/art.jpg')";
+        break;
+      case "luxuryVehicle":
+        nicheReviewImgContainer.style.backgroundImage =
+          "url('./images/yacht.jpg')";
+        break;
+      case "otherCollection":
+        nicheReviewImgContainer.style.backgroundImage =
+          "url('./images/wine.jpg')";
+        break;
+      default:
+        // Keep the default image for unspecified type
+        nicheReviewImgContainer.style.backgroundImage =
+          "url('./images/default-niche-asset.jpg')";
+        break;
+    }
+
+    // Navigate to main menu
     window.location.href = "./add-another-asset-screen.html";
   });
-
-  // Update background image based on the asset type
-  const nicheReviewImgContainer = document.querySelector(
-    ".niche-reviewImage-container"
-  );
-  switch (currentAsset.type) {
-    case "art":
-      nicheReviewImgContainer.style.backgroundImage = "url('./images/art.jpg')";
-      break;
-    case "luxuryVehicle":
-      nicheReviewImgContainer.style.backgroundImage =
-        "url('./images/yacht.jpg')";
-      break;
-    case "otherCollection":
-      nicheReviewImgContainer.style.backgroundImage =
-        "url('./images/wine.jpg')";
-      break;
-    default:
-      // Keep the default image for unspecified type
-      break;
-  }
 }
 
 function handlePrivateEquityFormPage() {
@@ -1009,17 +1044,27 @@ function handlePrivateEquityReviewPage() {
       sharesAmount: document.getElementById("edit-shares").value,
       investmentValue: document.getElementById("edit-investmentValue").value,
       buyPrice: document.getElementById("edit-buyPrice").value,
+      assetName: document.getElementById("edit-assetName").value,
       income_expense: incomeExpenseArray,
     };
-
     clientDetails.assets[clientDetails.currentAssetType][
       clientDetails.assets[clientDetails.currentAssetType].length - 1
     ] = editedAsset;
+
+    // Update fullIncomeExpenses
+    incomeExpenseArray.forEach(item => {
+      const fullItem = {
+        ...item,
+        assetName: editedAsset.assetName
+      };
+      clientDetails.fullIncomeExpenses.linked.push(fullItem);
+    });
+
     saveClientDetails();
     console.log("Updated asset:", editedAsset);
     console.log("Updated clientDetails:", clientDetails);
 
-    // Navigate to add-another-asset screen
+    // Navigate to main menu
     window.location.href = "./add-another-asset-screen.html";
   });
 }
@@ -1078,15 +1123,14 @@ async function handleRealEstateFormPage() {
   });
 }
 
-async function handleRealEstateReviewPage() {
+function handleRealEstateReviewPage() {
   const editBtn = document.getElementById("edit-details-btn");
   const confirmBtn = document.getElementById("confirm-details-btn");
 
   // Populate review fields
-  const currentAsset =
-    clientDetails.assets[clientDetails.currentAssetType][
-      clientDetails.assets[clientDetails.currentAssetType].length - 1
-    ];
+  const currentAsset = clientDetails.assets[clientDetails.currentAssetType][
+    clientDetails.assets[clientDetails.currentAssetType].length - 1
+  ];
 
   document.querySelector(".income-expense-data-re-edit").value = JSON.stringify(
     currentAsset.income_expense
@@ -1169,11 +1213,21 @@ async function handleRealEstateReviewPage() {
     clientDetails.assets[clientDetails.currentAssetType][
       clientDetails.assets[clientDetails.currentAssetType].length - 1
     ] = editedAsset;
+
+    // Update fullIncomeExpenses
+    incomeExpenseArray.forEach(item => {
+      const fullItem = {
+        ...item,
+        assetName: editedAsset.name
+      };
+      clientDetails.fullIncomeExpenses.linked.push(fullItem);
+    });
+
     saveClientDetails();
     console.log("Updated asset:", editedAsset);
     console.log("Updated clientDetails:", clientDetails);
 
-    // Navigate to add-another-asset screen
+    // Navigate to main menu
     window.location.href = "./add-another-asset-screen.html";
   });
 }
@@ -1224,6 +1278,153 @@ function handleAddAnotherAssetPage() {
   });
 }
 
+function handleIncomeExpensesPage() {
+  updateIncomeExpensesTable();
+
+  const addNewBtn = document.querySelector(".add-new");
+  if (addNewBtn) {
+    addNewBtn.addEventListener("click", () => {
+      const newItem = {
+        type: "Income",
+        concept: "",
+        amount: 0,
+        frequency: "Monthly"
+      };
+      clientDetails.fullIncomeExpenses.unlinked.push(newItem);
+      saveClientDetails();
+    });
+  }
+
+  const doneBtn = document.querySelector(".done-btn");
+  if (doneBtn) {
+    doneBtn.addEventListener("click", () => {
+      window.location.href = "./main-menu.html";
+    });
+  }
+}
+
+function updateIncomeExpensesTable() {
+  const tableBody = document.querySelector("#dataTable-income-expenses tbody");
+  if (!tableBody) return;
+
+  tableBody.innerHTML = "";
+
+  // Add linked income/expenses
+  clientDetails.fullIncomeExpenses.linked.forEach(item => {
+    const row = createIncomeExpenseRow(item, true);
+    tableBody.appendChild(row);
+  });
+
+  // Add unlinked income/expenses
+  clientDetails.fullIncomeExpenses.unlinked.forEach(item => {
+    const row = createIncomeExpenseRow(item, false);
+    tableBody.appendChild(row);
+  });
+}
+
+function createIncomeExpenseRow(item, isLinked) {
+  const row = document.createElement("tr");
+  
+  // Linked Asset dropdown
+  const linkedAssetCell = document.createElement("td");
+  const linkedAssetSelect = document.createElement("select");
+  linkedAssetSelect.className = "form-control";
+  
+  // Add "None" option
+  const noneOption = document.createElement("option");
+  noneOption.value = "None";
+  noneOption.textContent = "None";
+  linkedAssetSelect.appendChild(noneOption);
+  
+  // Add all asset names as options
+  Object.values(clientDetails.assets).flat().forEach(asset => {
+    const option = document.createElement("option");
+    option.value = asset.name;
+    option.textContent = asset.name;
+    linkedAssetSelect.appendChild(option);
+  });
+  
+  linkedAssetSelect.value = isLinked ? item.assetName : "None";
+  linkedAssetCell.appendChild(linkedAssetSelect);
+  row.appendChild(linkedAssetCell);
+
+  // Income or Expense
+  const typeCell = document.createElement("td");
+  const typeSelect = document.createElement("select");
+  typeSelect.className = "form-control";
+  ["Income", "Expense"].forEach(type => {
+    const option = document.createElement("option");
+    option.value = type;
+    option.textContent = type;
+    typeSelect.appendChild(option);
+  });
+  typeSelect.value = item.type;
+  typeCell.appendChild(typeSelect);
+  row.appendChild(typeCell);
+
+  // Concept
+  const conceptCell = document.createElement("td");
+  const conceptInput = document.createElement("input");
+  conceptInput.type = "text";
+  conceptInput.className = "form-control";
+  conceptInput.value = item.concept;
+  conceptCell.appendChild(conceptInput);
+  row.appendChild(conceptCell);
+
+  // Amount
+  const amountCell = document.createElement("td");
+  const amountInput = document.createElement("input");
+  amountInput.type = "number";
+  amountInput.className = "form-control";
+  amountInput.value = item.amount;
+  amountCell.appendChild(amountInput);
+  row.appendChild(amountCell);
+
+  // Frequency
+  const frequencyCell = document.createElement("td");
+  const frequencySelect = document.createElement("select");
+  frequencySelect.className = "form-control";
+  ["Monthly", "Annual"].forEach(freq => {
+    const option = document.createElement("option");
+    option.value = freq;
+    option.textContent = freq;
+    frequencySelect.appendChild(option);
+  });
+  frequencySelect.value = item.frequency;
+  frequencyCell.appendChild(frequencySelect);
+  row.appendChild(frequencyCell);
+
+  // Delete button
+  const deleteCell = document.createElement("td");
+  const deleteLink = document.createElement("a");
+  deleteLink.className = "delete";
+  deleteLink.title = "Delete";
+  deleteLink.dataset.toggle = "tooltip";
+  deleteLink.style.cursor = "pointer";
+  deleteLink.onclick = () => deleteIncomeExpenseRow(deleteLink, isLinked ? "linked" : "unlinked", item);
+
+  const deleteIcon = document.createElement("i");
+  deleteIcon.className = "fa-solid fa-trash-can";
+  deleteLink.appendChild(deleteIcon);
+
+  deleteCell.appendChild(deleteLink);
+  row.appendChild(deleteCell);
+
+  return row;
+}
+
+
+
+function deleteIncomeExpenseRow(row, type, item) {
+  const index = clientDetails.fullIncomeExpenses[type].findIndex(
+    i => i.concept === item.concept && i.amount === item.amount
+  );
+  if (index > -1) {
+    clientDetails.fullIncomeExpenses[type].splice(index, 1);
+    saveClientDetails();
+  }
+  row.remove();
+}
 // You can add any additional utility functions or global event listeners here if needed
 
 // End of script

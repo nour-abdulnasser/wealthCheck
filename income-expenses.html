@@ -11,8 +11,9 @@
 <body>
     <div class="container">
         <h1>Full Income and Expenses</h1>
+        
         <div class="table-responsive">
-            <table id="dataTable-re" class="table">
+            <table id="dataTable-income-expenses">
                 <thead>
                     <tr>
                         <th>Linked Asset</th>
@@ -24,72 +25,18 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td data-label="Linked Asset">
-                            <select class="linked-asset-select">
-                                <option selected disabled>Select Asset</option>
-                                <option value="none">None</option>
-                        </td>
-                        <td data-label="Income or Expense">
-                            <select class="income-expense-select">
-                                <option selected disabled>Select type</option>
-                                <option value="Income">Income</option>
-                                <option value="Expense">Expense</option>
-                            </select>
-                        </td>
-                        <td data-label="Concept">
-                            <input type="text" placeholder="Enter concept" class="ie-concept-input">
-                        </td>
-                        <td data-label="Amount">
-                            <input type="number" placeholder="Enter amount" class="ie-amount-input">
-                        </td>
-                        <td data-label="Frequency">
-                            <select class="ie-frequency-select">
-                                <option selected disabled>Select frequency</option>
-                                <option value="Monthly">Monthly</option>
-                                <option value="Annual">Annual</option>
-                            </select>
-                        </td>
-                        <td data-label="Actions" class="actionCell">
-                            <a class="delete" onclick="deleteRow(this, 're')" title="Delete" data-toggle="tooltip" style="cursor: pointer">
-                                <i class="fa-solid fa-trash-can"></i>
-                            </a>
-                        </td>
-                    </tr>
+                    <!-- Table rows will be dynamically populated here by JavaScript -->
                 </tbody>
             </table>
         </div>
+
         <div class="d-flex justify-content-end mt-3">
-            <button type="button" class="simple-fancy-btn add-new me-2" onclick="addRow('re')">
-                Add New
-            </button>
+            <button class="simple-fancy-btn add-new">Add New</button>
             <a href="main-menu.html" class="simple-fancy-btn done-btn">Done</a>
         </div>
     </div>
-    <script src="https://kit.fontawesome.com/your-fontawesome-kit.js" crossorigin="anonymous"></script>
-    <script>
-        function addRow(tableId) {
-            const table = document.getElementById('dataTable-' + tableId);
-            const newRow = table.rows[1].cloneNode(true);
-            
-            newRow.querySelectorAll('input, select').forEach(input => {
-                input.value = '';
-            });
-            
-            table.querySelector('tbody').appendChild(newRow);
-        }
 
-        function deleteRow(btn, tableId) {
-            const row = btn.closest('tr');
-            const table = document.getElementById('dataTable-' + tableId);
-            
-            if (table.rows.length > 2) {
-                row.remove();
-            } else {
-                alert("Cannot delete the last row. You must have at least one entry.");
-            }
-        }
-    </script>
+    <script src="script.js"></script>
     <script src="./node_modules/@fortawesome/fontawesome-free/js/all.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
