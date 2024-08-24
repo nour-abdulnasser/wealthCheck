@@ -2264,7 +2264,9 @@ function handleMyResults() {
   ) {
     document.querySelector(".charts").style.display = "none";
     document.querySelector(".add-assets-prompt").style.display = "block";
+    document.querySelector(".add-some-container").style.display = "flex";
   }
+  
   const totalValue = calculateTotalValue(clientDetails.assets).toLocaleString(
     "en",
     { useGrouping: true }
