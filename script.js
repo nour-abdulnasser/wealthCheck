@@ -11,10 +11,9 @@ let clientDetails = {
   currentSubAssetType: "",
   fullIncomeExpenses: {
     linked: [],
-    unlinked: []
-  }
+    unlinked: [],
+  },
 };
-
 
 function loadClientDetails() {
   const sessionData = sessionStorage.getItem("clientDetails");
@@ -31,19 +30,18 @@ function loadClientDetails() {
   if (!clientDetails.fullIncomeExpenses) {
     clientDetails.fullIncomeExpenses = {
       linked: [],
-      unlinked: []
+      unlinked: [],
     };
   }
 
   console.log("Loaded client details:", clientDetails);
 }
 
-
 function saveClientDetails() {
   localStorage.setItem("clientDetails", JSON.stringify(clientDetails));
   sessionStorage.setItem("clientDetails", JSON.stringify(clientDetails));
   console.log("Saved client details:", clientDetails);
-  if (window.location.pathname.includes('income-expenses.html')) {
+  if (window.location.pathname.includes("income-expenses.html")) {
     updateIncomeExpensesTable();
   }
 }
@@ -65,8 +63,8 @@ function clearAllLocalStorage() {
     currentSubAssetType: "",
     fullIncomeExpenses: {
       linked: [],
-      unlinked: []
-    }
+      unlinked: [],
+    },
   };
   console.log("clientDetails reset to initial state:", clientDetails);
 }
@@ -145,10 +143,6 @@ async function initDropdown() {
     "countrySearch",
     "countryDropdown"
   );
-}
-
-function capitalizeFirstLetter(string) {
-  return string.charAt(0).toUpperCase() + string.slice(1);
 }
 
 async function cca2ToCommon(cca2) {
@@ -231,14 +225,14 @@ function getTableData(assetType) {
   return data;
 }
 
-function populateSelect(options, selectElement) {
-  options.forEach((optionText) => {
-    const option = document.createElement("option");
-    option.value = optionText;
-    option.textContent = optionText;
-    selectElement.appendChild(option);
-  });
-}
+// function populateSelect(options, selectElement) {
+//   options.forEach((optionText) => {
+//     const option = document.createElement("option");
+//     option.value = optionText;
+//     option.textContent = optionText;
+//     selectElement.appendChild(option);
+//   });
+// }
 
 // toggle for simple toggling, no data manipulation
 // toggle in form not review
@@ -530,10 +524,13 @@ document.addEventListener("DOMContentLoaded", function () {
     case "niche-asset-review-screen.html":
       handleNicheAssetReviewPage();
       break;
-      case "income-expenses.html":
-        handleIncomeExpensesPage();
+    case "income-expenses.html":
+      handleIncomeExpensesPage();
     case "add-another-asset-screen.html":
       handleAddAnotherAssetPage();
+      break;
+    case "my-results.html":
+      handleMyResults();
       break;
     default:
       console.log("Unhandled page:", currentPage);
@@ -548,8 +545,6 @@ function handleIndexPage() {
       window.location.href = "./name.html";
     });
   }
-
-
 
   const clearDataBtn = document.getElementById("clear-data-btn");
   if (clearDataBtn) {
@@ -575,6 +570,16 @@ function handleNamePage() {
   if (nameInput && nextBtn) {
     nameInput.value = clientDetails.name || "";
 
+    document
+      .getElementById("name-input")
+      .addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+          event.preventDefault(); // Prevent the default form submission behavior
+          // Trigger navigation to the next page or next step in your form
+          window.location.href = "main-menu.html"; // Replace with the correct URL or function
+        }
+      });
+
     nameInput.addEventListener("input", (e) => {
       nextBtn.disabled = e.target.value.trim() === "";
       clientDetails.name = e.target.value.trim();
@@ -589,14 +594,6 @@ function handleNamePage() {
     });
   }
 }
-
-document.getElementById('name-input').addEventListener('keydown', function(event) {
-  if (event.key === 'Enter') {
-      event.preventDefault();  // Prevent the default form submission behavior
-      // Trigger navigation to the next page or next step in your form
-      window.location.href = 'main-menu.html';  // Replace with the correct URL or function
-  }
-});
 
 // after name. choices: my results, portfolio, etc
 function handleMainMenuPage() {}
@@ -820,10 +817,10 @@ function handleNicheAssetReviewPage() {
     ] = editedAsset;
 
     // Update fullIncomeExpenses
-    incomeExpenseArray.forEach(item => {
+    incomeExpenseArray.forEach((item) => {
       const fullItem = {
         ...item,
-        assetName: editedAsset.name
+        assetName: editedAsset.name,
       };
       clientDetails.fullIncomeExpenses.linked.push(fullItem);
     });
@@ -838,7 +835,8 @@ function handleNicheAssetReviewPage() {
     );
     switch (editedAsset.type) {
       case "art":
-        nicheReviewImgContainer.style.backgroundImage = "url('./images/art.jpg')";
+        nicheReviewImgContainer.style.backgroundImage =
+          "url('./images/art.jpg')";
         break;
       case "luxuryVehicle":
         nicheReviewImgContainer.style.backgroundImage =
@@ -1052,10 +1050,10 @@ function handlePrivateEquityReviewPage() {
     ] = editedAsset;
 
     // Update fullIncomeExpenses
-    incomeExpenseArray.forEach(item => {
+    incomeExpenseArray.forEach((item) => {
       const fullItem = {
         ...item,
-        assetName: editedAsset.assetName
+        assetName: editedAsset.assetName,
       };
       clientDetails.fullIncomeExpenses.linked.push(fullItem);
     });
@@ -1128,9 +1126,10 @@ function handleRealEstateReviewPage() {
   const confirmBtn = document.getElementById("confirm-details-btn");
 
   // Populate review fields
-  const currentAsset = clientDetails.assets[clientDetails.currentAssetType][
-    clientDetails.assets[clientDetails.currentAssetType].length - 1
-  ];
+  const currentAsset =
+    clientDetails.assets[clientDetails.currentAssetType][
+      clientDetails.assets[clientDetails.currentAssetType].length - 1
+    ];
 
   document.querySelector(".income-expense-data-re-edit").value = JSON.stringify(
     currentAsset.income_expense
@@ -1215,10 +1214,10 @@ function handleRealEstateReviewPage() {
     ] = editedAsset;
 
     // Update fullIncomeExpenses
-    incomeExpenseArray.forEach(item => {
+    incomeExpenseArray.forEach((item) => {
       const fullItem = {
         ...item,
-        assetName: editedAsset.name
+        assetName: editedAsset.name,
       };
       clientDetails.fullIncomeExpenses.linked.push(fullItem);
     });
@@ -1288,7 +1287,7 @@ function handleIncomeExpensesPage() {
         type: "Income",
         concept: "",
         amount: 0,
-        frequency: "Monthly"
+        frequency: "Monthly",
       };
       clientDetails.fullIncomeExpenses.unlinked.push(newItem);
       saveClientDetails();
@@ -1310,13 +1309,13 @@ function updateIncomeExpensesTable() {
   tableBody.innerHTML = "";
 
   // Add linked income/expenses
-  clientDetails.fullIncomeExpenses.linked.forEach(item => {
+  clientDetails.fullIncomeExpenses.linked.forEach((item) => {
     const row = createIncomeExpenseRow(item, true);
     tableBody.appendChild(row);
   });
 
   // Add unlinked income/expenses
-  clientDetails.fullIncomeExpenses.unlinked.forEach(item => {
+  clientDetails.fullIncomeExpenses.unlinked.forEach((item) => {
     const row = createIncomeExpenseRow(item, false);
     tableBody.appendChild(row);
   });
@@ -1324,26 +1323,28 @@ function updateIncomeExpensesTable() {
 
 function createIncomeExpenseRow(item, isLinked) {
   const row = document.createElement("tr");
-  
+
   // Linked Asset dropdown
   const linkedAssetCell = document.createElement("td");
   const linkedAssetSelect = document.createElement("select");
   linkedAssetSelect.className = "form-control";
-  
+
   // Add "None" option
   const noneOption = document.createElement("option");
   noneOption.value = "None";
   noneOption.textContent = "None";
   linkedAssetSelect.appendChild(noneOption);
-  
+
   // Add all asset names as options
-  Object.values(clientDetails.assets).flat().forEach(asset => {
-    const option = document.createElement("option");
-    option.value = asset.name;
-    option.textContent = asset.name;
-    linkedAssetSelect.appendChild(option);
-  });
-  
+  Object.values(clientDetails.assets)
+    .flat()
+    .forEach((asset) => {
+      const option = document.createElement("option");
+      option.value = asset.name;
+      option.textContent = asset.name;
+      linkedAssetSelect.appendChild(option);
+    });
+
   linkedAssetSelect.value = isLinked ? item.assetName : "None";
   linkedAssetCell.appendChild(linkedAssetSelect);
   row.appendChild(linkedAssetCell);
@@ -1352,7 +1353,7 @@ function createIncomeExpenseRow(item, isLinked) {
   const typeCell = document.createElement("td");
   const typeSelect = document.createElement("select");
   typeSelect.className = "form-control";
-  ["Income", "Expense"].forEach(type => {
+  ["Income", "Expense"].forEach((type) => {
     const option = document.createElement("option");
     option.value = type;
     option.textContent = type;
@@ -1384,7 +1385,7 @@ function createIncomeExpenseRow(item, isLinked) {
   const frequencyCell = document.createElement("td");
   const frequencySelect = document.createElement("select");
   frequencySelect.className = "form-control";
-  ["Monthly", "Annual"].forEach(freq => {
+  ["Monthly", "Annual"].forEach((freq) => {
     const option = document.createElement("option");
     option.value = freq;
     option.textContent = freq;
@@ -1401,7 +1402,8 @@ function createIncomeExpenseRow(item, isLinked) {
   deleteLink.title = "Delete";
   deleteLink.dataset.toggle = "tooltip";
   deleteLink.style.cursor = "pointer";
-  deleteLink.onclick = () => deleteIncomeExpenseRow(deleteLink, isLinked ? "linked" : "unlinked", item);
+  deleteLink.onclick = () =>
+    deleteIncomeExpenseRow(deleteLink, isLinked ? "linked" : "unlinked", item);
 
   const deleteIcon = document.createElement("i");
   deleteIcon.className = "fa-solid fa-trash-can";
@@ -1413,11 +1415,9 @@ function createIncomeExpenseRow(item, isLinked) {
   return row;
 }
 
-
-
 function deleteIncomeExpenseRow(row, type, item) {
   const index = clientDetails.fullIncomeExpenses[type].findIndex(
-    i => i.concept === item.concept && i.amount === item.amount
+    (i) => i.concept === item.concept && i.amount === item.amount
   );
   if (index > -1) {
     clientDetails.fullIncomeExpenses[type].splice(index, 1);
@@ -1425,6 +1425,812 @@ function deleteIncomeExpenseRow(row, type, item) {
   }
   row.remove();
 }
+
+/*********** CHART RELATED STUFF ***************/
+const chartOptions = {
+  chart: {
+    type: "donut",
+  },
+  colors: [
+    "#7695FF", // Soft Blue
+    "#9DBDFF", // Light Blue
+    "#FFD7C4", // Peach
+    "#FF9874", // Coral
+    "#6A84E6", // Medium Blue (Deeper shade of Soft Blue)
+    "#B2CDFF", // Pale Blue (Lighter shade of Light Blue)
+    "#FFCBB2", // Light Peach (Lighter shade of Peach)
+    "#FF8564", // Deep Coral (Deeper shade of Coral)
+    "#A2B6FF", // Lavender Blue (Tint of Soft Blue)
+    "#FFAF92", // Light Coral (Tint of Coral)
+  ],
+
+  plotOptions: {
+    pie: {
+      donut: {
+        size: "80%",
+        background: "transparent",
+        labels: {
+          show: true,
+          name: {
+            show: false,
+            fontSize: "22px",
+            fontFamily: "Helvetica, Arial, sans-serif",
+            fontWeight: 600,
+            color: undefined,
+            offsetY: -10,
+            formatter: function (val) {
+              return val;
+            },
+          },
+          value: {
+            show: true,
+            fontSize: "16px",
+            fontFamily: "Helvetica, Arial, sans-serif",
+            fontWeight: 400,
+            color: undefined,
+            offsetY: 16,
+            formatter: function (val) {
+              return val;
+            },
+          },
+          total: {
+            show: true,
+            showAlways: true,
+            label: "Total",
+            fontSize: "22px",
+            fontFamily: "Helvetica, Arial, sans-serif",
+            fontWeight: 600,
+            color: "#373d3f",
+            formatter: function (w) {
+              return w.globals.seriesTotals.reduce((a, b) => {
+                return a + b;
+              }, 0);
+            },
+          },
+        },
+      },
+    },
+  },
+};
+const chartOptionsTotal = {
+  chart: {
+    type: "donut",
+  },
+  colors: [
+    "#101326", // Dark Blue
+    "#5280AC", // Light Blue
+    "#0D4B72", // Deep Blue (Accent)
+    "#7BA0C2", // Light Blue Shade (Accent)
+    "#262310", // Dark Olive (Complementary to Dark Blue)
+    "#AC8252", // Warm Brown (Complementary to Light Blue)
+    "#FF7F50", // Coral (Accent)
+    "#DDDFED", // Lavender Gray (Complementary to Cream)
+    "#EDE3DD", // Cream
+    "#4A4A4A", // Charcoal (Neutral)
+    "#C1C1C1", // Light Gray (Neutral)
+  ],
+  plotOptions: {
+    pie: {
+      donut: {
+        size: "80%",
+        background: "transparent",
+        labels: {
+          show: true,
+          name: {
+            show: true,
+            fontSize: "22px",
+            fontFamily: "Helvetica, Arial, sans-serif",
+            fontWeight: 600,
+            color: undefined,
+            offsetY: -10,
+            formatter: function (val) {
+              return val;
+            },
+          },
+          value: {
+            show: true,
+            fontSize: "16px",
+            fontFamily: "Helvetica, Arial, sans-serif",
+            fontWeight: 400,
+            color: undefined,
+            offsetY: 16,
+            formatter: function (val) {
+              return val;
+            },
+          },
+          total: {
+            show: true,
+            showAlways: true,
+            label: "Total",
+            fontSize: "22px",
+            fontFamily: "Helvetica, Arial, sans-serif",
+            fontWeight: 600,
+            color: "#373d3f",
+            formatter: function (w) {
+              return w.globals.seriesTotals.reduce((a, b) => {
+                return a + b;
+              }, 0);
+            },
+          },
+        },
+      },
+    },
+  },
+};
+
+function organizeTotalAssetData(assets) {
+  const assetData = [];
+
+  // Loop through each asset category
+  for (const category in assets) {
+    if (assets.hasOwnProperty(category)) {
+      // Loop through each asset in the category
+      assets[category].forEach((asset) => {
+        const assetName = asset.name || asset.fundOrCompanyName;
+        const value = parseFloat(asset.value || asset.investmentValue || 0);
+
+        // Push the relevant information to the array
+        assetData.push({
+          value: value,
+          assetName: assetName,
+          category: category,
+        });
+      });
+    }
+  }
+
+  return assetData;
+}
+
+function prepareTotalChartData(organizedData) {
+  const series = [];
+  const labels = [];
+  const colors = {
+    realEstate: "#FF4560", // example color for real estate
+    privateEquity: "#00E396", // example color for private equity
+    nicheAssets: "#008FFB", // example color for niche assets
+    financialAssetsWithOtherAdvisors: "#FEB019", // example color for other assets
+  };
+  const chartColors = [];
+
+  organizedData.forEach((asset) => {
+    series.push(asset.value);
+    labels.push(asset.assetName);
+    chartColors.push(colors[asset.category] || "#333"); // Default color if category is not found
+  });
+
+  return { series, labels, chartColors };
+}
+
+function calculateRealEstateValues(realEstateAssets) {
+  const totals = {
+    total: 0,
+    residential: 0,
+    commercial: 0,
+    land: 0,
+    industrial: 0,
+  };
+
+  realEstateAssets.forEach((asset) => {
+    const value = parseFloat(asset.value || 0);
+    totals.total += value;
+
+    switch (asset.type) {
+      case "residential":
+        totals.residential += value;
+        break;
+      case "commercial":
+        totals.commercial += value;
+        break;
+      case "land":
+        totals.land += value;
+        break;
+      case "industrial":
+        totals.industrial += value;
+        break;
+      default:
+        break;
+    }
+  });
+
+  return totals;
+}
+
+function prepareRealEstateChartData(realEstateAssets) {
+  const chartData = {
+    total: {
+      series: [],
+      labels: [],
+    },
+    residential: {
+      series: [],
+      labels: [],
+    },
+    commercial: {
+      series: [],
+      labels: [],
+    },
+    land: {
+      series: [],
+      labels: [],
+    },
+    industrial: {
+      series: [],
+      labels: [],
+    },
+  };
+
+  realEstateAssets.forEach((asset) => {
+    const value = parseFloat(asset.value || 0);
+    const assetName = asset.name || "Unnamed Asset";
+
+    chartData.total.series.push(value);
+    chartData.total.labels.push(assetName);
+
+    switch (asset.type) {
+      case "residential":
+        chartData.residential.series.push(value);
+        chartData.residential.labels.push(assetName);
+        break;
+      case "commercial":
+        chartData.commercial.series.push(value);
+        chartData.commercial.labels.push(assetName);
+        break;
+      case "land":
+        chartData.land.series.push(value);
+        chartData.land.labels.push(assetName);
+        break;
+      case "industrial":
+        chartData.industrial.series.push(value);
+        chartData.industrial.labels.push(assetName);
+        break;
+      default:
+        break;
+    }
+  });
+
+  return chartData;
+}
+
+function renderRealEstateCharts(realEstateChartData) {
+  // Total Real Estate Value
+  new ApexCharts(document.querySelector("#real-estate-total-value-chart"), {
+    ...chartOptionsTotal,
+    title: { text: "Real Estate Total" },
+    series: realEstateChartData.total.series,
+    labels: realEstateChartData.total.labels,
+  }).render();
+
+  // Residential Value
+  new ApexCharts(document.querySelector("#residential-value-chart"), {
+    ...chartOptions,
+    title: { text: "Residential" },
+    series: realEstateChartData.residential.series,
+    labels: realEstateChartData.residential.labels,
+  }).render();
+
+  // Commercial Value
+  new ApexCharts(document.querySelector("#commercial-value-chart"), {
+    ...chartOptions,
+    title: { text: "Commerial" },
+    series: realEstateChartData.commercial.series,
+    labels: realEstateChartData.commercial.labels,
+  }).render();
+
+  // Land Value
+  new ApexCharts(document.querySelector("#land-value-chart"), {
+    ...chartOptions,
+    title: { text: "Land" },
+    series: realEstateChartData.land.series,
+    labels: realEstateChartData.land.labels,
+  }).render();
+
+  // Industrial Value
+  new ApexCharts(document.querySelector("#industrial-value-chart"), {
+    ...chartOptions,
+    title: { text: "Industrial" },
+    series: realEstateChartData.industrial.series,
+    labels: realEstateChartData.industrial.labels,
+  }).render();
+}
+
+function calculatePrivateEquityValues(privateEquityAssets) {
+  const totals = {
+    total: 0,
+    fund: [],
+    investment: [],
+    ownCompany: [],
+  };
+
+  privateEquityAssets.forEach((asset) => {
+    const value = parseFloat(asset.investmentValue || 0);
+    totals.total += value;
+
+    switch (asset.type) {
+      case "fund":
+        totals.fund.push({
+          name: asset.fundOrCompanyName,
+          value: value,
+        });
+        break;
+      case "investment":
+        totals.investment.push({
+          name: asset.fundOrCompanyName,
+          value: value,
+        });
+        break;
+      case "ownCompany":
+        totals.ownCompany.push({
+          name: asset.fundOrCompanyName,
+          value: value,
+        });
+        break;
+      default:
+        break;
+    }
+  });
+
+  return totals;
+}
+
+function preparePrivateEquityChartData(privateEquityTotals) {
+  return {
+    total: {
+      series: privateEquityTotals.fund
+        .concat(privateEquityTotals.investment, privateEquityTotals.ownCompany)
+        .map((item) => item.value),
+      labels: privateEquityTotals.fund
+        .concat(privateEquityTotals.investment, privateEquityTotals.ownCompany)
+        .map((item) => item.name),
+    },
+    fund: {
+      series: privateEquityTotals.fund.map((item) => item.value),
+      labels: privateEquityTotals.fund.map((item) => item.name),
+    },
+    investment: {
+      series: privateEquityTotals.investment.map((item) => item.value),
+      labels: privateEquityTotals.investment.map((item) => item.name),
+    },
+    ownCompany: {
+      series: privateEquityTotals.ownCompany.map((item) => item.value),
+      labels: privateEquityTotals.ownCompany.map((item) => item.name),
+    },
+  };
+}
+
+function renderPrivateEquityCharts(privateEquityChartData) {
+  // Total Private Equity Value
+  new ApexCharts(document.querySelector("#private-equity-total-value-chart"), {
+    ...chartOptionsTotal,
+    title: { text: "Private Equity Total" },
+    series: privateEquityChartData.total.series,
+    labels: privateEquityChartData.total.labels,
+  }).render();
+
+  // Fund Value
+  new ApexCharts(document.querySelector("#fund-value-chart"), {
+    ...chartOptions,
+    title: { text: "Private Funds" },
+    series: privateEquityChartData.fund.series,
+    labels: privateEquityChartData.fund.labels,
+  }).render();
+
+  // Investment Value
+  new ApexCharts(document.querySelector("#investment-value-chart"), {
+    ...chartOptions,
+    title: { text: "Investments" },
+    series: privateEquityChartData.investment.series,
+    labels: privateEquityChartData.investment.labels,
+  }).render();
+
+  // Own Company Value
+  new ApexCharts(document.querySelector("#ownCompany-value-chart"), {
+    ...chartOptions,
+    title: { text: "Own Company" },
+    series: privateEquityChartData.ownCompany.series,
+    labels: privateEquityChartData.ownCompany.labels,
+  }).render();
+}
+
+function calculateNicheAssetsValues(nicheAssets) {
+  const totals = {
+    total: 0,
+    luxuryVehicle: [],
+    art: [],
+    otherCollection: [],
+  };
+
+  nicheAssets.forEach((asset) => {
+    const value = parseFloat(asset.value || 0);
+    totals.total += value;
+
+    switch (asset.type) {
+      case "luxuryVehicle":
+        totals.luxuryVehicle.push({
+          name: asset.name,
+          value: value,
+        });
+        break;
+      case "art":
+        totals.art.push({
+          name: asset.name,
+          value: value,
+        });
+        break;
+      case "otherCollection":
+        totals.otherCollection.push({
+          name: asset.name,
+          value: value,
+        });
+        break;
+      default:
+        break;
+    }
+  });
+
+  return totals;
+}
+
+function prepareNicheAssetsChartData(nicheAssetsTotals) {
+  return {
+    total: {
+      series: nicheAssetsTotals.luxuryVehicle
+        .concat(nicheAssetsTotals.art, nicheAssetsTotals.otherCollection)
+        .map((item) => item.value),
+      labels: nicheAssetsTotals.luxuryVehicle
+        .concat(nicheAssetsTotals.art, nicheAssetsTotals.otherCollection)
+        .map((item) => item.name),
+    },
+    luxuryVehicle: {
+      series: nicheAssetsTotals.luxuryVehicle.map((item) => item.value),
+      labels: nicheAssetsTotals.luxuryVehicle.map((item) => item.name),
+    },
+    art: {
+      series: nicheAssetsTotals.art.map((item) => item.value),
+      labels: nicheAssetsTotals.art.map((item) => item.name),
+    },
+    otherCollection: {
+      series: nicheAssetsTotals.otherCollection.map((item) => item.value),
+      labels: nicheAssetsTotals.otherCollection.map((item) => item.name),
+    },
+  };
+}
+
+function renderNicheAssetsCharts(nicheAssetsChartData) {
+  // Total Niche Assets Value
+  new ApexCharts(document.querySelector("#niche-total-value-chart"), {
+    ...chartOptionsTotal,
+    title: { text: "Niche Assets Total" },
+    series: nicheAssetsChartData.total.series,
+    labels: nicheAssetsChartData.total.labels,
+  }).render();
+
+  // Luxury Vehicle Value
+  new ApexCharts(document.querySelector("#luxuryVehicle-value-chart"), {
+    ...chartOptions,
+    title: { text: "Luxury Vehicles" },
+    series: nicheAssetsChartData.luxuryVehicle.series,
+    labels: nicheAssetsChartData.luxuryVehicle.labels,
+  }).render();
+
+  // Art Value
+  new ApexCharts(document.querySelector("#art-value-chart"), {
+    ...chartOptions,
+    title: { text: "Art" },
+    series: nicheAssetsChartData.art.series,
+    labels: nicheAssetsChartData.art.labels,
+  }).render();
+
+  // Other Collection Value
+  new ApexCharts(document.querySelector("#otherCollection-value-chart"), {
+    ...chartOptions,
+    title: { text: "Other Collections" },
+    series: nicheAssetsChartData.otherCollection.series,
+    labels: nicheAssetsChartData.otherCollection.labels,
+  }).render();
+}
+
+/*********** CALCULATIONS **************** */
+
+function calculateTotalValue(assets) {
+  let totalValue = 0;
+  for (let category in assets) {
+    for (let asset of assets[category]) {
+      if (asset.value) totalValue += parseFloat(asset.value);
+      if (asset.investmentValue)
+        totalValue += parseFloat(asset.investmentValue);
+    }
+  }
+  return totalValue;
+}
+
+function calculateTotalCatValue(assetCategory) {
+  let totalValue = 0;
+
+  assetCategory.forEach((asset) => {
+    if (asset.investmentValue) {
+      totalValue += parseFloat(asset.investmentValue);
+    } else if (asset.value) {
+      totalValue += parseFloat(asset.value);
+    }
+  });
+
+  return totalValue;
+}
+
+function calculateNetIncome(fullIncomeExpenses) {
+  let totalIncome = 0,
+    totalExpenses = 0;
+
+  function processIncomeExpense(incomeExpenseArray, isIncome) {
+    for (let entry of incomeExpenseArray) {
+      let amount = parseFloat(entry.amount);
+      if (entry.frequency === "Monthly") amount *= 12;
+      if (isIncome) {
+        totalIncome += amount;
+      } else {
+        totalExpenses += amount;
+      }
+    }
+  }
+
+  processIncomeExpense(
+    fullIncomeExpenses.linked.filter((e) => e.type === "Income"),
+    true
+  );
+  processIncomeExpense(
+    fullIncomeExpenses.unlinked.filter((e) => e.type === "Income"),
+    true
+  );
+  processIncomeExpense(
+    fullIncomeExpenses.linked.filter((e) => e.type === "Expense"),
+    false
+  );
+
+  return totalIncome - totalExpenses;
+}
+
+function calculateReturnOnAssets(assets, fullIncomeExpenses) {
+  let incomeFromAssets = 0,
+    expensesFromAssets = 0,
+    incomeProducingAssetValue = 0;
+
+  const linkedIncomes = fullIncomeExpenses.linked.filter(
+    (e) => e.type === "Income"
+  );
+  const linkedExpenses = fullIncomeExpenses.linked.filter(
+    (e) => e.type === "Expense"
+  );
+
+  for (let assetType in assets) {
+    for (let asset of assets[assetType]) {
+      let assetValue = asset.value || asset.investmentValue || 0;
+      let hasIncome = linkedIncomes.some(
+        (income) =>
+          income.assetName === asset.name ||
+          income.assetName === asset.assetName
+      );
+
+      if (hasIncome) {
+        incomeProducingAssetValue += parseFloat(assetValue);
+        incomeFromAssets += linkedIncomes
+          .filter(
+            (income) =>
+              income.assetName === asset.name ||
+              income.assetName === asset.assetName
+          )
+          .reduce(
+            (sum, income) =>
+              sum +
+              (income.frequency === "Monthly"
+                ? parseFloat(income.amount) * 12
+                : parseFloat(income.amount)),
+            0
+          );
+        expensesFromAssets += linkedExpenses
+          .filter(
+            (expense) =>
+              expense.assetName === asset.name ||
+              expense.assetName === asset.assetName
+          )
+          .reduce(
+            (sum, expense) =>
+              sum +
+              (expense.frequency === "Monthly"
+                ? parseFloat(expense.amount) * 12
+                : parseFloat(expense.amount)),
+            0
+          );
+      }
+    }
+  }
+
+  return (incomeFromAssets - expensesFromAssets) / incomeProducingAssetValue;
+}
+
+function hasData(assetArray) {
+  return assetArray && assetArray.length > 0;
+}
+
+function hideEmptyAssetContainers(clientDetails) {
+  const realEstateTypes = ["residential", "commercial", "land", "industrial"];
+  const privateEquityTypes = ["fund", "investment", "ownCompany"];
+  const nicheAssetTypes = ["luxuryVehicle", "art", "otherCollection"];
+
+  // Check Real Estate
+  realEstateTypes.forEach((type) => {
+    const exists = clientDetails.assets.realEstate.some(
+      (asset) => asset.type === type
+    );
+    document.getElementById(`${type}-value-chart`).closest(".inner-col-child").style.display =
+      exists ? "block" : "none";
+  });
+
+  // Check Private Equity
+  privateEquityTypes.forEach((type) => {
+    const exists = clientDetails.assets.privateEquity.some(
+      (asset) => asset.type === type
+    );
+    document.getElementById(`${type}-value-chart`).closest(".inner-col-child").style.display =
+      exists ? "block" : "none";
+  });
+
+  // Check Niche Assets
+  nicheAssetTypes.forEach((type) => {
+    const exists = clientDetails.assets.nicheAssets.some(
+      (asset) => asset.type === type
+    );
+    document.getElementById(`${type}-value-chart`).closest(".inner-col-child").style.display =
+      exists ? "block" : "none";
+  });
+}
+
+function backToMain(){
+   window.location.href = "./main-menu.html"
+}
+
+function handleMyResults() {
+  // fill kpi cards
+  const totalValue = calculateTotalValue(clientDetails.assets).toLocaleString(
+    "en",
+    { useGrouping: true }
+  );
+  const realEstateTotal = calculateTotalCatValue(
+    clientDetails.assets.realEstate
+  ).toLocaleString("en", { useGrouping: true });
+  const privateEquityTotal = calculateTotalCatValue(
+    clientDetails.assets.privateEquity
+  ).toLocaleString("en", { useGrouping: true });
+  const nicheAssetsTotal = calculateTotalCatValue(
+    clientDetails.assets.nicheAssets
+  ).toLocaleString("en", { useGrouping: true });
+
+  const netIncome = calculateNetIncome(
+    clientDetails.fullIncomeExpenses
+  ).toLocaleString("en", { useGrouping: true });
+  const returnOnAssets = calculateReturnOnAssets(
+    clientDetails.assets,
+    clientDetails.fullIncomeExpenses
+  )
+    .toPrecision(4)
+    .toLocaleString("en", { useGrouping: true });
+
+  document.getElementById("total-value-text").textContent = totalValue;
+  document.getElementById("re-total-value-text").textContent = realEstateTotal;
+  document.getElementById("pe-total-value-text").textContent =
+    privateEquityTotal;
+  document.getElementById("na-total-value-text").textContent = nicheAssetsTotal;
+  document.getElementById("net-income-text").textContent = netIncome;
+  document.getElementById("roa-text").textContent = returnOnAssets;
+
+  const organizedData = organizeTotalAssetData(clientDetails.assets);
+  const chartData = prepareTotalChartData(organizedData);
+
+  let totalOptions = {
+    chart: {
+      type: "donut",
+    },
+    colors: [
+      "#101326", // Dark Blue
+      "#5280AC", // Light Blue
+      "#0D4B72", // Deep Blue (Accent)
+      "#7BA0C2", // Light Blue Shade (Accent)
+      "#262310", // Dark Olive (Complementary to Dark Blue)
+      "#AC8252", // Warm Brown (Complementary to Light Blue)
+      "#FF7F50", // Coral (Accent)
+      "#DDDFED", // Lavender Gray (Complementary to Cream)
+      "#EDE3DD", // Cream
+      "#4A4A4A", // Charcoal (Neutral)
+      "#C1C1C1", // Light Gray (Neutral)
+    ],
+    plotOptions: {
+      pie: {
+        donut: {
+          size: "80%",
+          background: "transparent",
+
+          labels: {
+            show: true,
+            name: {
+              show: true,
+              fontSize: "22px",
+              fontFamily: "Helvetica, Arial, sans-serif",
+              fontWeight: 600,
+              color: undefined,
+              offsetY: -10,
+              formatter: function (val) {
+                return val;
+              },
+            },
+            value: {
+              show: true,
+              fontSize: "16px",
+              fontFamily: "Helvetica, Arial, sans-serif",
+              fontWeight: 400,
+              color: undefined,
+              offsetY: 16,
+              formatter: function (val) {
+                return val;
+              },
+            },
+            total: {
+              show: true,
+              showAlways: true,
+              label: "Total",
+              fontSize: "22px",
+              fontFamily: "Helvetica, Arial, sans-serif",
+              fontWeight: 600,
+              color: "#373d3f",
+              formatter: function (w) {
+                return w.globals.seriesTotals.reduce((a, b) => {
+                  return a + b;
+                }, 0);
+              },
+            },
+          },
+        },
+      },
+    },
+    title: { text: "Total value of all assets" },
+    series: chartData.series,
+    labels: chartData.labels,
+    // colors: chartData.chartColors,
+  };
+
+  let chart = new ApexCharts(
+    document.querySelector("#total-value-chart"),
+    totalOptions
+  );
+  chart.render();
+
+  if (hasData(clientDetails.assets.realEstate)) {
+    // Render real estate card
+    const realEstateAssets = clientDetails.assets.realEstate;
+    const realEstateChartData = prepareRealEstateChartData(realEstateAssets);
+
+    renderRealEstateCharts(realEstateChartData);
+  }
+
+  if (hasData(clientDetails.assets.privateEquity)) {
+    // Render private equity card
+    const privateEquityAssets = clientDetails.assets.privateEquity;
+    const privateEquityTotals =
+      calculatePrivateEquityValues(privateEquityAssets);
+    const privateEquityChartData =
+      preparePrivateEquityChartData(privateEquityTotals);
+    renderPrivateEquityCharts(privateEquityChartData);
+  }
+  if (hasData(clientDetails.assets.nicheAssets)) {
+    // Render niche assets card
+    const nicheAssets = clientDetails.assets.nicheAssets;
+    const nicheAssetsTotals = calculateNicheAssetsValues(nicheAssets);
+    const nicheAssetsChartData = prepareNicheAssetsChartData(nicheAssetsTotals);
+    renderNicheAssetsCharts(nicheAssetsChartData);
+  }
+
+  hideEmptyAssetContainers(clientDetails);
+}
+
 // You can add any additional utility functions or global event listeners here if needed
 
 // End of script

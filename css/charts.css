@@ -1,0 +1,321 @@
+@import url("./variables.css");
+
+/* .charts {
+
+
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+} */
+
+/* .charts-row {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr;
+  gap: 20px;
+} */
+.fancy-label-heading{
+  /* font-family: Arial, Helvetica, sans-serif; */
+font-weight: 700;
+}
+.my-results-container {
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.my-results-inner {
+  margin: auto;
+}
+
+.chart {
+  min-height: 200px; /* Adjust the value as needed */
+}
+.kpi-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.kpi-value::before {
+  content: "$";
+}
+.kpi-card {
+  /* background-color: rgb(218, 239, 247); */
+  /* border: 1px solid rgb(255, 0, 0); */
+  height: 100%;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  padding: 1rem;
+  margin: 10px;
+  /* box-shadow: 5px 5px 10px 5px rgba(136, 136, 136, 0.2); */
+}
+.kpi-card-total {
+  background-color: #deffcb;
+}
+.kpi-card-income {
+  background-color: #d5f0ff;
+}
+.kpi-card-roa {
+  background-color: #ffdada;
+}
+
+.total-card {
+  background-color: transparent;
+  border-radius: 15px;
+  border: 1px solid #d6d6d6;
+  border-bottom: none;
+  border-top: none;
+  border-left: none;
+  padding: 1rem;
+
+  box-shadow: 10px 0px 10px -5px rgba(0, 0, 0, 0.2);
+}
+
+.subcats-card {
+  /* background-color: aquamarine; */
+  border-radius: 15px;
+  /* border: 1px solid var(--color-light-blue); */
+  padding: 1rem;
+}
+
+.kpi-title {
+  font-family: "Helvetica", serif;
+  font-weight: bold;
+  font-size: 0.8rem;
+  color: #7ba0c2;
+}
+.kpi-value {
+  font-family: "Roboto", sans-serif;
+  font-weight: bold;
+  font-size: 1.5rem;
+}
+.kpi-card-holder {
+  display: grid;
+  grid-template-columns: 1fr 5fr;
+}
+.icon-holder {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.kpi-holder {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  padding: 5px;
+}
+.icon-inner {
+  /* background-color: #b0ebf3; */
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.icon-inner i {
+  font-size: 1.5rem;
+}
+.fa-money-bill-wheat {
+  color: #dd6666;
+}
+.fa-hand-holding-dollar {
+  color: #00a0f7;
+}
+.fa-money-bill {
+  color: #85bb65;
+}
+
+.subcats-card .inner-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 20px;
+  align-items: center;
+  justify-content: center;
+}
+
+.total-cats-holder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.total-cats-holder > * {
+  /* border: 1px solid #333; */
+  width: 100%;
+  border-radius: 10px;
+  padding: 2rem;
+}
+.total-cats-holder .icon-holder {
+  /* background-color: #fff; */
+  margin-right: 15px;
+}
+.real-estate-of-total .kpi-title {
+  /* background-color: #fff; */
+  color: #0d3044;
+}
+.total-cats-holder i {
+  font-size: 1.8rem;
+}
+.inner-col-child {
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  padding: 1rem;
+  min-height: 250px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+.inner-col-child:hover {
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
+}
+
+.fa-wine-glass {
+  color: #720d0d;
+}
+.fa-money-bill-trend-up {
+  color: #0d7250;
+}
+.fa-building {
+  color: #0d4b72;
+}
+.real-estate-of-total {
+  background-color: #84b6c9;
+}
+.private-equity-of-total {
+  background-color: #84c9b6;
+}
+.private-equity-of-total .kpi-title {
+  /* background-color: #fff; */
+  color: #0d402e;
+}
+.niche-assets-of-total .kpi-title {
+  /* background-color: #fff; */
+  color: #4c0a0a;
+}
+.niche-assets-of-total {
+  background-color: #c98484;
+}
+.back-to-main i::after {
+  content: "_";
+  color: white;
+}
+
+.carousel-control-prev {
+  display: flex;
+  justify-content: start;
+  align-items: center;
+}
+.carousel-control-next {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+.carousel-control-prev span,
+.carousel-control-next span {
+  background: none;
+  font-size: 2rem;
+  color: var(--color-light-blue);
+}
+
+@media (max-width: 992px) {
+  /* 992px is the lg breakpoint */
+  .total-card {
+    box-shadow: 0px 10px 10px -3px rgba(0, 0, 0, 0.2); /* Right and bottom shadow */
+    border: 1px solid #d6d6d6;
+
+    border-right: none;
+    border-top: none;
+    border-left: none;
+  }
+}
+@media (max-width: 768px) {
+  /* 992px is the lg breakpoint */
+  .kpi-stats {
+    display: flex;
+    flex-direction: column;
+  }
+  .real-estate-of-total,
+  .niche-assets-of-total,
+  .private-equity-of-total {
+    margin-bottom: 15px;
+  }
+
+  .subcats-card .inner-col {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+  }
+
+  .subcats-card .inner-col > * {
+    margin-bottom: 5px;
+    margin-top: 15px;
+  }
+}
+
+.cards-holder-totals {
+  border: 1px solid var(--color-light-blue);
+  border-radius: 15px;
+  padding: 0px;
+  box-shadow: 0px 5px 10px 5px rgba(0, 0, 0, 0.2);
+  margin: 2rem 0.5rem;
+}
+
+.cards-holder {
+  border: 1px solid var(--color-light-blue);
+  border-radius: 15px;
+  height: 600px;
+  padding: 0px;
+  box-shadow: 0px 5px 10px 5px rgba(0, 0, 0, 0.2);
+  margin: 2rem 0.5rem;
+}
+.roa-title span::before{
+  content: "| ";
+  font-size: .9rem;
+}
+.roa-title span{
+  font-size: .6rem;
+}
+@media (max-width: 780px) {
+  .carousel-item {
+    max-height: max-content;
+  }
+  .cards-holder {
+    height: fit-content;
+  }
+  
+  .carousel-control-prev {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    margin-top: 200px;
+  }
+  .carousel-control-next {
+    display: flex;
+    justify-content: end;
+    align-items: start;
+    margin-top: 200px;
+
+  }
+ 
+}
+.my-results-inner h2{
+  position: relative;
+}
+/* .my-results-inner h2::before{
+  position: absolute;
+  content: " ";
+  bottom: -5%;
+  width: 100%;
+  border-bottom: 1px solid #0d3044;
+
+} */
+
+@media (min-width: 781px) {
+  .carousel-item {
+    height: 700px;
+  }
+}

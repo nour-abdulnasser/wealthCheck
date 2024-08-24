@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Results</title>
+    <link
+      rel="stylesheet"
+      href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="./node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baskervville+SC&display=swap"
+      rel="stylesheet"
+    />
+
+    <link
+      href="https://fonts.googleapis.com/css2?family=Baskervville+SC&family=Baskervville:ital@0;1&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="./node_modules/@fortawesome/fontawesome-free/css/all.min.css"
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./css/general-form-styles.css" />
+    <link rel="stylesheet" href="./css/charts.css" />
+  </head>
+  <body class="d-flex flex-column align-items-center justify-content-center">
+    <div class="my-results-container m-auto p-5">
+      <div class="my-results-inner">
+        <div class="top d-flex align-items-center justify-content-between mb-4">
+          <h2 class="fancy-label-heading">Results Dashboard</h2>
+          <div class="back-to-main">
+            <button
+              class="simple-fancy-btn d-flex justify-content-between align-items-center"
+              id="backToMain"
+              onclick="backToMain()"
+            >
+              <i class="fa-solid fa-chevron-left"></i>Main menu
+            </button>
+          </div>
+        </div>
+
+        <div class="kpi-stats">
+          <div class="d-flex flex-column justify-content-center">
+            <div class="kpi-card kpi-card-total">
+              <div class="kpi-card-holder">
+                <div class="icon-holder">
+                  <div class="icon-inner">
+                    <i class="fa-solid fa-money-bill"></i>
+                  </div>
+                </div>
+                <div class="kpi-holder">
+                  <div class="kpi-holder-inner my-auto">
+                    <p class="kpi-title m-0">Total Value</p>
+                    <p id="total-value-text" class="kpi-value m-0"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="d-flex flex-column justify-content-center">
+            <div class="kpi-card kpi-card-income">
+              <div class="kpi-card-holder">
+                <div class="icon-holder">
+                  <div class="icon-inner">
+                    <i class="fa-solid fa-hand-holding-dollar"></i>
+                  </div>
+                </div>
+                <div class="kpi-holder">
+                  <div class="kpi-holder-inner my-auto">
+                    <p class="kpi-title m-0">Annual Net Income</p>
+                    <p id="net-income-text" class="kpi-value m-0"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="d-flex flex-column justify-content-center">
+            <div class="kpi-card kpi-card-roa">
+              <div class="kpi-card-holder">
+                <div class="icon-holder">
+                  <div class="icon-inner">
+                    <i class="fa-solid fa-money-bill-wheat"></i>
+                  </div>
+                </div>
+                <div class="kpi-holder">
+                  <div class="kpi-holder-inner my-auto">
+                    <p class="kpi-title roa-title m-0">
+                      Return on Assets <span>ROA</span>
+                    </p>
+                    <p id="roa-text" class="kpi-value m-0"></p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="charts">
+          <div class="row cards-holder-totals">
+            <div
+              class="col-lg-5 total-card d-flex align-items-center justify-content-center"
+            >
+              <div class="inner-col w-100">
+                <div id="total-value-chart" class="charts-card"></div>
+              </div>
+            </div>
+            <div
+              class="col-lg-7 subcats-card d-flex justify-content-center align-items-center pt-4"
+            >
+              <div class="inner-total row h-100 w-100">
+                <div class="col-lg-6 mb-sm-3 total-cats-holder">
+                  <div class="real-estate-of-total kpi-holder">
+                    <div class="icon-holder">
+                      <div class="icon-inner">
+                        <i class="fa-solid fa-building"></i>
+                      </div>
+                    </div>
+                    <div class="total-holder">
+                      <div class="kpi-holder-inner my-auto">
+                        <p class="kpi-title m-0">Real Estate Total Value</p>
+                        <p id="re-total-value-text" class="kpi-value m-0"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-lg-6 mb-sm-3 total-cats-holder">
+                  <div class="private-equity-of-total kpi-holder">
+                    <div class="icon-holder">
+                      <div class="icon-inner">
+                        <i class="fa-solid fa-money-bill-trend-up"></i>
+                      </div>
+                    </div>
+                    <div class="total-holder">
+                      <div class="kpi-holder-inner my-auto">
+                        <p class="kpi-title m-0">Private Equity Total Value</p>
+                        <p id="pe-total-value-text" class="kpi-value m-0"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-lg-6 mb-3 total-cats-holder">
+                  <div class="niche-assets-of-total kpi-holder">
+                    <div class="icon-holder">
+                      <div class="icon-inner">
+                        <i class="fa-solid fa-wine-glass"></i>
+                      </div>
+                    </div>
+                    <div class="total-holder">
+                      <div class="kpi-holder-inner my-auto">
+                        <p class="kpi-title m-0">Niche Assets Total Value</p>
+                        <p id="na-total-value-text" class="kpi-value m-0"></p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div
+            id="carouselExampleAutoplaying"
+            class="carousel slide"
+            data-bs-ride="carousel"
+          >
+            <h3 class="fancy-label-heading mt-5">More Insights</h3>
+            <div class="carousel-inner">
+              <div class="carousel-item active">
+                <div class="row cards-holder">
+                  <!-- Left Column -->
+                  <div
+                    class="col-lg-5 total-card d-flex align-items-center justify-content-center"
+                  >
+                    <div class="inner-col w-100">
+                      <div id="real-estate-total-value-chart"></div>
+                    </div>
+                  </div>
+
+                  <!-- Right Column -->
+                  <div class="col-lg-7 subcats-card d-flex align-items-center">
+                    <div class="inner-col">
+                      <div class="inner-col-child">
+                        <div class="mb-4" id="residential-value-chart"></div>
+                      </div>
+                      <div class="inner-col-child">
+                        <div id="commercial-value-chart"></div>
+                      </div>
+                      <div class="inner-col-child">
+                        <div class="mb-4" id="land-value-chart"></div>
+                      </div>
+                      <div class="inner-col-child">
+                        <div id="industrial-value-chart"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row cards-holder">
+                  <!-- Left Column -->
+                  <div
+                    class="col-lg-5 total-card d-flex align-items-center justify-content-center"
+                  >
+                    <div class="inner-col w-100">
+                      <div id="private-equity-total-value-chart"></div>
+                    </div>
+                  </div>
+
+                  <!-- Right Column -->
+                  <div class="col-lg-7 subcats-card d-flex align-items-center">
+                    <div class="inner-col">
+                      <div class="inner-col-child">
+                        <div
+                          class="mb-4"
+                          id="investment-value-chart"
+                        ></div>
+                      </div>
+                      <div class="inner-col-child">
+                        <div id="fund-value-chart"></div>
+                      </div>
+                      <div class="inner-col-child">
+                        <div class="mb-4" id="ownCompany-value-chart"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="carousel-item">
+                <div class="row cards-holder">
+                  <!-- Left Column -->
+                  <div
+                    class="col-lg-5 total-card d-flex align-items-center justify-content-center"
+                  >
+                    <div class="inner-col w-100">
+                      <div id="niche-total-value-chart"></div>
+                    </div>
+                  </div>
+
+                  <!-- Right Column -->
+                  <div class="col-lg-7 subcats-card d-flex align-items-center">
+                    <div class="inner-col">
+                      <div class="inner-col-child">
+                        <div class="mb-4" id="art-value-chart"></div>
+                      </div>
+                      <div class="inner-col-child">
+                        <div id="luxuryVehicle-value-chart"></div>
+                      </div>
+                      <div class="inner-col-child">
+                        <div class="mb-4" id="otherCollection-value-chart"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button
+              class="carousel-control-prev"
+              type="button"
+              data-bs-target="#carouselExampleAutoplaying"
+              data-bs-slide="prev"
+            >
+              <span class="carousel-control-prev-icon" aria-hidden="true"
+                ><i class="fa-solid fa-chevron-left"></i
+              ></span>
+            </button>
+            <button
+              class="carousel-control-next"
+              type="button"
+              data-bs-target="#carouselExampleAutoplaying"
+              data-bs-slide="next"
+            >
+              <span class="carousel-control-next-icon" aria-hidden="true"
+                ><i class="fa-solid fa-chevron-right"></i
+              ></span>
+            </button>
+          </div>
+
+          <!-- real estate subtypes -->
+
+          <!-- pe subtypes -->
+
+          <!-- niche subtypes -->
+        </div>
+      </div>
+    </div>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="./node_modules//apexcharts/dist/apexcharts.min.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>
