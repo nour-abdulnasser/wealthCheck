@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="./css/charts.css" />
   </head>
   <body class="d-flex flex-column align-items-center justify-content-center">
-    <div class="my-results-container m-auto p-5">
+    <div class="my-results-container d-flex align-items-center justify-content-center m-auto p-5">
       <div class="my-results-inner">
         <div class="top d-flex align-items-center justify-content-between mb-4">
           <h2 class="fancy-label-heading">Results Dashboard</h2>
@@ -51,7 +51,7 @@
             </button>
           </div>
         </div>
-
+        
         <div class="kpi-stats">
           <div class="d-flex flex-column justify-content-center">
             <div class="kpi-card kpi-card-total">
@@ -64,7 +64,7 @@
                 <div class="kpi-holder">
                   <div class="kpi-holder-inner my-auto">
                     <p class="kpi-title m-0">Total Value</p>
-                    <p id="total-value-text" class="kpi-value m-0"></p>
+                    <p id="total-value-text" class="kpi-value m-0">0</p>
                   </div>
                 </div>
               </div>
@@ -81,7 +81,7 @@
                 <div class="kpi-holder">
                   <div class="kpi-holder-inner my-auto">
                     <p class="kpi-title m-0">Annual Net Income</p>
-                    <p id="net-income-text" class="kpi-value m-0"></p>
+                    <p id="net-income-text" class="kpi-value m-0">0</p>
                   </div>
                 </div>
               </div>
@@ -101,13 +101,16 @@
                     <p class="kpi-title roa-title m-0">
                       Return on Assets <span>ROA</span>
                     </p>
-                    <p id="roa-text" class="kpi-value m-0"></p>
+                    <p id="roa-text" class="kpi-value m-0">0</p>
                   </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
+
+        
+       
 
         <div class="charts">
           <div class="row cards-holder-totals">
@@ -132,7 +135,7 @@
                     <div class="total-holder">
                       <div class="kpi-holder-inner my-auto">
                         <p class="kpi-title m-0">Real Estate Total Value</p>
-                        <p id="re-total-value-text" class="kpi-value m-0"></p>
+                        <p id="re-total-value-text" class="kpi-value m-0">0</p>
                       </div>
                     </div>
                   </div>
@@ -147,7 +150,7 @@
                     <div class="total-holder">
                       <div class="kpi-holder-inner my-auto">
                         <p class="kpi-title m-0">Private Equity Total Value</p>
-                        <p id="pe-total-value-text" class="kpi-value m-0"></p>
+                        <p id="pe-total-value-text" class="kpi-value m-0">0</p>
                       </div>
                     </div>
                   </div>
@@ -163,7 +166,7 @@
                     <div class="total-holder">
                       <div class="kpi-holder-inner my-auto">
                         <p class="kpi-title m-0">Niche Assets Total Value</p>
-                        <p id="na-total-value-text" class="kpi-value m-0"></p>
+                        <p id="na-total-value-text" class="kpi-value m-0">0</p>
                       </div>
                     </div>
                   </div>
@@ -172,6 +175,7 @@
             </div>
           </div>
 
+
           <div
             id="carouselExampleAutoplaying"
             class="carousel slide"
@@ -179,7 +183,7 @@
           >
             <h3 class="fancy-label-heading mt-5">More Insights</h3>
             <div class="carousel-inner">
-              <div class="carousel-item active">
+              <div class="carousel-item active carousel-re">
                 <div class="row cards-holder">
                   <!-- Left Column -->
                   <div
@@ -209,7 +213,7 @@
                   </div>
                 </div>
               </div>
-              <div class="carousel-item">
+              <div class="carousel-item carousel-pe">
                 <div class="row cards-holder">
                   <!-- Left Column -->
                   <div
@@ -239,7 +243,7 @@
                   </div>
                 </div>
               </div>
-              <div class="carousel-item">
+              <div class="carousel-item carousel-na">
                 <div class="row cards-holder">
                   <!-- Left Column -->
                   <div
@@ -289,12 +293,14 @@
             </button>
           </div>
 
-          <!-- real estate subtypes -->
 
-          <!-- pe subtypes -->
-
-          <!-- niche subtypes -->
         </div>
+      </div>
+      
+    </div>
+    <div class="add-some-container w-75">
+      <div class="add-assets-prompt  text-center">
+        <p class="fancy-label-heading fs-4 my-0">Add some assets first! :)</p>
       </div>
     </div>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
