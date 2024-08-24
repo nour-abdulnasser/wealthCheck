@@ -1292,7 +1292,6 @@ function handleAddAnotherAssetPage() {
   reviewAllBtn.addEventListener("click", function (e) {
     e.preventDefault();
     console.log("Review all assets:", clientDetails);
-<<<<<<< HEAD
     // Implement review all functionality here when needed
   });
 }
@@ -1338,10 +1337,8 @@ function updateIncomeExpensesTable() {
   clientDetails.fullIncomeExpenses.unlinked.forEach((item) => {
     const row = createIncomeExpenseRow(item, false);
     tableBody.appendChild(row);
-=======
     window.location.href = "./main-menu.html";
     
->>>>>>> f2104fb85038938d4a31af6a4feb63a00d6523be
   });
 }
 
@@ -1354,13 +1351,8 @@ function createIncomeExpenseRow(item, isLinked) {
   // Linked Asset dropdown
   const linkedAssetCell = document.createElement("td");
   const linkedAssetSelect = document.createElement("select");
-<<<<<<< HEAD
-  linkedAssetSelect.className = "form-control";
-
-=======
   linkedAssetSelect.className = "form-control linked-asset-select";
   
->>>>>>> f2104fb85038938d4a31af6a4feb63a00d6523be
   // Add "None" option
   const noneOption = document.createElement("option");
   noneOption.value = "None";
@@ -1368,18 +1360,6 @@ function createIncomeExpenseRow(item, isLinked) {
   linkedAssetSelect.appendChild(noneOption);
 
   // Add all asset names as options
-<<<<<<< HEAD
-  Object.values(clientDetails.assets)
-    .flat()
-    .forEach((asset) => {
-      const option = document.createElement("option");
-      option.value = asset.name;
-      option.textContent = asset.name;
-      linkedAssetSelect.appendChild(option);
-    });
-
-  linkedAssetSelect.value = isLinked ? item.assetName : "None";
-=======
   let assetNames = [];
   Object.values(clientDetails.assets).forEach(assetCategory => {
     if (Array.isArray(assetCategory)) {
@@ -1406,20 +1386,14 @@ function createIncomeExpenseRow(item, isLinked) {
   linkedAssetSelect.value = item.assetName || "None";
   console.log("Setting linked asset to:", linkedAssetSelect.value);
   
->>>>>>> f2104fb85038938d4a31af6a4feb63a00d6523be
   linkedAssetCell.appendChild(linkedAssetSelect);
   row.appendChild(linkedAssetCell);
 
   // Income or Expense
   const typeCell = document.createElement("td");
   const typeSelect = document.createElement("select");
-<<<<<<< HEAD
-  typeSelect.className = "form-control";
-  ["Income", "Expense"].forEach((type) => {
-=======
   typeSelect.className = "form-control income-expense-select";
   ["Income", "Expense"].forEach(type => {
->>>>>>> f2104fb85038938d4a31af6a4feb63a00d6523be
     const option = document.createElement("option");
     option.value = type;
     option.textContent = type;
@@ -1450,13 +1424,8 @@ function createIncomeExpenseRow(item, isLinked) {
   // Frequency
   const frequencyCell = document.createElement("td");
   const frequencySelect = document.createElement("select");
-<<<<<<< HEAD
-  frequencySelect.className = "form-control";
-  ["Monthly", "Annual"].forEach((freq) => {
-=======
   frequencySelect.className = "form-control frequency-select";
   ["Monthly", "Annual"].forEach(freq => {
->>>>>>> f2104fb85038938d4a31af6a4feb63a00d6523be
     const option = document.createElement("option");
     option.value = freq;
     option.textContent = freq;
@@ -1473,12 +1442,7 @@ function createIncomeExpenseRow(item, isLinked) {
   deleteLink.title = "Delete";
   deleteLink.dataset.toggle = "tooltip";
   deleteLink.style.cursor = "pointer";
-<<<<<<< HEAD
-  deleteLink.onclick = () =>
-    deleteIncomeExpenseRow(deleteLink, isLinked ? "linked" : "unlinked", item);
-=======
   deleteLink.onclick = () => deleteIncomeExpenseRow(row, isLinked ? "linked" : "unlinked", item);
->>>>>>> f2104fb85038938d4a31af6a4feb63a00d6523be
 
   const deleteIcon = document.createElement("i");
   deleteIcon.className = "fa-solid fa-trash-can";
@@ -1497,12 +1461,6 @@ function createIncomeExpenseRow(item, isLinked) {
   return row;
 }
 
-<<<<<<< HEAD
-function deleteIncomeExpenseRow(row, type, item) {
-  const index = clientDetails.fullIncomeExpenses[type].findIndex(
-    (i) => i.concept === item.concept && i.amount === item.amount
-  );
-=======
 function updateRowData(row) {
   const linkedAssetSelect = row.querySelector('.linked-asset-select');
   const typeSelect = row.querySelector('.income-expense-select');
@@ -1604,7 +1562,6 @@ function handleIncomeExpensesPage() {
 
 function deleteIncomeExpenseRow(row, type, item) {
   const index = clientDetails.fullIncomeExpenses[type].findIndex(i => i === item);
->>>>>>> f2104fb85038938d4a31af6a4feb63a00d6523be
   if (index > -1) {
     clientDetails.fullIncomeExpenses[type].splice(index, 1);
     saveClientDetails();
@@ -1612,7 +1569,6 @@ function deleteIncomeExpenseRow(row, type, item) {
   row.remove();
 }
 
-<<<<<<< HEAD
 /*********** CHART RELATED STUFF ***************/
 const chartOptions = {
   chart: {
@@ -2419,12 +2375,6 @@ function handleMyResults() {
 }
 
 // You can add any additional utility functions or global event listeners here if needed
-=======
-
-
-
-
->>>>>>> f2104fb85038938d4a31af6a4feb63a00d6523be
 
 // End of script
 
