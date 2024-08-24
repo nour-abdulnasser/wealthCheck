@@ -2255,6 +2255,7 @@ function backToMain() {
 
 function handleMyResults() {
   document.querySelector(".add-assets-prompt").style.display = "none";
+  document.querySelector(".add-some-container").style.display = "none";
   // fill kpi cards
   if (
     clientDetails.assets.nicheAssets.length == 0 &&
