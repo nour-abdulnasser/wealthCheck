@@ -15,6 +15,11 @@ let clientDetails = {
   },
 };
 
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> f2104fb85038938d4a31af6a4feb63a00d6523be
 function loadClientDetails() {
   const sessionData = sessionStorage.getItem("clientDetails");
   const localData = localStorage.getItem("clientDetails");
@@ -45,6 +50,7 @@ function saveClientDetails() {
     updateIncomeExpensesTable();
   }
 }
+
 
 function clearAllLocalStorage() {
   localStorage.clear();
@@ -822,6 +828,11 @@ function handleNicheAssetReviewPage() {
         ...item,
         assetName: editedAsset.name,
       };
+      // Remove any existing entries for this asset
+      clientDetails.fullIncomeExpenses.linked = clientDetails.fullIncomeExpenses.linked.filter(
+        i => i.assetName !== editedAsset.name
+      );
+      // Add the new/updated entries
       clientDetails.fullIncomeExpenses.linked.push(fullItem);
     });
 
@@ -853,11 +864,10 @@ function handleNicheAssetReviewPage() {
         break;
     }
 
-    // Navigate to main menu
+    // Navigate to add another asset screen
     window.location.href = "./add-another-asset-screen.html";
   });
 }
-
 function handlePrivateEquityFormPage() {
   document.querySelector(".income-expense-data-pe").value = JSON.stringify([]);
 
@@ -1055,6 +1065,11 @@ function handlePrivateEquityReviewPage() {
         ...item,
         assetName: editedAsset.assetName,
       };
+      // Remove any existing entries for this asset
+      clientDetails.fullIncomeExpenses.linked = clientDetails.fullIncomeExpenses.linked.filter(
+        i => i.assetName !== editedAsset.assetName
+      );
+      // Add the new/updated entries
       clientDetails.fullIncomeExpenses.linked.push(fullItem);
     });
 
@@ -1062,11 +1077,10 @@ function handlePrivateEquityReviewPage() {
     console.log("Updated asset:", editedAsset);
     console.log("Updated clientDetails:", clientDetails);
 
-    // Navigate to main menu
+    // Navigate to add another asset screen
     window.location.href = "./add-another-asset-screen.html";
   });
 }
-
 async function handleRealEstateFormPage() {
   await initDropdown();
   document.querySelector(".income-expense-data-re").value = JSON.stringify([]);
@@ -1219,6 +1233,11 @@ function handleRealEstateReviewPage() {
         ...item,
         assetName: editedAsset.name,
       };
+      // Remove any existing entries for this asset
+      clientDetails.fullIncomeExpenses.linked = clientDetails.fullIncomeExpenses.linked.filter(
+        i => i.assetName !== editedAsset.name
+      );
+      // Add the new/updated entries
       clientDetails.fullIncomeExpenses.linked.push(fullItem);
     });
 
@@ -1226,7 +1245,7 @@ function handleRealEstateReviewPage() {
     console.log("Updated asset:", editedAsset);
     console.log("Updated clientDetails:", clientDetails);
 
-    // Navigate to main menu
+    // Navigate to add another asset screen
     window.location.href = "./add-another-asset-screen.html";
   });
 }
@@ -1273,6 +1292,7 @@ function handleAddAnotherAssetPage() {
   reviewAllBtn.addEventListener("click", function (e) {
     e.preventDefault();
     console.log("Review all assets:", clientDetails);
+<<<<<<< HEAD
     // Implement review all functionality here when needed
   });
 }
@@ -1318,17 +1338,29 @@ function updateIncomeExpensesTable() {
   clientDetails.fullIncomeExpenses.unlinked.forEach((item) => {
     const row = createIncomeExpenseRow(item, false);
     tableBody.appendChild(row);
+=======
+    window.location.href = "./main-menu.html";
+    
+>>>>>>> f2104fb85038938d4a31af6a4feb63a00d6523be
   });
 }
 
 function createIncomeExpenseRow(item, isLinked) {
+  console.log("Creating row for item:", item);
+  console.log("Is linked:", isLinked);
+
   const row = document.createElement("tr");
 
   // Linked Asset dropdown
   const linkedAssetCell = document.createElement("td");
   const linkedAssetSelect = document.createElement("select");
+<<<<<<< HEAD
   linkedAssetSelect.className = "form-control";
 
+=======
+  linkedAssetSelect.className = "form-control linked-asset-select";
+  
+>>>>>>> f2104fb85038938d4a31af6a4feb63a00d6523be
   // Add "None" option
   const noneOption = document.createElement("option");
   noneOption.value = "None";
@@ -1336,6 +1368,7 @@ function createIncomeExpenseRow(item, isLinked) {
   linkedAssetSelect.appendChild(noneOption);
 
   // Add all asset names as options
+<<<<<<< HEAD
   Object.values(clientDetails.assets)
     .flat()
     .forEach((asset) => {
@@ -1346,14 +1379,47 @@ function createIncomeExpenseRow(item, isLinked) {
     });
 
   linkedAssetSelect.value = isLinked ? item.assetName : "None";
+=======
+  let assetNames = [];
+  Object.values(clientDetails.assets).forEach(assetCategory => {
+    if (Array.isArray(assetCategory)) {
+      assetCategory.forEach(asset => {
+        if (asset.name) {
+          assetNames.push(asset.name);
+        } else if (asset.assetName) {
+          assetNames.push(asset.assetName);
+        }
+      });
+    }
+  });
+  
+  console.log("Available asset names:", assetNames);
+
+  assetNames.forEach(assetName => {
+    const option = document.createElement("option");
+    option.value = assetName;
+    option.textContent = assetName;
+    linkedAssetSelect.appendChild(option);
+  });
+  
+  // Set the correct value for the linked asset
+  linkedAssetSelect.value = item.assetName || "None";
+  console.log("Setting linked asset to:", linkedAssetSelect.value);
+  
+>>>>>>> f2104fb85038938d4a31af6a4feb63a00d6523be
   linkedAssetCell.appendChild(linkedAssetSelect);
   row.appendChild(linkedAssetCell);
 
   // Income or Expense
   const typeCell = document.createElement("td");
   const typeSelect = document.createElement("select");
+<<<<<<< HEAD
   typeSelect.className = "form-control";
   ["Income", "Expense"].forEach((type) => {
+=======
+  typeSelect.className = "form-control income-expense-select";
+  ["Income", "Expense"].forEach(type => {
+>>>>>>> f2104fb85038938d4a31af6a4feb63a00d6523be
     const option = document.createElement("option");
     option.value = type;
     option.textContent = type;
@@ -1367,7 +1433,7 @@ function createIncomeExpenseRow(item, isLinked) {
   const conceptCell = document.createElement("td");
   const conceptInput = document.createElement("input");
   conceptInput.type = "text";
-  conceptInput.className = "form-control";
+  conceptInput.className = "form-control concept-input";
   conceptInput.value = item.concept;
   conceptCell.appendChild(conceptInput);
   row.appendChild(conceptCell);
@@ -1376,7 +1442,7 @@ function createIncomeExpenseRow(item, isLinked) {
   const amountCell = document.createElement("td");
   const amountInput = document.createElement("input");
   amountInput.type = "number";
-  amountInput.className = "form-control";
+  amountInput.className = "form-control amount-input";
   amountInput.value = item.amount;
   amountCell.appendChild(amountInput);
   row.appendChild(amountCell);
@@ -1384,8 +1450,13 @@ function createIncomeExpenseRow(item, isLinked) {
   // Frequency
   const frequencyCell = document.createElement("td");
   const frequencySelect = document.createElement("select");
+<<<<<<< HEAD
   frequencySelect.className = "form-control";
   ["Monthly", "Annual"].forEach((freq) => {
+=======
+  frequencySelect.className = "form-control frequency-select";
+  ["Monthly", "Annual"].forEach(freq => {
+>>>>>>> f2104fb85038938d4a31af6a4feb63a00d6523be
     const option = document.createElement("option");
     option.value = freq;
     option.textContent = freq;
@@ -1402,8 +1473,12 @@ function createIncomeExpenseRow(item, isLinked) {
   deleteLink.title = "Delete";
   deleteLink.dataset.toggle = "tooltip";
   deleteLink.style.cursor = "pointer";
+<<<<<<< HEAD
   deleteLink.onclick = () =>
     deleteIncomeExpenseRow(deleteLink, isLinked ? "linked" : "unlinked", item);
+=======
+  deleteLink.onclick = () => deleteIncomeExpenseRow(row, isLinked ? "linked" : "unlinked", item);
+>>>>>>> f2104fb85038938d4a31af6a4feb63a00d6523be
 
   const deleteIcon = document.createElement("i");
   deleteIcon.className = "fa-solid fa-trash-can";
@@ -1412,13 +1487,124 @@ function createIncomeExpenseRow(item, isLinked) {
   deleteCell.appendChild(deleteLink);
   row.appendChild(deleteCell);
 
+  // Add event listeners to update clientDetails when changes are made
+  row.querySelectorAll('select, input').forEach(element => {
+    element.addEventListener('change', function() {
+      updateRowData(row);
+    });
+  });
+
   return row;
 }
 
+<<<<<<< HEAD
 function deleteIncomeExpenseRow(row, type, item) {
   const index = clientDetails.fullIncomeExpenses[type].findIndex(
     (i) => i.concept === item.concept && i.amount === item.amount
   );
+=======
+function updateRowData(row) {
+  const linkedAssetSelect = row.querySelector('.linked-asset-select');
+  const typeSelect = row.querySelector('.income-expense-select');
+  const conceptInput = row.querySelector('.concept-input');
+  const amountInput = row.querySelector('.amount-input');
+  const frequencySelect = row.querySelector('.frequency-select');
+
+  if (!linkedAssetSelect || !typeSelect || !conceptInput || !amountInput || !frequencySelect) {
+    console.error('One or more required elements not found in the row', row);
+    return;
+  }
+
+  const linkedAsset = linkedAssetSelect.value;
+  const type = typeSelect.value;
+  const concept = conceptInput.value;
+  const amount = parseFloat(amountInput.value) || 0;
+  const frequency = frequencySelect.value;
+
+  const updatedItem = { assetName: linkedAsset, type, concept, amount, frequency };
+  
+  const isLinked = linkedAsset !== 'None';
+  const sourceArray = isLinked ? clientDetails.fullIncomeExpenses.linked : clientDetails.fullIncomeExpenses.unlinked;
+  const targetArray = isLinked ? clientDetails.fullIncomeExpenses.linked : clientDetails.fullIncomeExpenses.unlinked;
+  
+  // Find the existing item in the source array
+  const existingItemIndex = sourceArray.findIndex(item => 
+    item === row.originalItem
+  );
+
+  // Remove the existing item if found
+  if (existingItemIndex !== -1) {
+    sourceArray.splice(existingItemIndex, 1);
+  }
+
+  // Add the updated item to the target array
+  targetArray.push(updatedItem);
+
+  // Update the row's originalItem reference
+  row.originalItem = updatedItem;
+
+  saveClientDetails();
+  console.log("Updated clientDetails:", clientDetails);
+}
+
+function updateIncomeExpensesTable() {
+  const tableBody = document.querySelector("#dataTable-income-expenses tbody");
+  if (!tableBody) return;
+
+  tableBody.innerHTML = "";
+
+  console.log("Updating table with linked items:", clientDetails.fullIncomeExpenses.linked);
+  // Add linked income/expenses
+  clientDetails.fullIncomeExpenses.linked.forEach(item => {
+    const row = createIncomeExpenseRow(item, true);
+    row.originalItem = item;
+    tableBody.appendChild(row);
+  });
+
+  console.log("Updating table with unlinked items:", clientDetails.fullIncomeExpenses.unlinked);
+  // Add unlinked income/expenses
+  clientDetails.fullIncomeExpenses.unlinked.forEach(item => {
+    const row = createIncomeExpenseRow(item, false);
+    row.originalItem = item;
+    tableBody.appendChild(row);
+  });
+}
+
+
+
+
+function handleIncomeExpensesPage() {
+  console.log('Client Details:', JSON.stringify(clientDetails, null, 2));
+  
+  updateIncomeExpensesTable();
+
+  const addNewBtn = document.querySelector(".add-new");
+  if (addNewBtn) {
+    addNewBtn.addEventListener("click", () => {
+      const newItem = {
+        type: "Income",
+        concept: "",
+        amount: 0,
+        frequency: "Monthly",
+        assetName: "None"
+      };
+      clientDetails.fullIncomeExpenses.unlinked.push(newItem);
+      saveClientDetails();
+      updateIncomeExpensesTable(); // Refresh the table after adding a new item
+    });
+  }
+
+  const doneBtn = document.querySelector(".done-btn");
+  if (doneBtn) {
+    doneBtn.addEventListener("click", () => {
+      window.location.href = "./main-menu.html";
+    });
+  }
+}
+
+function deleteIncomeExpenseRow(row, type, item) {
+  const index = clientDetails.fullIncomeExpenses[type].findIndex(i => i === item);
+>>>>>>> f2104fb85038938d4a31af6a4feb63a00d6523be
   if (index > -1) {
     clientDetails.fullIncomeExpenses[type].splice(index, 1);
     saveClientDetails();
@@ -1426,6 +1612,7 @@ function deleteIncomeExpenseRow(row, type, item) {
   row.remove();
 }
 
+<<<<<<< HEAD
 /*********** CHART RELATED STUFF ***************/
 const chartOptions = {
   chart: {
@@ -2232,6 +2419,12 @@ function handleMyResults() {
 }
 
 // You can add any additional utility functions or global event listeners here if needed
+=======
+
+
+
+
+>>>>>>> f2104fb85038938d4a31af6a4feb63a00d6523be
 
 // End of script
 
