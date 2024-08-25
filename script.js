@@ -1604,11 +1604,25 @@ const chartOptions = {
     "#A2B6FF", // Lavender Blue (Tint of Soft Blue)
     "#FFAF92", // Light Coral (Tint of Coral)
   ],
-
+  dataLabels: {
+    enabled: true,
+    textAnchor: "end",
+    style: {
+      colors: ["#fff"],
+      fontFamily: "Baskervville, sans-serif",
+      fontSize: "11px",
+    },
+    formatter: function (val) {
+      return val.toPrecision(3) + "%";
+    },
+    dropShadow: {
+      enabled: true,
+    },
+  },
   plotOptions: {
     pie: {
       donut: {
-        size: "80%",
+        size: "63%",
         background: "transparent",
         labels: {
           show: true,
@@ -1625,11 +1639,11 @@ const chartOptions = {
           },
           value: {
             show: true,
-            fontSize: "16px",
-            fontFamily: "Helvetica, Arial, sans-serif",
-            fontWeight: 400,
+            fontSize: "15px",
+            fontFamily: "Baskervville, sans-serif",
+            fontWeight: 900,
             color: undefined,
-            offsetY: 16,
+            offsetY: 6,
             formatter: function (val) {
               return val;
             },
@@ -1639,13 +1653,15 @@ const chartOptions = {
             showAlways: true,
             label: "Total",
             fontSize: "22px",
-            fontFamily: "Helvetica, Arial, sans-serif",
+            fontFamily: "Baskerville, sans-serif",
             fontWeight: 600,
             color: "#373d3f",
             formatter: function (w) {
-              return w.globals.seriesTotals.reduce((a, b) => {
-                return a + b;
-              }, 0);
+              return w.globals.seriesTotals
+                .reduce((a, b) => {
+                  return a + b;
+                }, 0)
+                .toLocaleString("en", { useGrouping: true });
             },
           },
         },
@@ -1670,18 +1686,34 @@ const chartOptionsTotal = {
     "#4A4A4A", // Charcoal (Neutral)
     "#C1C1C1", // Light Gray (Neutral)
   ],
+  dataLabels: {
+    enabled: true,
+    textAnchor: "end",
+    style: {
+      colors: ["#fff"],
+      fontFamily: "Baskervville, sans-serif",
+      fontSize: "13px",
+    },
+    formatter: function (val) {
+      return val.toPrecision(3) + "%";
+    },
+    dropShadow: {
+      enabled: true,
+    },
+  },
+
   plotOptions: {
     pie: {
       donut: {
-        size: "80%",
+        size: "70%",
         background: "transparent",
         labels: {
           show: true,
           name: {
             show: true,
             fontSize: "22px",
-            fontFamily: "Helvetica, Arial, sans-serif",
-            fontWeight: 600,
+            fontFamily: "Baskervville, sans-serif",
+            fontWeight: 900,
             color: undefined,
             offsetY: -10,
             formatter: function (val) {
@@ -1690,11 +1722,11 @@ const chartOptionsTotal = {
           },
           value: {
             show: true,
-            fontSize: "16px",
-            fontFamily: "Helvetica, Arial, sans-serif",
-            fontWeight: 400,
+            fontSize: "20px",
+            fontFamily: "Baskervville, sans-serif",
+            fontWeight: 900,
             color: undefined,
-            offsetY: 16,
+            offsetY: 0,
             formatter: function (val) {
               return val;
             },
@@ -1703,14 +1735,16 @@ const chartOptionsTotal = {
             show: true,
             showAlways: true,
             label: "Total",
-            fontSize: "22px",
-            fontFamily: "Helvetica, Arial, sans-serif",
+            fontSize: "20px",
+            fontFamily: "Baskervville, sans-serif",
             fontWeight: 600,
             color: "#373d3f",
             formatter: function (w) {
-              return w.globals.seriesTotals.reduce((a, b) => {
-                return a + b;
-              }, 0);
+              return w.globals.seriesTotals
+                .reduce((a, b) => {
+                  return a + b;
+                }, 0)
+                .toLocaleString("en", { useGrouping: true });
             },
           },
         },
@@ -1857,7 +1891,13 @@ function renderRealEstateCharts(realEstateChartData) {
   // Total Real Estate Value
   new ApexCharts(document.querySelector("#real-estate-total-value-chart"), {
     ...chartOptionsTotal,
-    title: { text: "Real Estate Total" },
+    title: {
+      text: "Real Estate Total",
+      style: {
+        fontFamily: "Baskervville",
+        fontWeight: 900,
+      },
+    },
     series: realEstateChartData.total.series,
     labels: realEstateChartData.total.labels,
   }).render();
@@ -1865,7 +1905,13 @@ function renderRealEstateCharts(realEstateChartData) {
   // Residential Value
   new ApexCharts(document.querySelector("#residential-value-chart"), {
     ...chartOptions,
-    title: { text: "Residential" },
+    title: {
+      text: "Residential",
+      style: {
+        fontFamily: "Baskervville",
+        fontWeight: 900,
+      },
+    },
     series: realEstateChartData.residential.series,
     labels: realEstateChartData.residential.labels,
   }).render();
@@ -1873,7 +1919,13 @@ function renderRealEstateCharts(realEstateChartData) {
   // Commercial Value
   new ApexCharts(document.querySelector("#commercial-value-chart"), {
     ...chartOptions,
-    title: { text: "Commerial" },
+    title: {
+      text: "Commerial",
+      style: {
+        fontFamily: "Baskervville",
+        fontWeight: 900,
+      },
+    },
     series: realEstateChartData.commercial.series,
     labels: realEstateChartData.commercial.labels,
   }).render();
@@ -1881,7 +1933,13 @@ function renderRealEstateCharts(realEstateChartData) {
   // Land Value
   new ApexCharts(document.querySelector("#land-value-chart"), {
     ...chartOptions,
-    title: { text: "Land" },
+    title: {
+      text: "Land",
+      style: {
+        fontFamily: "Baskervville",
+        fontWeight: 900,
+      },
+    },
     series: realEstateChartData.land.series,
     labels: realEstateChartData.land.labels,
   }).render();
@@ -1889,7 +1947,13 @@ function renderRealEstateCharts(realEstateChartData) {
   // Industrial Value
   new ApexCharts(document.querySelector("#industrial-value-chart"), {
     ...chartOptions,
-    title: { text: "Industrial" },
+    title: {
+      text: "Industrial",
+      style: {
+        fontFamily: "Baskervville",
+        fontWeight: 900,
+      },
+    },
     series: realEstateChartData.industrial.series,
     labels: realEstateChartData.industrial.labels,
   }).render();
@@ -1963,7 +2027,7 @@ function renderPrivateEquityCharts(privateEquityChartData) {
   // Total Private Equity Value
   new ApexCharts(document.querySelector("#private-equity-total-value-chart"), {
     ...chartOptionsTotal,
-    title: { text: "Private Equity Total" },
+    title: { text: "Private Equity Total" , style:{fontFamily:"Baskerville, sans-serif", fontWeight: 900} },
     series: privateEquityChartData.total.series,
     labels: privateEquityChartData.total.labels,
   }).render();
@@ -1971,7 +2035,7 @@ function renderPrivateEquityCharts(privateEquityChartData) {
   // Fund Value
   new ApexCharts(document.querySelector("#fund-value-chart"), {
     ...chartOptions,
-    title: { text: "Private Funds" },
+    title: { text: "Private Funds" , style:{fontFamily:"Baskerville, sans-serif", fontWeight: 900} },
     series: privateEquityChartData.fund.series,
     labels: privateEquityChartData.fund.labels,
   }).render();
@@ -1979,7 +2043,7 @@ function renderPrivateEquityCharts(privateEquityChartData) {
   // Investment Value
   new ApexCharts(document.querySelector("#investment-value-chart"), {
     ...chartOptions,
-    title: { text: "Investments" },
+    title: { text: "Investments" , style:{fontFamily:"Baskerville, sans-serif", fontWeight: 900} },
     series: privateEquityChartData.investment.series,
     labels: privateEquityChartData.investment.labels,
   }).render();
@@ -1987,7 +2051,7 @@ function renderPrivateEquityCharts(privateEquityChartData) {
   // Own Company Value
   new ApexCharts(document.querySelector("#ownCompany-value-chart"), {
     ...chartOptions,
-    title: { text: "Own Company" },
+    title: { text: "Own Company" , style:{fontFamily:"Baskerville, sans-serif", fontWeight: 900} },
     series: privateEquityChartData.ownCompany.series,
     labels: privateEquityChartData.ownCompany.labels,
   }).render();
@@ -2061,7 +2125,7 @@ function renderNicheAssetsCharts(nicheAssetsChartData) {
   // Total Niche Assets Value
   new ApexCharts(document.querySelector("#niche-total-value-chart"), {
     ...chartOptionsTotal,
-    title: { text: "Niche Assets Total" },
+    title: { text: "Niche Assets Total" , style:{fontFamily:"Baskerville, sans-serif", fontWeight: 900} },
     series: nicheAssetsChartData.total.series,
     labels: nicheAssetsChartData.total.labels,
   }).render();
@@ -2069,7 +2133,7 @@ function renderNicheAssetsCharts(nicheAssetsChartData) {
   // Luxury Vehicle Value
   new ApexCharts(document.querySelector("#luxuryVehicle-value-chart"), {
     ...chartOptions,
-    title: { text: "Luxury Vehicles" },
+    title: { text: "Luxury Vehicles" , style:{fontFamily:"Baskerville, sans-serif", fontWeight: 900} },
     series: nicheAssetsChartData.luxuryVehicle.series,
     labels: nicheAssetsChartData.luxuryVehicle.labels,
   }).render();
@@ -2077,7 +2141,7 @@ function renderNicheAssetsCharts(nicheAssetsChartData) {
   // Art Value
   new ApexCharts(document.querySelector("#art-value-chart"), {
     ...chartOptions,
-    title: { text: "Art" },
+    title: { text: "Art" , style:{fontFamily:"Baskerville, sans-serif", fontWeight: 900} },
     series: nicheAssetsChartData.art.series,
     labels: nicheAssetsChartData.art.labels,
   }).render();
@@ -2085,7 +2149,7 @@ function renderNicheAssetsCharts(nicheAssetsChartData) {
   // Other Collection Value
   new ApexCharts(document.querySelector("#otherCollection-value-chart"), {
     ...chartOptions,
-    title: { text: "Other Collections" },
+    title: { text: "Other Collections" , style:{fontFamily:"Baskerville, sans-serif", fontWeight: 900} },
     series: nicheAssetsChartData.otherCollection.series,
     labels: nicheAssetsChartData.otherCollection.labels,
   }).render();
@@ -2266,7 +2330,7 @@ function handleMyResults() {
     document.querySelector(".add-assets-prompt").style.display = "block";
     document.querySelector(".add-some-container").style.display = "flex";
   }
-  
+
   const totalValue = calculateTotalValue(clientDetails.assets).toLocaleString(
     "en",
     { useGrouping: true }
@@ -2308,6 +2372,21 @@ function handleMyResults() {
     chart: {
       type: "donut",
     },
+    dataLabels: {
+      enabled: true,
+      textAnchor: "end",
+      style: {
+        colors: ["#fff"],
+        fontFamily: "Baskervville, sans-serif",
+        fontSize: "13px",
+      },
+      formatter: function (val) {
+        return val.toPrecision(3) + "%";
+      },
+      dropShadow: {
+        enabled: true,
+      },
+    },
     colors: [
       "#101326", // Dark Blue
       "#5280AC", // Light Blue
@@ -2324,7 +2403,7 @@ function handleMyResults() {
     plotOptions: {
       pie: {
         donut: {
-          size: "80%",
+          size: "70%",
           background: "transparent",
 
           labels: {
@@ -2332,8 +2411,8 @@ function handleMyResults() {
             name: {
               show: true,
               fontSize: "22px",
-              fontFamily: "Helvetica, Arial, sans-serif",
-              fontWeight: 600,
+              fontFamily: "Baskervville, sans-serif",
+              fontWeight: 900,
               color: undefined,
               offsetY: -10,
               formatter: function (val) {
@@ -2342,11 +2421,11 @@ function handleMyResults() {
             },
             value: {
               show: true,
-              fontSize: "16px",
-              fontFamily: "Helvetica, Arial, sans-serif",
-              fontWeight: 400,
+              fontSize: "20px",
+              fontFamily: "Baskervville, sans-serif",
+              fontWeight: 900,
               color: undefined,
-              offsetY: 16,
+              offsetY: 0,
               formatter: function (val) {
                 return val;
               },
@@ -2355,21 +2434,29 @@ function handleMyResults() {
               show: true,
               showAlways: true,
               label: "Total",
-              fontSize: "22px",
-              fontFamily: "Helvetica, Arial, sans-serif",
+              fontSize: "20px",
+              fontFamily: "Baskervville, sans-serif",
               fontWeight: 600,
               color: "#373d3f",
               formatter: function (w) {
-                return w.globals.seriesTotals.reduce((a, b) => {
-                  return a + b;
-                }, 0);
+                return w.globals.seriesTotals
+                  .reduce((a, b) => {
+                    return a + b;
+                  }, 0)
+                  .toLocaleString("en", { useGrouping: true });
               },
             },
           },
         },
       },
     },
-    title: { text: "Total value of all assets" },
+    title: {
+      text: "Total value of all assets",
+      style: {
+        fontFamily: "Baskervville",
+        fontWeight: 900,
+      },
+    },
     series: chartData.series,
     labels: chartData.labels,
     // colors: chartData.chartColors,
