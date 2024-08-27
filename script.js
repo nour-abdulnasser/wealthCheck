@@ -1753,49 +1753,7 @@ const chartOptionsTotal = {
   },
 };
 
-function organizeTotalAssetData(assets) {
-  const assetData = [];
 
-  // Loop through each asset category
-  for (const category in assets) {
-    if (assets.hasOwnProperty(category)) {
-      // Loop through each asset in the category
-      assets[category].forEach((asset) => {
-        const assetName = asset.name || asset.fundOrCompanyName;
-        const value = parseFloat(asset.value || asset.investmentValue || 0);
-
-        // Push the relevant information to the array
-        assetData.push({
-          value: value,
-          assetName: assetName,
-          category: category,
-        });
-      });
-    }
-  }
-
-  return assetData;
-}
-
-function prepareTotalChartData(organizedData) {
-  const series = [];
-  const labels = [];
-  const colors = {
-    realEstate: "#FF4560", // example color for real estate
-    privateEquity: "#00E396", // example color for private equity
-    nicheAssets: "#008FFB", // example color for niche assets
-    financialAssetsWithOtherAdvisors: "#FEB019", // example color for other assets
-  };
-  const chartColors = [];
-
-  organizedData.forEach((asset) => {
-    series.push(asset.value);
-    labels.push(asset.assetName);
-    chartColors.push(colors[asset.category] || "#333"); // Default color if category is not found
-  });
-
-  return { series, labels, chartColors };
-}
 
 function calculateRealEstateValues(realEstateAssets) {
   const totals = {
@@ -2341,7 +2299,201 @@ function backToMain() {
   window.location.href = "./main-menu.html";
 }
 
+/**********  Handler ************** */
+function organizeTotalAssetData(assets) {
+  const assetData = [];
+
+  // Loop through each asset category
+  for (const category in assets) {
+    if (assets.hasOwnProperty(category)) {
+      // Loop through each asset in the category
+      assets[category].forEach((asset) => {
+        const assetName = asset.name || asset.fundOrCompanyName;
+        const value = parseFloat(asset.value || asset.investmentValue || 0);
+
+        // Push the relevant information to the array
+        assetData.push({
+          value: value,
+          assetName: assetName,
+          category: category,
+        });
+      });
+    }
+  }
+
+  return assetData;
+}
+function prepareTotalChartData(organizedData) {
+  const series = [];
+  const labels = [];
+  const colors = {
+    realEstate: [
+      '#84B6C9', // Base color for real estate
+      '#A0C4D4', // Lighter variant
+      '#6A9FB1', // Darker variant
+      '#567F8D', // Another variant
+    ],
+    privateEquity: [
+      '#84C9B6', // Base color for private equity
+      '#A0D4C4', // Lighter variant
+      '#6AB1A2', // Darker variant
+      '#568D80', // Another variant
+    ],
+    nicheAssets: [
+      '#C98484', // Base color for niche assets
+      '#D4A0A0', // Lighter variant
+      '#B16A6A', // Darker variant
+      '#8D5656', // Another variant
+    ],
+    financialAssetsWithOtherAdvisors: [
+      '#FEB019', // Example color for other assets
+      '#FFC347', // Lighter variant
+      '#E0A10A', // Darker variant
+      '#C48806', // Another variant
+    ],
+  };
+  const chartColors = [];
+
+  organizedData.forEach(asset => {
+    series.push(asset.value);
+    labels.push(asset.assetName);
+    const assetColorPalette = colors[asset.category] || ['#333']; // Default color if category is not found
+    chartColors.push(assetColorPalette[series.length % assetColorPalette.length]);
+  });
+
+  return { series, labels, chartColors };
+}
+
 function handleMyResults() {
+  // dummy data
+  let clientDetails = {
+    name: "Alex Jordan",
+    assets: {
+      realEstate: [
+        {
+          type: "commercial",
+          name: "Sunset Plaza",
+          address: "123 Main St, Los Angeles, CA",
+          country: "United States",
+          assetCategory: "retail",
+          value: "1500000",
+          income_expense: [
+            {
+              type: "Income",
+              concept: "Rental Income",
+              amount: 75000,
+              frequency: "Annual",
+            },
+            {
+              type: "Expense",
+              concept: "Maintenance",
+              amount: 10000,
+              frequency: "Annual",
+            },
+          ],
+        },
+        {
+          type: "residential",
+          name: "Ocean View Apartments",
+          address: "456 Ocean Dr, Miami, FL",
+          country: "United States",
+          assetCategory: "multi-family",
+          value: "2500000",
+          income_expense: [
+            {
+              type: "Income",
+              concept: "Rental Income",
+              amount: 120000,
+              frequency: "Annual",
+            },
+          ],
+        },
+        {
+          type: "land",
+          name: "Sunny Acres",
+          address: "789 Countryside Rd, Austin, TX",
+          country: "United States",
+          assetCategory: "agricultural",
+          value: "350000",
+          income_expense: [],
+        },
+      ],
+      privateEquity: [
+        {
+          type: "fund",
+          name: "Tech Growth Fund",
+          investmentAmount: "500000",
+          value: "750000",
+          income_expense: [
+            {
+              type: "Income",
+              concept: "Dividend",
+              amount: 30000,
+              frequency: "Annual",
+            },
+          ],
+        },
+        {
+          type: "own company",
+          name: "Green Energy Co.",
+          investmentAmount: "1000000",
+          value: "2000000",
+          income_expense: [],
+        },
+      ],
+      nicheAssets: [
+        {
+          type: "luxury vehicle",
+          name: "Vintage Ferrari",
+          value: "500000",
+          income_expense: [],
+        },
+        {
+          type: "art",
+          name: "Picasso Painting",
+          value: "1500000",
+          income_expense: [],
+        },
+      ],
+      financialAssetsWithOtherAdvisors: [
+        {
+          type: "stocks",
+          name: "Tech Stocks Portfolio",
+          value: "1000000",
+          income_expense: [
+            {
+              type: "Income",
+              concept: "Dividends",
+              amount: 25000,
+              frequency: "Annual",
+            },
+          ],
+        },
+      ],
+    },
+    currentAssetType: "realEstate",
+    currentSubAssetType: "residential",
+    fullIncomeExpenses: {
+      linked: [
+        {
+          type: "Expense",
+          concept: "Maintenance",
+          amount: 10000,
+          frequency: "Annual",
+          assetName: "Sunset Plaza",
+        },
+        {
+          type: "Income",
+          concept: "Rental Income",
+          amount: 120000,
+          frequency: "Annual",
+          assetName: "Ocean View Apartments",
+        },
+      ],
+      unlinked: [],
+    },
+  };
+
   document.querySelector(".add-assets-prompt").style.display = "none";
   document.querySelector(".add-some-container").style.display = "none";
   // fill kpi cards
@@ -2394,6 +2546,7 @@ function handleMyResults() {
     ? 0
     : returnOnAssets;
 
+
   const organizedData = organizeTotalAssetData(clientDetails.assets);
   const chartData = prepareTotalChartData(organizedData);
 
@@ -2416,25 +2569,12 @@ function handleMyResults() {
         enabled: true,
       },
     },
-    colors: [
-      "#101326", // Dark Blue
-      "#5280AC", // Light Blue
-      "#0D4B72", // Deep Blue (Accent)
-      "#7BA0C2", // Light Blue Shade (Accent)
-      "#262310", // Dark Olive (Complementary to Dark Blue)
-      "#AC8252", // Warm Brown (Complementary to Light Blue)
-      "#FF7F50", // Coral (Accent)
-      "#DDDFED", // Lavender Gray (Complementary to Cream)
-      "#EDE3DD", // Cream
-      "#4A4A4A", // Charcoal (Neutral)
-      "#C1C1C1", // Light Gray (Neutral)
-    ],
     plotOptions: {
       pie: {
         donut: {
           size: "70%",
           background: "transparent",
-
+  
           labels: {
             show: true,
             name: {
@@ -2488,14 +2628,15 @@ function handleMyResults() {
     },
     series: chartData.series,
     labels: chartData.labels,
-    // colors: chartData.chartColors,
+    colors: chartData.chartColors, // Apply the color scheme here
   };
-
+  
   let chart = new ApexCharts(
     document.querySelector("#total-value-chart"),
     totalOptions
   );
   chart.render();
+  
 
   if (hasData(clientDetails.assets.realEstate)) {
     // Render real estate card
