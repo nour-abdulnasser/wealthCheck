@@ -13,9 +13,9 @@
   grid-template-columns: 1fr 1.5fr;
   gap: 20px;
 } */
-.fancy-label-heading{
+.fancy-label-heading {
   /* font-family: Arial, Helvetica, sans-serif; */
-font-weight: 700;
+  font-weight: 700;
 }
 .my-results-container {
   width: 90%;
@@ -272,18 +272,25 @@ font-weight: 700;
   box-shadow: 0px 5px 10px 5px rgba(0, 0, 0, 0.2);
   margin: 2rem 0.5rem;
 }
-.roa-title span::before{
+.roa-title span::before {
   content: "| ";
-  font-size: .9rem;
+  font-size: 0.9rem;
 }
-.roa-title span{
-  font-size: .6rem;
+.roa-title span {
+  font-size: 0.6rem;
 }
-
-.my-results-inner h2{
+.kpi-value-roa {
+  font-family: "Roboto", sans-serif;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+.kpi-value-roa::after {
+  content: "%";
+}
+.my-results-inner h2 {
   position: relative;
 }
-.add-some-container{
+.add-some-container {
   height: 50vh;
   display: flex;
   justify-content: center;
@@ -291,13 +298,17 @@ font-weight: 700;
   border: 2px dashed;
   border-radius: 10px;
   padding: 3rem;
-
 }
-.add-assets-prompt{
+.net-income-accounting-notation::after{
+  content: ")";
+}
+.net-income-accounting-notation::before{
+  content: "($";
+}
+.add-assets-prompt {
   /* height: ; */
   align-self: center;
   justify-self: center !important;
-
 }
 /* .my-results-inner h2::before{
   position: absolute;
@@ -309,7 +320,6 @@ font-weight: 700;
 } */
 
 @media (min-width: 781px) {
-
   .carousel-item {
     height: 700px;
   }
@@ -321,7 +331,7 @@ font-weight: 700;
   .cards-holder {
     height: fit-content;
   }
-  
+
   .carousel-control-prev {
     display: flex;
     justify-content: start;
@@ -333,15 +343,12 @@ font-weight: 700;
     justify-content: end;
     align-items: start;
     margin-top: 200px;
-
   }
-  .add-some-container{
+  .add-some-container {
     height: 10vh;
     background-color: #fff;
     border: 2px dashed;
     border-radius: 10px;
-
-  
   }
- 
+
 }

@@ -2027,7 +2027,10 @@ function renderPrivateEquityCharts(privateEquityChartData) {
   // Total Private Equity Value
   new ApexCharts(document.querySelector("#private-equity-total-value-chart"), {
     ...chartOptionsTotal,
-    title: { text: "Private Equity Total" , style:{fontFamily:"Baskerville, sans-serif", fontWeight: 900} },
+    title: {
+      text: "Private Equity Total",
+      style: { fontFamily: "Baskerville, sans-serif", fontWeight: 900 },
+    },
     series: privateEquityChartData.total.series,
     labels: privateEquityChartData.total.labels,
   }).render();
@@ -2035,7 +2038,10 @@ function renderPrivateEquityCharts(privateEquityChartData) {
   // Fund Value
   new ApexCharts(document.querySelector("#fund-value-chart"), {
     ...chartOptions,
-    title: { text: "Private Funds" , style:{fontFamily:"Baskerville, sans-serif", fontWeight: 900} },
+    title: {
+      text: "Private Funds",
+      style: { fontFamily: "Baskerville, sans-serif", fontWeight: 900 },
+    },
     series: privateEquityChartData.fund.series,
     labels: privateEquityChartData.fund.labels,
   }).render();
@@ -2043,7 +2049,10 @@ function renderPrivateEquityCharts(privateEquityChartData) {
   // Investment Value
   new ApexCharts(document.querySelector("#investment-value-chart"), {
     ...chartOptions,
-    title: { text: "Investments" , style:{fontFamily:"Baskerville, sans-serif", fontWeight: 900} },
+    title: {
+      text: "Investments",
+      style: { fontFamily: "Baskerville, sans-serif", fontWeight: 900 },
+    },
     series: privateEquityChartData.investment.series,
     labels: privateEquityChartData.investment.labels,
   }).render();
@@ -2051,7 +2060,10 @@ function renderPrivateEquityCharts(privateEquityChartData) {
   // Own Company Value
   new ApexCharts(document.querySelector("#ownCompany-value-chart"), {
     ...chartOptions,
-    title: { text: "Own Company" , style:{fontFamily:"Baskerville, sans-serif", fontWeight: 900} },
+    title: {
+      text: "Own Company",
+      style: { fontFamily: "Baskerville, sans-serif", fontWeight: 900 },
+    },
     series: privateEquityChartData.ownCompany.series,
     labels: privateEquityChartData.ownCompany.labels,
   }).render();
@@ -2125,7 +2137,10 @@ function renderNicheAssetsCharts(nicheAssetsChartData) {
   // Total Niche Assets Value
   new ApexCharts(document.querySelector("#niche-total-value-chart"), {
     ...chartOptionsTotal,
-    title: { text: "Niche Assets Total" , style:{fontFamily:"Baskerville, sans-serif", fontWeight: 900} },
+    title: {
+      text: "Niche Assets Total",
+      style: { fontFamily: "Baskerville, sans-serif", fontWeight: 900 },
+    },
     series: nicheAssetsChartData.total.series,
     labels: nicheAssetsChartData.total.labels,
   }).render();
@@ -2133,7 +2148,10 @@ function renderNicheAssetsCharts(nicheAssetsChartData) {
   // Luxury Vehicle Value
   new ApexCharts(document.querySelector("#luxuryVehicle-value-chart"), {
     ...chartOptions,
-    title: { text: "Luxury Vehicles" , style:{fontFamily:"Baskerville, sans-serif", fontWeight: 900} },
+    title: {
+      text: "Luxury Vehicles",
+      style: { fontFamily: "Baskerville, sans-serif", fontWeight: 900 },
+    },
     series: nicheAssetsChartData.luxuryVehicle.series,
     labels: nicheAssetsChartData.luxuryVehicle.labels,
   }).render();
@@ -2141,7 +2159,10 @@ function renderNicheAssetsCharts(nicheAssetsChartData) {
   // Art Value
   new ApexCharts(document.querySelector("#art-value-chart"), {
     ...chartOptions,
-    title: { text: "Art" , style:{fontFamily:"Baskerville, sans-serif", fontWeight: 900} },
+    title: {
+      text: "Art",
+      style: { fontFamily: "Baskerville, sans-serif", fontWeight: 900 },
+    },
     series: nicheAssetsChartData.art.series,
     labels: nicheAssetsChartData.art.labels,
   }).render();
@@ -2149,7 +2170,10 @@ function renderNicheAssetsCharts(nicheAssetsChartData) {
   // Other Collection Value
   new ApexCharts(document.querySelector("#otherCollection-value-chart"), {
     ...chartOptions,
-    title: { text: "Other Collections" , style:{fontFamily:"Baskerville, sans-serif", fontWeight: 900} },
+    title: {
+      text: "Other Collections",
+      style: { fontFamily: "Baskerville, sans-serif", fontWeight: 900 },
+    },
     series: nicheAssetsChartData.otherCollection.series,
     labels: nicheAssetsChartData.otherCollection.labels,
   }).render();
@@ -2345,22 +2369,24 @@ function handleMyResults() {
     clientDetails.assets.nicheAssets
   ).toLocaleString("en", { useGrouping: true });
 
-  const netIncome = calculateNetIncome(
-    clientDetails.fullIncomeExpenses
-  ).toLocaleString("en", { useGrouping: true });
-  const returnOnAssets = calculateReturnOnAssets(
-    clientDetails.assets,
-    clientDetails.fullIncomeExpenses
+  const netIncome = calculateNetIncome(clientDetails.fullIncomeExpenses);
+  const returnOnAssets = (
+    calculateReturnOnAssets(
+      clientDetails.assets,
+      clientDetails.fullIncomeExpenses
+    ) * 100
   )
-    .toPrecision(4)
+    .toPrecision(3)
     .toLocaleString("en", { useGrouping: true });
-
   document.getElementById("total-value-text").textContent = totalValue;
+
   document.getElementById("re-total-value-text").textContent = realEstateTotal;
   document.getElementById("pe-total-value-text").textContent =
     privateEquityTotal;
   document.getElementById("na-total-value-text").textContent = nicheAssetsTotal;
-  document.getElementById("net-income-text").textContent = netIncome;
+  document.getElementById("net-income-text").textContent = Math.round(
+    netIncome
+  ).toLocaleString("en", { useGrouping: true });
   document.getElementById("roa-text").textContent = isNaN(returnOnAssets)
     ? 0
     : returnOnAssets;
@@ -2503,6 +2529,31 @@ function handleMyResults() {
   }
   if (clientDetails.assets.privateEquity.length == 0) {
     document.querySelector(".carousel-pe").remove();
+  }
+
+  if (parseFloat(netIncome) < 0) {
+    document.querySelector(".kpi-title-net-income").textContent =
+      "Annual Net Loss";
+      document.getElementById("net-income-text").classList.add("net-income-accounting-notation")
+  }
+
+  if (realEstateTotal == 0) {
+    document
+      .querySelector(".real-estate-of-total")
+      .closest(".total-cats-holder")
+      .remove();
+  }
+  if (privateEquityTotal == 0) {
+    document
+      .querySelector(".private-equity-of-total")
+      .closest(".total-cats-holder")
+      .remove();
+  }
+  if (nicheAssetsTotal == 0) {
+    document
+      .querySelector(".niche-assets-of-total")
+      .closest(".total-cats-holder")
+      .remove();
   }
 }
 
