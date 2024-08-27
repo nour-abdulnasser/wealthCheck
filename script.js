@@ -2369,7 +2369,10 @@ function handleMyResults() {
     clientDetails.assets.nicheAssets
   ).toLocaleString("en", { useGrouping: true });
 
-  const netIncome = calculateNetIncome(clientDetails.fullIncomeExpenses);
+  const netIncome =
+    calculateNetIncome(clientDetails.fullIncomeExpenses) < 0
+      ? calculateNetIncome(clientDetails.fullIncomeExpenses) * -1
+      : calculateNetIncome(clientDetails.fullIncomeExpenses);
   const returnOnAssets = (
     calculateReturnOnAssets(
       clientDetails.assets,
@@ -2531,10 +2534,12 @@ function handleMyResults() {
     document.querySelector(".carousel-pe").remove();
   }
 
-  if (parseFloat(netIncome) < 0) {
+  if (calculateNetIncome(clientDetails.fullIncomeExpenses) < 0) {
     document.querySelector(".kpi-title-net-income").textContent =
       "Annual Net Loss";
-      document.getElementById("net-income-text").classList.add("net-income-accounting-notation")
+    document
+      .getElementById("net-income-text")
+      .classList.add("net-income-accounting-notation");
   }
 
   if (realEstateTotal == 0) {
